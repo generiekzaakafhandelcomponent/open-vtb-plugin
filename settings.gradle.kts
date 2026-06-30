@@ -1,4 +1,4 @@
-rootProject.name = "gzac-plugin-template"
+rootProject.name = "berichten-api"
 include(
     "backend",
     "backend:app",
