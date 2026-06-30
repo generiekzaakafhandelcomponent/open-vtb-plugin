@@ -97,6 +97,7 @@ import {TeamsModule} from "@valtimo/teams";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {environment} from "../environments/environment";
 import {registerDocumentenApiFormioUploadComponent, ZgwModule} from "@valtimo/zgw";
+import {AdminSettingsModule} from '@valtimo/admin-settings';
 
 import {SamplePluginModule, samplePluginSpecification,} from "@valtimo-plugins/sample-plugin";
 
@@ -115,6 +116,7 @@ export function tabsFactory() {
     environment.authentication.module,
     AccessControlManagementModule,
     AccountModule,
+    AdminSettingsModule,
     AnalyseModule,
     AppRoutingModule,
     BootstrapModule,

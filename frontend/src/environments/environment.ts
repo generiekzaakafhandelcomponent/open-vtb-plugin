@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 Ritense BV, the Netherlands.
+ * Copyright 2015-2025 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,140 +14,98 @@
  * limitations under the License.
  */
 
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-import {NgxLoggerLevel} from "ngx-logger";
-import {
-  DefinitionColumn,
-  IncludeFunction,
-  ROLE_ADMIN,
-  ROLE_DEVELOPER,
-  ROLE_USER,
-  UploadProvider,
-  ValtimoConfig
-} from "@valtimo/shared";
-import {authenticationKeycloak} from "./auth/keycloak-config.dev";
-import {DARK_MODE_LOGO_BASE_64, LOGO_BASE_64} from "./logo";
-
-const defaultDefinitionColumns: Array<DefinitionColumn> = [
-  {
-    propertyName: "sequence",
-    translationKey: "referenceNumber",
-    sortable: true,
-  },
-  {
-    propertyName: "createdBy",
-    translationKey: "createdBy",
-    sortable: true,
-  },
-  {
-    propertyName: "createdOn",
-    translationKey: "createdOn",
-    sortable: true,
-    viewType: "date",
-    default: true,
-  },
-  {
-    propertyName: "modifiedOn",
-    translationKey: "lastModified",
-    sortable: true,
-    viewType: "date",
-  },
-  {
-    propertyName: "assigneeFullName",
-    translationKey: "assigneeFullName",
-    sortable: true,
-  },
-];
+import {CaseListTab, IncludeFunction, Language, ROLE_ADMIN, ROLE_USER, TaskListTab, UploadProvider, ValtimoConfig,} from '@valtimo/shared';
+import {NgxLoggerLevel} from 'ngx-logger';
+import {authenticationKeycloak} from './auth/keycloak-config';
+import {defaultDefinitionColumns} from './columns';
+import {LOGO_SVG_BASE_64} from './logo';
 
 export const environment: ValtimoConfig = {
-  logoSvgBase64: LOGO_BASE_64,
-  darkModeLogoSvgBase64: DARK_MODE_LOGO_BASE_64,
-  production: false,
+  logoSvgBase64: LOGO_SVG_BASE_64,
+  darkModeLogoSvgBase64: LOGO_SVG_BASE_64,
+  applicationTitle: '',
+  production: true,
   authentication: authenticationKeycloak,
   menu: {
     menuItems: [
       {
         roles: [ROLE_USER],
-        link: ["/"],
-        title: "Dashboard",
-        iconClass: "icon mdi mdi-view-dashboard",
-        sequence: 0,
-      },
-      {roles: [ROLE_USER], title: "Cases", iconClass: "icon mdi mdi-layers", sequence: 1, children: []},
-      {
-        roles: [ROLE_USER],
-        title: "Objects",
-        iconClass: "icon mdi mdi-archive",
-        sequence: 2,
-        includeFunction: IncludeFunction.ObjectManagementEnabled,
-      },
-      {roles: [ROLE_USER], link: ["/tasks"], title: "Tasks", iconClass: "icon mdi mdi-check-all", sequence: 3},
-      {
-        roles: [ROLE_USER],
-        link: ["/analysis"],
-        title: "Analysis",
-        iconClass: "icon mdi mdi-chart-bar",
-        sequence: 4,
+        link: ['/'],
+        title: 'Dashboard',
+        iconClass: 'icon mdi mdi-view-dashboard',
       },
       {
         roles: [ROLE_USER],
-        link: ["/teams"],
-        title: "teams.title",
-        iconClass: "icon mdi mdi-account-group",
-        sequence: 5,
+        title: 'Cases',
+        iconClass: 'icon mdi mdi-layers',
+        children: [],
+      },
+      {
+        roles: [ROLE_USER],
+        link: ['/tasks'],
+        title: 'Tasks',
+        iconClass: 'icon mdi mdi-check-all',
       },
       {
         roles: [ROLE_ADMIN],
-        title: "Admin",
-        iconClass: "icon mdi mdi-tune",
-        sequence: 6,
-        children: [
-          {title: "Configuration", textClass: "text-dark font-weight-bold c-default", sequence: 1},
-          {link: ["/building-block-management"], title: "buildingBlockManagement.title", sequence: 2},
-          {link: ["/case-management"], title: "Cases", sequence: 3},
-          {link: ["/plugins"], title: "Plugins", sequence: 4},
-          {link: ["/dashboard-management"], title: "Dashboard", sequence: 5},
-          {link: ["/access-control"], title: "Access Control", sequence: 6},
-          {link: ["/translation-management"], title: "Translations", sequence: 7},
-          {link: ["/choice-fields"], title: "Choice fields", sequence: 8},
-
-          {title: "Object management", textClass: "text-dark font-weight-bold c-default", sequence: 9},
-          {link: ["/object-management"], title: "Objects", sequence: 10},
-          {link: ["/form-management"], title: "Forms", sequence: 11},
-
-          {title: "System processes", textClass: "text-dark font-weight-bold c-default", sequence: 12},
-          {link: ["/processes"], title: "Processes", sequence: 13},
-          {link: ["/decision-tables"], title: "Decision tables", sequence: 14},
-
-          {title: "Migration", textClass: "text-dark font-weight-bold c-default", sequence: 15},
-          {link: ["/case-migration"], title: "Case migration (beta)", sequence: 16},
-          {link: ["/process-migration"], title: "Process migration", sequence: 17},
-
-          {title: "Other", textClass: "text-dark font-weight-bold c-default", sequence: 18},
-          {link: ["/logging"], title: "Logs", sequence: 19},
-          {link: ["/notifications-api/notifications/failed"], title: "Notifications", sequence: 20},
-        ],
+        title: 'Objects',
+        iconClass: 'icon mdi mdi-archive',
+        includeFunction: IncludeFunction.ObjectManagementEnabled,
       },
       {
-        roles: [ROLE_DEVELOPER],
-        title: "Development",
-        iconClass: "icon mdi mdi-code",
-        sequence: 7,
-        children: [{link: ["/swagger"], title: "Swagger", iconClass: "icon mdi mdi-dot-circle", sequence: 1}],
+        roles: [ROLE_USER],
+        link: ['/analysis'],
+        title: 'Analysis',
+        iconClass: 'icon mdi mdi-chart-bar',
+      },
+      {
+        roles: [ROLE_ADMIN],
+        link: ['/teams'],
+        title: 'teams.title',
+        iconClass: 'icon mdi mdi-account-group',
+      },
+      {
+        roles: [ROLE_ADMIN],
+        title: 'Admin',
+        iconClass: 'icon mdi mdi-tune',
+        children: [
+          {title: 'Configuration',textClass: 'text-dark font-weight-bold c-default'},
+          {link: ['/admin-settings'], title: 'adminSettings.title'},
+          {link: ['/building-block-management'], title: 'buildingBlockManagement.title'},
+          {link: ['/case-management'], title: 'Cases'},
+          {link: ['/plugins'], title: 'Plugins'},
+          {link: ['/dashboard-management'], title: 'Dashboard'},
+          {link: ['/access-control'], title: 'Access Control'},
+          {link: ['/translation-management'], title: 'Translations'},
+          {link: ['/choice-fields'], title: 'Choice fields'},
+          {title: 'Object management', textClass: 'text-dark font-weight-bold c-default'},
+          {link: ['/object-management'], title: 'Objects'},
+          {link: ['/form-management'], title: 'Forms'},
+          {link: ['/notifications-api/notifications/failed'], title: 'Notifications'},
+          {title: 'System processes', textClass: 'text-dark font-weight-bold c-default'},
+          {link: ['/processes'], title: 'Processes'},
+          {link: ['/decision-tables'], title: 'Decision tables'},
+          {title: 'Other',textClass: 'text-dark font-weight-bold c-default'},
+          {link: ['/logging'], title: 'Logs'},
+          {link: ['/case-migration'], title: 'Case migration (beta)'},
+          {link: ['/process-migration'], title: 'Process migration'},
+        ],
       },
     ],
   },
-  whitelistedDomains: ["localhost:4200"],
+  whitelistedDomains: ['localhost:4200'],
+  langKey: Language.NL,
   mockApi: {
-    endpointUri: "/mock-api/",
+    endpointUri: window['env']['mockApiUri'] || '/mock-api/'
   },
   valtimoApi: {
-    endpointUri: "/api/",
+    endpointUri: window['env']['apiUri'] || '/api/'
+  },
+  changePasswordUrl: {
+    endpointUri: '/placeholder',
   },
   swagger: {
-    endpointUri: "/v3/api-docs",
+    endpointUri: window['env']['swaggerUri'] || '/v3/api-docs'
   },
   logger: {
     level: NgxLoggerLevel.TRACE,
@@ -156,23 +114,78 @@ export const environment: ValtimoConfig = {
     cases: [],
   },
   openZaak: {
-    catalogus: "00000000-0000-0000-0000-000000000000",
+    catalogus: window['env']['openZaakCatalogusId'] || ''
   },
   uploadProvider: UploadProvider.DOCUMENTEN_API,
   caseFileSizeUploadLimitMB: 100,
+  supportedDocumentFileTypesToViewInBrowser: ['pdf', 'jpg', 'png', 'svg'],
   defaultDefinitionTable: defaultDefinitionColumns,
-  featureToggles: {
-    disableCaseCount: true,
-    enableObjectManagement: true,
+  caseFileUploadAcceptedFiles:
+    'image/png, image/jpeg, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/xml',
+  visibleTaskListTabs: [TaskListTab.MINE, TaskListTab.OPEN, TaskListTab.ALL],
+  visibleCaseListTabs: [CaseListTab.ALL, CaseListTab.MINE, CaseListTab.TEAM, CaseListTab.OPEN],
+  customTaskList: {
+    fields: [
+      {
+        propertyName: 'due',
+        translationKey: 'due',
+        sortable: true,
+      },
+      {
+        propertyName: 'created',
+        translationKey: 'created',
+        sortable: true,
+      },
+      {
+        propertyName: 'name',
+        translationKey: 'name',
+        sortable: true,
+      },
+      {
+        propertyName: 'valtimoAssignee.fullName',
+        translationKey: 'valtimoAssignee.fullName',
+      },
+    ],
+    defaultSortedColumn: {
+      isSorting: true,
+      state: {
+        name: 'created',
+        direction: 'ASC',
+      },
+    },
   },
-  translationResources: ["./assets/i18n", "./assets/i18n/open-klant"],
+  customLeftSidebar: {
+    defaultMenuWidth: 256,
+    maxMenuWidth: 550,
+    minMenuWidth: 150,
+  },
+  caseObjectTypes: {},
+  featureToggles: {
+    showUserNameInTopBar: true,
+    experimentalDmnEditing: true,
+    largeLogoMargin: false,
+    sortFilesByDate: true,
+    disableCaseCount: false,
+    returnToLastUrlAfterTokenExpiration: true,
+    useStartEventNameAsStartFormTitle: true,
+    allowUserThemeSwitching: true,
+    enableUserNameInTopBarToggle: true,
+    enableTabManagement: true,
+    enableObjectManagement: true,
+    enableFormViewModel: true,
+    enableIntermediateSave: true,
+    enableFormFlowBreadcrumbs: true,
+    enableTaskPanel: true,
+    enablePbacDocumentenApiDocuments: true,
+    enableSuppressDocumentError: false,
+  },
+  formioOptions: {
+    languageOverride: {
+      'en-US': {
+        decimalSeparator: ':',
+        delimiter: ':',
+      },
+    },
+  },
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
