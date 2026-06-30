@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.sampleplugin.autoconfiguration
+package com.ritense.valtimoplugins.berichtenapi.autoconfiguration
 
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimoplugins.sampleplugin.client.SampleClient
-import com.ritense.valtimoplugins.sampleplugin.client.SampleService
-import com.ritense.valtimoplugins.sampleplugin.plugin.SamplePluginFactory
+import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiClient
+import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiService
+import com.ritense.valtimoplugins.berichtenapi.plugin.BerichtenApiPluginFactory
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 
 @AutoConfiguration
-class SampleAutoConfiguration {
+class BerichtenApiAutoConfiguration {
     @Bean
-    @ConditionalOnMissingBean(SampleClient::class)
-    fun sampleClient(): SampleClient = SampleClient()
+    @ConditionalOnMissingBean(BerichtenApiClient::class)
+    fun berichtenApiClient(): BerichtenApiClient = BerichtenApiClient()
 
     @Bean
-    @ConditionalOnMissingBean(SampleService::class)
-    fun sampleService(sampleClient: SampleClient): SampleService = SampleService(sampleClient)
+    @ConditionalOnMissingBean(BerichtenApiService::class)
+    fun berichtenApiService(berichtenApiClient: BerichtenApiClient): BerichtenApiService = BerichtenApiService(berichtenApiClient)
 
     @Bean
-    @ConditionalOnMissingBean(SamplePluginFactory::class)
-    fun samplePluginFactory(
+    @ConditionalOnMissingBean(BerichtenApiPluginFactory::class)
+    fun berichtenApiPluginFactory(
         pluginService: PluginService,
-        sampleService: SampleService,
-    ): SamplePluginFactory = SamplePluginFactory(pluginService, sampleService)
+        berichtenApiService: BerichtenApiService,
+    ): BerichtenApiPluginFactory = BerichtenApiPluginFactory(pluginService, berichtenApiService)
 }

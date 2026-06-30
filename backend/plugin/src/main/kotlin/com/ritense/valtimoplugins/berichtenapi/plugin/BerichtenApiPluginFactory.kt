@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.sampleplugin.plugin
+package com.ritense.valtimoplugins.berichtenapi.plugin
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
-import com.ritense.valtimoplugins.sampleplugin.client.SampleService
+import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiService
 import org.springframework.stereotype.Component
 
 /**
- * Factory class to create instances of the SamplePlugin.
+ * Factory class to create instances of the BerichtenApiPlugin.
  * This is required for the plugin framework to instantiate the plugin.
  */
 @SkipComponentScan
 @Component
-class SamplePluginFactory(
+class BerichtenApiPluginFactory(
     pluginService: PluginService,
-    val sampleService: SampleService,
-) : PluginFactory<SamplePlugin>(pluginService) {
-    override fun create(): SamplePlugin = SamplePlugin(sampleService)
+    private val berichtenApiService: BerichtenApiService,
+) : PluginFactory<BerichtenApiPlugin>(pluginService) {
+    override fun create(): BerichtenApiPlugin = BerichtenApiPlugin(berichtenApiService)
 }
