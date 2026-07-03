@@ -1,8 +1,0 @@
-[
-  {
-    "activityId": "start-event",
-    "activityType": "bpmn:StartEvent:start",
-    "processLinkType": "form",
-    "formDefinitionName": "berichten-api.start"
-  }
-]

@@ -23,3 +23,13 @@ export * from "./lib/plugins/sample-plugin/sample-plugin-module";
 export * from "./lib/plugins/sample-plugin/sample-plugin.specification";
 export * from "./lib/plugins/sample-plugin/components/sample-plugin-configuration/sample-plugin-configuration.component";
 export * from "./lib/plugins/sample-plugin/components/sample-action-configuration/sample-action-configuration.component";
+
+/*
+ * Public API Surface of berichten-api
+ */
+
+export * from "./lib/plugins/berichten-api/models";
+export * from "./lib/plugins/berichten-api/berichten-api-module";
+export * from "./lib/plugins/berichten-api/berichten-api.specification";
+export * from "./lib/plugins/berichten-api/components/berichten-api-configuration/berichten-api-configuration.component";
+export * from "./lib/plugins/berichten-api/components/create-bericht-configuration/create-bericht-configuration.component";

@@ -1,0 +1,196 @@
+# Inspired by https://docs.docker.com/compose/django/
+version: '3'
+
+services:
+  db:
+    # NOTE: No persistance storage configured.
+    # Using v14 to prevent schema permissions. See also docker-init-db.sql.
+    # See: https://hub.docker.com/_/postgres/
+    # image: imresamu/postgis:17-3.5
+    image: postgis/postgis:17-3.5
+    platform: linux/amd64
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    command: postgres -c max_connections=300 -c log_min_messages=LOG
+    volumes:
+      - ./docker/postgres.entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "11234:5432"
+    networks:
+      - open-vtb-dev
+
+  web:
+    build: .
+    image: maykinmedia/open-vtb:${TAG:-latest}
+    environment: &web_env
+      DJANGO_SETTINGS_MODULE: openvtb.conf.docker
+      IS_HTTPS: no
+      DB_NAME: openvtb
+      DB_USER: openvtb
+      DB_HOST: db
+      ALLOWED_HOSTS: '*'
+      CACHE_DEFAULT: redis:6379/0
+      CACHE_AXES: redis:6379/0
+      SUBPATH: ${SUBPATH:-/}
+      SECRET_KEY: ${SECRET_KEY:-django-insecure-##q31k@oa@my@(twhvqsvv#+-9x0h0@94^f9=vmxe(zzkg^mot}
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      CELERY_WORKER_NAME: celery@docker
+      DISABLE_2FA: true
+      LOG_NOTIFICATIONS_IN_DB: ${LOG_NOTIFICATIONS_IN_DB:-yes}
+      DB_CONN_MAX_AGE: "0"
+      DB_POOL_ENABLED: False
+
+      # Enabling Open Telemetry requires the services in docker/docker-compose.observability.yml
+      # to be up and running.
+      OTEL_SDK_DISABLED: ${OTEL_SDK_DISABLED:-true}
+      OTEL_RESOURCE_ATTRIBUTES: maykin.saas.client=maykin,maykin.saas.target=dev
+      OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL:-60000}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://otel-collector:4317}  # gRPC
+      # otel:supersecret, escape spaces and = with percent encoding
+      # OTEL_EXPORTER_OTLP_HEADERS: Authorization=Basic b3RlbDpzdXBlcnNlY3JldA==
+      OTEL_EXPORTER_OTLP_METRICS_INSECURE: ${OTEL_EXPORTER_OTLP_METRICS_INSECURE:-true}
+      _OTEL_ENABLE_CONTAINER_RESOURCE_DETECTOR: true
+
+      # Cloudevents
+      ENABLE_CLOUD_EVENTS: ${ENABLE_CLOUD_EVENTS:-True}
+      NOTIFICATIONS_SOURCE: ${NOTIFICATIONS_SOURCE:-openvtb}
+
+    healthcheck:
+      test: ["CMD", "maykin-common", "health-check"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      # This should allow for enough time for migrations to run before the max
+      # retries have passed. This healthcheck in turn allows other containers
+      # to wait for the database migrations.
+      start_period: 30s
+    volumes: &web_volumes
+      - media:/app/media
+      - private_media:/app/private_media
+      - log:/app/log
+    ports:
+      - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      web-init:
+        condition: service_completed_successfully
+    labels:
+      client: dev
+      target: test
+      app: open-vtb
+      service: web
+    networks:
+      - open-vtb-dev
+
+  web-init:
+    image: maykinmedia/open-vtb:${TAG:-latest}
+    environment:
+      <<: *web_env
+      #
+      # Django-setup-configuration
+      RUN_SETUP_CONFIG: ${RUN_SETUP_CONFIG:-true}
+
+    command: sh -c "/setup_configuration.sh"
+    volumes:
+      - log:/app/log
+      - ./docker/setup_configuration:/app/setup_configuration
+    depends_on:
+      - db
+      - redis
+    networks:
+      - open-vtb-dev
+
+  celery:
+    image: maykinmedia/open-vtb:${TAG:-latest}
+    environment: *web_env
+    command: /celery_worker.sh
+    healthcheck:
+      test: [
+        "CMD",
+        "maykin-common",
+        "worker-health-check",
+        "--liveness-file=/app/tmp/celery_worker_event_loop.live",
+        "--max-age=70",
+        "--broker=redis://redis:6379/0",
+        "--worker-name=celery@docker",
+      ]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      web:
+        condition: service_healthy
+    volumes: *web_volumes
+    networks:
+      - open-vtb-dev
+
+  celery-beat:
+    image: maykinmedia/open-vtb:${TAG:-latest}
+    environment: *web_env
+    command: /celery_beat.sh
+    depends_on:
+      - db
+      - redis
+    healthcheck:
+      test: [
+        "CMD",
+        "maykin-common",
+        "beat-health-check",
+        "--file=/app/tmp/celery_beat.live",
+        "--max-age=120"
+      ]
+      interval: 60s
+      timeout: 5s
+      retries: 5
+    networks:
+      - open-vtb-dev
+
+  celery-flower:
+    image: maykinmedia/open-vtb:${TAG:-latest}
+    environment: *web_env
+    command: /celery_flower.sh
+    ports:
+      - 5555:5555
+    depends_on:
+      - redis
+      - celery
+    healthcheck:
+      test: [
+        "CMD",
+        "maykin-common",
+        "health-check",
+        "--endpoint=http://localhost:5555/"
+      ]
+    networks:
+      - open-vtb-dev
+
+  redis:
+    image: redis:8
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 1s
+      retries: 3
+    networks:
+      - open-vtb-dev
+
+volumes:
+  db:
+  log:
+  media:
+  private_media:
+
+networks:
+  open-vtb-dev:
+    name: open-vtb-dev
