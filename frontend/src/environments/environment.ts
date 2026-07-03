@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2025 Ritense BV, the Netherlands.
+ * Copyright 2026 Ritense BV, the Netherlands.
  *
  * Licensed under EUPL, Version 1.2 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,46 @@
  * limitations under the License.
  */
 
-import {CaseListTab, IncludeFunction, Language, ROLE_ADMIN, ROLE_USER, TaskListTab, UploadProvider, ValtimoConfig,} from '@valtimo/shared';
+import {DefinitionColumn, IncludeFunction, ROLE_ADMIN, ROLE_DEVELOPER, ROLE_USER, UploadProvider, ValtimoConfig,} from '@valtimo/shared';
 import {NgxLoggerLevel} from 'ngx-logger';
-import {authenticationKeycloak} from './auth/keycloak-config';
-import {defaultDefinitionColumns} from './columns';
-import {LOGO_SVG_BASE_64} from './logo';
+import {authenticationKeycloak} from './auth/keycloak-config.dev';
+import {DARK_MODE_LOGO_BASE_64, LOGO_BASE_64} from './logo';
+
+const defaultDefinitionColumns: Array<DefinitionColumn> = [
+  {
+    propertyName: 'sequence',
+    translationKey: 'referenceNumber',
+    sortable: true,
+  },
+  {
+    propertyName: 'createdBy',
+    translationKey: 'createdBy',
+    sortable: true,
+  },
+  {
+    propertyName: 'createdOn',
+    translationKey: 'createdOn',
+    sortable: true,
+    viewType: 'date',
+    default: true,
+  },
+  {
+    propertyName: 'modifiedOn',
+    translationKey: 'lastModified',
+    sortable: true,
+    viewType: 'date',
+  },
+  {
+    propertyName: 'assigneeFullName',
+    translationKey: 'assigneeFullName',
+    sortable: true,
+  },
+];
 
 export const environment: ValtimoConfig = {
-  logoSvgBase64: LOGO_SVG_BASE_64,
-  darkModeLogoSvgBase64: LOGO_SVG_BASE_64,
-  applicationTitle: '',
-  production: true,
+  logoSvgBase64: LOGO_BASE_64,
+  darkModeLogoSvgBase64: DARK_MODE_LOGO_BASE_64,
+  production: false,
   authentication: authenticationKeycloak,
   menu: {
     menuItems: [
@@ -42,15 +71,15 @@ export const environment: ValtimoConfig = {
       },
       {
         roles: [ROLE_USER],
-        link: ['/tasks'],
-        title: 'Tasks',
-        iconClass: 'icon mdi mdi-check-all',
-      },
-      {
-        roles: [ROLE_ADMIN],
         title: 'Objects',
         iconClass: 'icon mdi mdi-archive',
         includeFunction: IncludeFunction.ObjectManagementEnabled,
+      },
+      {
+        roles: [ROLE_USER],
+        link: ['/tasks'],
+        title: 'Tasks',
+        iconClass: 'icon mdi mdi-check-all',
       },
       {
         roles: [ROLE_USER],
@@ -59,7 +88,7 @@ export const environment: ValtimoConfig = {
         iconClass: 'icon mdi mdi-chart-bar',
       },
       {
-        roles: [ROLE_ADMIN],
+        roles: [ROLE_USER],
         link: ['/teams'],
         title: 'teams.title',
         iconClass: 'icon mdi mdi-account-group',
@@ -69,7 +98,7 @@ export const environment: ValtimoConfig = {
         title: 'Admin',
         iconClass: 'icon mdi mdi-tune',
         children: [
-          {title: 'Configuration',textClass: 'text-dark font-weight-bold c-default'},
+          {title: 'Configuration', textClass: 'text-dark font-weight-bold c-default'},
           {link: ['/admin-settings'], title: 'adminSettings.title'},
           {link: ['/building-block-management'], title: 'buildingBlockManagement.title'},
           {link: ['/case-management'], title: 'Cases'},
@@ -81,31 +110,34 @@ export const environment: ValtimoConfig = {
           {title: 'Object management', textClass: 'text-dark font-weight-bold c-default'},
           {link: ['/object-management'], title: 'Objects'},
           {link: ['/form-management'], title: 'Forms'},
-          {link: ['/notifications-api/notifications/failed'], title: 'Notifications'},
           {title: 'System processes', textClass: 'text-dark font-weight-bold c-default'},
           {link: ['/processes'], title: 'Processes'},
           {link: ['/decision-tables'], title: 'Decision tables'},
-          {title: 'Other',textClass: 'text-dark font-weight-bold c-default'},
-          {link: ['/logging'], title: 'Logs'},
+          {title: 'Migration', textClass: 'text-dark font-weight-bold c-default'},
           {link: ['/case-migration'], title: 'Case migration (beta)'},
           {link: ['/process-migration'], title: 'Process migration'},
+          {title: 'Other', textClass: 'text-dark font-weight-bold c-default'},
+          {link: ['/logging'], title: 'Logs'},
+          {link: ['/notifications-api/notifications/failed'], title: 'Notifications'},
         ],
+      },
+      {
+        roles: [ROLE_DEVELOPER],
+        title: 'Development',
+        iconClass: 'icon mdi mdi-code',
+        children: [{link: ['/swagger'], title: 'Swagger', iconClass: 'icon mdi mdi-dot-circle'}],
       },
     ],
   },
   whitelistedDomains: ['localhost:4200'],
-  langKey: Language.NL,
   mockApi: {
-    endpointUri: window['env']['mockApiUri'] || '/mock-api/'
+    endpointUri: '/mock-api/',
   },
   valtimoApi: {
-    endpointUri: window['env']['apiUri'] || '/api/'
-  },
-  changePasswordUrl: {
-    endpointUri: '/placeholder',
+    endpointUri: '/api/',
   },
   swagger: {
-    endpointUri: window['env']['swaggerUri'] || '/v3/api-docs'
+    endpointUri: '/v3/api-docs',
   },
   logger: {
     level: NgxLoggerLevel.TRACE,
@@ -114,78 +146,14 @@ export const environment: ValtimoConfig = {
     cases: [],
   },
   openZaak: {
-    catalogus: window['env']['openZaakCatalogusId'] || ''
+    catalogus: '00000000-0000-0000-0000-000000000000',
   },
   uploadProvider: UploadProvider.DOCUMENTEN_API,
   caseFileSizeUploadLimitMB: 100,
-  supportedDocumentFileTypesToViewInBrowser: ['pdf', 'jpg', 'png', 'svg'],
   defaultDefinitionTable: defaultDefinitionColumns,
-  caseFileUploadAcceptedFiles:
-    'image/png, image/jpeg, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/xml',
-  visibleTaskListTabs: [TaskListTab.MINE, TaskListTab.OPEN, TaskListTab.ALL],
-  visibleCaseListTabs: [CaseListTab.ALL, CaseListTab.MINE, CaseListTab.TEAM, CaseListTab.OPEN],
-  customTaskList: {
-    fields: [
-      {
-        propertyName: 'due',
-        translationKey: 'due',
-        sortable: true,
-      },
-      {
-        propertyName: 'created',
-        translationKey: 'created',
-        sortable: true,
-      },
-      {
-        propertyName: 'name',
-        translationKey: 'name',
-        sortable: true,
-      },
-      {
-        propertyName: 'valtimoAssignee.fullName',
-        translationKey: 'valtimoAssignee.fullName',
-      },
-    ],
-    defaultSortedColumn: {
-      isSorting: true,
-      state: {
-        name: 'created',
-        direction: 'ASC',
-      },
-    },
-  },
-  customLeftSidebar: {
-    defaultMenuWidth: 256,
-    maxMenuWidth: 550,
-    minMenuWidth: 150,
-  },
-  caseObjectTypes: {},
   featureToggles: {
-    showUserNameInTopBar: true,
-    experimentalDmnEditing: true,
-    largeLogoMargin: false,
-    sortFilesByDate: true,
-    disableCaseCount: false,
-    returnToLastUrlAfterTokenExpiration: true,
-    useStartEventNameAsStartFormTitle: true,
-    allowUserThemeSwitching: true,
-    enableUserNameInTopBarToggle: true,
-    enableTabManagement: true,
+    disableCaseCount: true,
     enableObjectManagement: true,
-    enableFormViewModel: true,
-    enableIntermediateSave: true,
-    enableFormFlowBreadcrumbs: true,
-    enableTaskPanel: true,
-    enablePbacDocumentenApiDocuments: true,
-    enableSuppressDocumentError: false,
   },
-  formioOptions: {
-    languageOverride: {
-      'en-US': {
-        decimalSeparator: ':',
-        delimiter: ':',
-      },
-    },
-  },
+  translationResources: ['./assets/i18n', './assets/i18n/open-klant'],
 };
-
