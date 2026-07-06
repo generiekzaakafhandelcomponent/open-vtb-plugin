@@ -20,8 +20,6 @@ import {AnalyseModule} from "@valtimo/analyse";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {
-  BesluitenApiPluginModule,
-  besluitenApiPluginSpecification,
   CatalogiApiPluginModule,
   catalogiApiPluginSpecification,
   DocumentenApiPluginModule,
@@ -98,8 +96,10 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {environment} from "../environments/environment";
 import {registerDocumentenApiFormioUploadComponent, ZgwModule} from "@valtimo/zgw";
 import {AdminSettingsModule} from '@valtimo/admin-settings';
-
-import {SamplePluginModule, samplePluginSpecification,} from "@valtimo-plugins/sample-plugin";
+import {
+  BerichtenApiModule,
+  berichtenApiPluginSpecification
+} from "@valtimo-plugins/berichten-api";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -119,6 +119,7 @@ export function tabsFactory() {
     AdminSettingsModule,
     AnalyseModule,
     AppRoutingModule,
+    BerichtenApiModule,
     BootstrapModule,
     BpmnJsDiagramModule,
     BrowserModule,
@@ -126,7 +127,6 @@ export function tabsFactory() {
     CaseManagementModule,
     CaseMigrationModule,
     CaseModule.forRoot(tabsFactory),
-    BesluitenApiPluginModule,
     CatalogiApiPluginModule,
     ChoiceFieldModule,
     CommonModule,
@@ -160,7 +160,6 @@ export function tabsFactory() {
     ProcessModule,
     ReactiveFormsModule,
     ResourceModule,
-    SamplePluginModule,
     SecurityModule,
     SseModule,
     SwaggerModule,
@@ -183,7 +182,7 @@ export function tabsFactory() {
     {
       provide: PLUGINS_TOKEN,
       useValue: [
-        besluitenApiPluginSpecification,
+        berichtenApiPluginSpecification,
         catalogiApiPluginSpecification,
         documentenApiPluginSpecification,
         notificatiesApiPluginSpecification,
@@ -192,7 +191,6 @@ export function tabsFactory() {
         objecttypenApiPluginSpecification,
         openNotificatiesPluginSpecification,
         openZaakPluginSpecification,
-        samplePluginSpecification,
         zakenApiPluginSpecification,
       ],
     },

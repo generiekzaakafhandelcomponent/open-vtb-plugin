@@ -135,7 +135,7 @@
         }
       }
     },
-    "@valtimo-plugins/sample-plugin": {
+    "@valtimo-plugins/berichten-api": {
       "projectType": "library",
       "root": "projects/plugin",
       "sourceRoot": "projects/plugin/src",

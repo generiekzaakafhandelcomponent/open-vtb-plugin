@@ -1,5 +1,5 @@
 {
-  "name": "berichten-api",
+  "name": "berichten-api-plugin",
   "version": "0.0.0",
   "engines": {
     "node": ">=20.0.0 <23.0.0"
