@@ -16,7 +16,8 @@
             "input": true,
             "label": "Name",
             "tableView": true,
-            "applyMaskOn": "change"
+            "applyMaskOn": "change",
+            "defaultValue": "Harrie"
         },
         {
             "key": "submit",
