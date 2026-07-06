@@ -17,6 +17,7 @@
 package com.ritense.valtimoplugins.berichtenapi.client
 
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -35,7 +36,13 @@ import java.util.UUID
 @SkipComponentScan
 @Component
 class BerichtenApiClient(
-    private val restClient: RestClient = RestClient.create(),
+    private val restClient: RestClient =
+        RestClient
+            .builder()
+            .requestInterceptor { request, body, execution ->
+                logger.debug { "${request.method} ${request.uri} body=${String(body)}" }
+                execution.execute(request, body)
+            }.build(),
 ) {
     /** `GET /berichten` — Vraag alle berichten aan. */
     fun berichtenList(
@@ -62,8 +69,9 @@ class BerichtenApiClient(
         baseUrl: URI,
         token: String,
         bericht: Bericht,
-    ): Bericht =
-        restClient
+    ): Bericht {
+        logger.debug { "berichtenCreate bericht=$bericht" }
+        return restClient
             .post()
             .uri(berichtenUri(baseUrl))
             .header(HttpHeaders.AUTHORIZATION, "Token $token")
@@ -73,6 +81,7 @@ class BerichtenApiClient(
             .retrieve()
             .body(Bericht::class.java)
             ?: error("Empty response body for POST /berichten")
+    }
 
     /** `GET /berichten/{uuid}` — Een specifiek bericht opvragen. */
     fun berichtenRetrieve(
@@ -121,5 +130,9 @@ class BerichtenApiClient(
         }
         builder.customize()
         return builder.build().toUri()
+    }
+
+    companion object {
+        private val logger = KotlinLogging.logger {}
     }
 }

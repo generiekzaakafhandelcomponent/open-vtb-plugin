@@ -64,6 +64,7 @@ open class BerichtenApiPlugin(
         @PluginActionProperty ontvanger: String,
         @PluginActionProperty mijnOverheidBerichtenbox: Boolean,
     ) {
+
         val bericht =
             berichtenApiService.createBericht(
                 baseUrl = URI.create(baseUrl),
@@ -72,7 +73,7 @@ open class BerichtenApiPlugin(
                     Bericht(
                         onderwerp = onderwerp,
                         berichtTekst = berichtTekst,
-                        ontvanger = ontvanger,
+                        ontvanger = "urn:namespace:component:resource:uuid",
                         mijnOverheidBerichtenbox = mijnOverheidBerichtenbox,
                     ),
             )

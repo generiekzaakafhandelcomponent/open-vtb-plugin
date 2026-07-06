@@ -1,8 +1,21 @@
 [
-    {
-        "activityId": "start-event",
-        "activityType": "bpmn:StartEvent:start",
-        "processLinkType": "form",
-        "formDefinitionName": "start-form-berichten-api"
+  {
+    "activityId": "start-event",
+    "activityType": "bpmn:StartEvent:start",
+    "processLinkType": "form",
+    "formDefinitionName": "start-form-berichten-api"
+  },
+  {
+    "activityId": "bericht-aanmaken",
+    "activityType": "bpmn:ServiceTask:start",
+    "pluginConfigurationId": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",
+    "pluginActionDefinitionKey": "create-bericht",
+    "processLinkType": "plugin",
+    "actionProperties": {
+      "onderwerp": "Onderwerp",
+      "berichtTekst": "bericht",
+      "ontvanger": "ppp",
+      "mijnOverheidBerichtenbox": true
     }
+  }
 ]
