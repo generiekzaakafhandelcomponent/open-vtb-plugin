@@ -13,17 +13,6 @@
     <bpmn:sequenceFlow id="Flow_19l6ef4" sourceRef="Gateway_0l9irve" targetRef="CallOpenVTBBerichtAanmakenActivity">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("genereer-bericht-flow") &amp;&amp; execution.getVariable("genereer-bericht-flow") == "MET_BOUWBLOK" }</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0tjxhtg" sourceRef="wacht-effe" targetRef="end-event" />
-    <bpmn:endEvent id="end-event" name="Process ended">
-      <bpmn:extensionElements>
-        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0tjxhtg</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:userTask id="wacht-effe" name="effe wachten">
-      <bpmn:incoming>Flow_1y61cor</bpmn:incoming>
-      <bpmn:outgoing>Flow_0tjxhtg</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_0l9irve" default="Flow_0403nz4">
       <bpmn:incoming>Flow_09nos4r</bpmn:incoming>
       <bpmn:outgoing>Flow_0403nz4</bpmn:outgoing>
@@ -44,8 +33,14 @@
       <bpmn:incoming>Flow_0b3dot6</bpmn:incoming>
       <bpmn:outgoing>Flow_1y61cor</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_1y61cor" sourceRef="Gateway_1973sl4" targetRef="wacht-effe" />
+    <bpmn:sequenceFlow id="Flow_1y61cor" sourceRef="Gateway_1973sl4" targetRef="end-event" />
     <bpmn:sequenceFlow id="Flow_0b3dot6" sourceRef="CallOpenVTBBerichtAanmakenActivity" targetRef="Gateway_1973sl4" />
+    <bpmn:endEvent id="end-event" name="Process ended">
+      <bpmn:extensionElements>
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1y61cor</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:callActivity id="CallOpenVTBBerichtAanmakenActivity" name="Bericht aanmaken met bouwblok" calledElement="openvtb-bericht-creatie-proces" camunda:calledElementBinding="versionTag" camunda:calledElementVersionTag="BB:openvtb-bericht-creatie:0.0.1">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{buildingBlockDocumentId}" />
@@ -57,7 +52,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
       <bpmndi:BPMNShape id="Participant_1_di" bpmnElement="berichten-api-participant" isHorizontal="true">
-        <dc:Bounds x="160" y="100" width="970" height="420" />
+        <dc:Bounds x="160" y="100" width="880" height="350" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="start-event">
@@ -65,16 +60,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="214" y="225" width="73" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="end-event">
-        <dc:Bounds x="1062" y="182" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1044" y="225" width="74" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0glbdy2_di" bpmnElement="wacht-effe">
-        <dc:Bounds x="930" y="160" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0l9irve_di" bpmnElement="Gateway_0l9irve" isMarkerVisible="true">
         <dc:Bounds x="505" y="175" width="50" height="50" />
@@ -90,8 +75,14 @@
       <bpmndi:BPMNShape id="Gateway_1973sl4_di" bpmnElement="Gateway_1973sl4" isMarkerVisible="true">
         <dc:Bounds x="795" y="175" width="50" height="50" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="end-event">
+        <dc:Bounds x="912" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="894" y="225" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1uf48le_di" bpmnElement="CallOpenVTBBerichtAanmakenActivity">
-        <dc:Bounds x="620" y="340" width="100" height="80" />
+        <dc:Bounds x="620" y="300" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="268" y="200" />
@@ -107,12 +98,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_19l6ef4_di" bpmnElement="Flow_19l6ef4">
         <di:waypoint x="530" y="225" />
-        <di:waypoint x="530" y="380" />
-        <di:waypoint x="620" y="380" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0tjxhtg_di" bpmnElement="Flow_0tjxhtg">
-        <di:waypoint x="1030" y="200" />
-        <di:waypoint x="1062" y="200" />
+        <di:waypoint x="530" y="340" />
+        <di:waypoint x="620" y="340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09nos4r_di" bpmnElement="Flow_09nos4r">
         <di:waypoint x="440" y="200" />
@@ -120,11 +107,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1y61cor_di" bpmnElement="Flow_1y61cor">
         <di:waypoint x="845" y="200" />
-        <di:waypoint x="930" y="200" />
+        <di:waypoint x="912" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0b3dot6_di" bpmnElement="Flow_0b3dot6">
-        <di:waypoint x="720" y="380" />
-        <di:waypoint x="820" y="380" />
+        <di:waypoint x="720" y="340" />
+        <di:waypoint x="820" y="340" />
         <di:waypoint x="820" y="225" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

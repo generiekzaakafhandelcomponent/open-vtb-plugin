@@ -16,16 +16,6 @@
     "processLinkType": "form"
   },
   {
-    "activityId": "wacht-effe",
-    "activityType": "bpmn:UserTask:create",
-    "formDefinitionName": "empty-form",
-    "viewModelEnabled": false,
-    "formDisplayType": "modal",
-    "formSize": "medium",
-    "subtitles": [],
-    "processLinkType": "form"
-  },
-  {
     "activityId": "bericht-aanmaken",
     "activityType": "bpmn:ServiceTask:start",
     "pluginConfigurationId": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",
@@ -103,9 +93,18 @@
       {
         "source": "pv:bijlagen",
         "target": "bijlagen"
+      },
+      {
+        "source": "pv:bijlagen",
+        "target": "bijlagen"
       }
     ],
-    "outputMappings": [],
+    "outputMappings": [
+      {
+        "source": "urn",
+        "target": "pv:berichtUrn"
+      }
+    ],
     "processLinkType": "building-block"
   }
 ]

@@ -13,6 +13,9 @@
     </serviceTask>
     <sequenceFlow id="sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc" sourceRef="start-event" targetRef="bericht-aanmaken" />
     <endEvent id="Event_1hcmgs3">
+      <extensionElements>
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
+      </extensionElements>
       <incoming>Flow_0thjmj3</incoming>
     </endEvent>
     <sequenceFlow id="Flow_0thjmj3" sourceRef="bericht-aanmaken" targetRef="Event_1hcmgs3" />
