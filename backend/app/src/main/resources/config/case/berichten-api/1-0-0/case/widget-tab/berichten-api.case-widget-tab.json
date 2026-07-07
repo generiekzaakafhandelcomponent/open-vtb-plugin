@@ -12,12 +12,12 @@
                     "columns": [
                         [
                             {
-                                "key": "name",
-                                "title": "Name",
-                                "value": "doc:/name",
+                                "key": "urn",
+                                "title": "URN",
+                                "value": "doc:/urn",
                                 "displayProperties": {
                                     "type": "text",
-                                    "hideWhenEmpty": false
+                                    "hideWhenEmpty": true
                                 }
                             },
                             {
@@ -26,16 +26,7 @@
                                 "value": "doc:/message",
                                 "displayProperties": {
                                     "type": "text",
-                                    "hideWhenEmpty": false
-                                }
-                            },
-                            {
-                                "key": "apiResult",
-                                "title": "API Result",
-                                "value": "doc:/apiResult",
-                                "displayProperties": {
-                                    "type": "text",
-                                    "hideWhenEmpty": false
+                                    "hideWhenEmpty": true
                                 }
                             }
                         ]

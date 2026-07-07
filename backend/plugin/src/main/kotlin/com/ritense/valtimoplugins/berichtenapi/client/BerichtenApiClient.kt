@@ -16,10 +16,14 @@
 
 package com.ritense.valtimoplugins.berichtenapi.client
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestClient
 import org.springframework.web.util.UriComponentsBuilder
@@ -36,13 +40,7 @@ import java.util.UUID
 @SkipComponentScan
 @Component
 class BerichtenApiClient(
-    private val restClient: RestClient =
-        RestClient
-            .builder()
-            .requestInterceptor { request, body, execution ->
-                logger.debug { "${request.method} ${request.uri} body=${String(body)}" }
-                execution.execute(request, body)
-            }.build(),
+    private val restClient: RestClient = defaultRestClient(),
 ) {
     /** `GET /berichten` — Vraag alle berichten aan. */
     fun berichtenList(
@@ -71,16 +69,22 @@ class BerichtenApiClient(
         bericht: Bericht,
     ): Bericht {
         logger.debug { "berichtenCreate bericht=$bericht" }
-        return restClient
-            .post()
-            .uri(berichtenUri(baseUrl))
-            .header(HttpHeaders.AUTHORIZATION, "Token $token")
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-            .body(bericht)
-            .retrieve()
-            .body(Bericht::class.java)
-            ?: error("Empty response body for POST /berichten")
+
+        val response =
+            restClient
+                .post()
+                .uri(berichtenUri(baseUrl))
+                .header(HttpHeaders.AUTHORIZATION, "Token $token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(bericht)
+                .retrieve()
+                .body(Bericht::class.java)
+                ?: error("Empty response body for POST /berichten")
+
+        logger.debug { "berichtenCreate response=$response" }
+
+        return response
     }
 
     /** `GET /berichten/{uuid}` — Een specifiek bericht opvragen. */
@@ -134,5 +138,28 @@ class BerichtenApiClient(
 
     companion object {
         private val logger = KotlinLogging.logger {}
+
+        /**
+         * ObjectMapper that serializes `java.time` types (e.g. [java.time.OffsetDateTime]) as
+         * ISO-8601 strings instead of numeric timestamps, as required by the Berichten API.
+         * [Jackson2ObjectMapperBuilder] auto-registers the well-known modules (Kotlin, JSR-310)
+         * so response deserialization keeps working.
+         */
+        private val objectMapper: ObjectMapper =
+            Jackson2ObjectMapperBuilder
+                .json()
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .build()
+
+        private fun defaultRestClient(): RestClient =
+            RestClient
+                .builder()
+                .messageConverters { converters ->
+                    converters.removeIf { it is MappingJackson2HttpMessageConverter }
+                    converters.add(MappingJackson2HttpMessageConverter(objectMapper))
+                }.requestInterceptor { request, body, execution ->
+                    logger.debug { "${request.method} ${request.uri} body=${String(body)}" }
+                    execution.execute(request, body)
+                }.build()
     }
 }

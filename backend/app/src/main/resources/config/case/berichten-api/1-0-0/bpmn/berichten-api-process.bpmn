@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0">
   <bpmn:collaboration id="Collaboration_1">
     <bpmn:participant id="berichten-api-participant" name="Berichten API Process" processRef="berichten-api-process" />
   </bpmn:collaboration>
@@ -7,29 +7,55 @@
     <bpmn:startEvent id="start-event" name="Process started">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_1" sourceRef="start-event" targetRef="EnterBerichtDetailsTask" />
-    <bpmn:sequenceFlow id="Flow_2" sourceRef="bericht-aanmaken" targetRef="end-event" />
-    <bpmn:sequenceFlow id="Flow_12ybhh8" sourceRef="EnterBerichtDetailsTask" targetRef="bericht-aanmaken" />
-    <bpmn:userTask id="EnterBerichtDetailsTask" name="Voer bericht gegevens in">
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="start-event" targetRef="Gateway_0l9irve" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="bericht-aanmaken" targetRef="wacht-effe" />
+    <bpmn:exclusiveGateway id="Gateway_0l9irve" default="Flow_0403nz4">
       <bpmn:incoming>Flow_1</bpmn:incoming>
-      <bpmn:outgoing>Flow_12ybhh8</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0403nz4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_19l6ef4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0403nz4" sourceRef="Gateway_0l9irve" targetRef="vul-bericht-velden" />
+    <bpmn:sequenceFlow id="Flow_19l6ef4" sourceRef="Gateway_0l9irve" targetRef="Activity_18ql9dt">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("genereer-bericht-flow") &amp;&amp; execution.getVariable("genereer-bericht-flow") == "MET_BOUWBLOK" }</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1s59831" sourceRef="vul-bericht-velden" targetRef="bericht-aanmaken" />
+    <bpmn:userTask id="vul-bericht-velden" name="vul bericht velden">
+      <bpmn:incoming>Flow_0403nz4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1s59831</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:serviceTask id="bericht-aanmaken" name="Bericht aanmaken" camunda:expression="${true}">
-      <bpmn:incoming>Flow_12ybhh8</bpmn:incoming>
-      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    <bpmn:serviceTask id="Activity_18ql9dt" name="Bericht aanmaken met bouwblok" camunda:expression="${true}">
+      <bpmn:incoming>Flow_19l6ef4</bpmn:incoming>
+      <bpmn:outgoing>Flow_14uxvvt</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0678nat">
+      <bpmn:incoming>Flow_14uxvvt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_14uxvvt" sourceRef="Activity_18ql9dt" targetRef="Event_0678nat" />
     <bpmn:endEvent id="end-event" name="Process ended">
       <bpmn:extensionElements>
-        <camunda:executionListener expression="${valueResolverDelegateService.handleValue(execution, &#39;doc:/apiResult&#39;, execution.getVariable(&#39;apiResult&#39;))}" event="start" />
-        <camunda:executionListener expression="${valueResolverDelegateService.handleValue(execution, &#39;doc:/message&#39;, execution.getVariable(&#39;message&#39;))}" event="start" />
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:incoming>Flow_0tjxhtg</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="bericht-aanmaken" name="Bericht aanmaken" camunda:expression="${true}" camunda:resultVariable="urn">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="ontvangerProcessVariable">urn:isbn:9780143127796</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1s59831</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0tjxhtg" sourceRef="wacht-effe" targetRef="end-event" />
+    <bpmn:userTask id="wacht-effe" name="effe wachten">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tjxhtg</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
       <bpmndi:BPMNShape id="Participant_1_di" bpmnElement="berichten-api-participant" isHorizontal="true">
-        <dc:Bounds x="160" y="100" width="610" height="200" />
+        <dc:Bounds x="160" y="100" width="970" height="420" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="start-event">
@@ -38,31 +64,61 @@
           <dc:Bounds x="214" y="225" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_132fwwh_di" bpmnElement="EnterBerichtDetailsTask">
-        <dc:Bounds x="350" y="160" width="100" height="80" />
+      <bpmndi:BPMNShape id="Gateway_0l9irve_di" bpmnElement="Gateway_0l9irve" isMarkerVisible="true">
+        <dc:Bounds x="355" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03yoh4d_di" bpmnElement="vul-bericht-velden">
+        <dc:Bounds x="490" y="160" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="bericht-aanmaken">
-        <dc:Bounds x="510" y="160" width="100" height="80" />
-        <bpmndi:BPMNLabel />
+      <bpmndi:BPMNShape id="Activity_00xe3x6_di" bpmnElement="Activity_18ql9dt">
+        <dc:Bounds x="490" y="320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0678nat_di" bpmnElement="Event_0678nat">
+        <dc:Bounds x="682" y="342" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="end-event">
-        <dc:Bounds x="652" y="182" width="36" height="36" />
+        <dc:Bounds x="1002" y="182" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="634" y="225" width="74" height="14" />
+          <dc:Bounds x="984" y="225" width="74" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="bericht-aanmaken">
+        <dc:Bounds x="630" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0glbdy2_di" bpmnElement="wacht-effe">
+        <dc:Bounds x="790" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="268" y="200" />
-        <di:waypoint x="350" y="200" />
+        <di:waypoint x="355" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
-        <di:waypoint x="610" y="200" />
-        <di:waypoint x="652" y="200" />
+        <di:waypoint x="730" y="200" />
+        <di:waypoint x="790" y="200" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_12ybhh8_di" bpmnElement="Flow_12ybhh8">
-        <di:waypoint x="450" y="200" />
-        <di:waypoint x="510" y="200" />
+      <bpmndi:BPMNEdge id="Flow_0403nz4_di" bpmnElement="Flow_0403nz4">
+        <di:waypoint x="405" y="200" />
+        <di:waypoint x="490" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19l6ef4_di" bpmnElement="Flow_19l6ef4">
+        <di:waypoint x="380" y="225" />
+        <di:waypoint x="380" y="360" />
+        <di:waypoint x="490" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1s59831_di" bpmnElement="Flow_1s59831">
+        <di:waypoint x="590" y="200" />
+        <di:waypoint x="630" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14uxvvt_di" bpmnElement="Flow_14uxvvt">
+        <di:waypoint x="590" y="360" />
+        <di:waypoint x="682" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tjxhtg_di" bpmnElement="Flow_0tjxhtg">
+        <di:waypoint x="890" y="200" />
+        <di:waypoint x="1002" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

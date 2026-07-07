@@ -1,19 +1,29 @@
 [
   {
-    "activityId": "start-event",
-    "activityType": "bpmn:StartEvent:start",
+    "activityId" : "start-event",
+    "activityType" : "bpmn:StartEvent:start",
     "processLinkType": "form",
-    "formDefinitionName": "start-form-berichten-api"
+    "formDefinitionName" : "openvtb-bericht-genereren.start-form"
   },
   {
-    "activityId": "EnterBerichtDetailsTask",
-    "activityType": "bpmn:UserTask:create",
+    "activityId" : "vul-bericht-velden",
+    "activityType" : "bpmn:UserTask:create",
     "formDefinitionName": "openvtb-bericht-creatie",
-    "viewModelEnabled": false,
-    "formDisplayType": "modal",
-    "formSize": "medium",
-    "subtitles": [],
-    "processLinkType": "form"
+    "viewModelEnabled" : false,
+    "formDisplayType" : "modal",
+    "formSize" : "medium",
+    "subtitles" : [],
+    "processLinkType" : "form"
+  },
+  {
+    "activityId" : "wacht-effe",
+    "activityType" : "bpmn:UserTask:create",
+    "formDefinitionName": "empty-form",
+    "viewModelEnabled" : false,
+    "formDisplayType" : "modal",
+    "formSize" : "medium",
+    "subtitles" : [],
+    "processLinkType" : "form"
   },
   {
     "activityId": "bericht-aanmaken",
@@ -22,10 +32,19 @@
     "pluginActionDefinitionKey": "create-bericht",
     "processLinkType": "plugin",
     "actionProperties": {
-      "onderwerp": "Onderwerp",
-      "berichtTekst": "bericht",
-      "ontvanger": "ppp",
-      "mijnOverheidBerichtenbox": true
+      "onderwerp": "pv:onderwerp",
+      "berichtTekst": "pv:berichtTekst",
+      "ontvanger": "pv:ontvanger",
+      "mijnOverheidBerichtenbox": "pv:mijnOverheidBerichtenbox",
+      "publicatiedatum": "pv:publicatiedatum",
+      "referentie": "pv:referentie",
+      "geopendOp": "pv:geopendOp",
+      "berichtType": "pv:berichtType",
+      "handelingsPerspectief": "pv:handelingsPerspectief",
+      "einddatumHandelingsTermijn": "pv:einddatumHandelingsTermijn",
+      "isGerelateerdAan": "pv:isGerelateerdAan",
+      "bijlagen": "pv:bijlagen",
+      "resultingVariable": "berichtUrn"
     }
   }
 ]

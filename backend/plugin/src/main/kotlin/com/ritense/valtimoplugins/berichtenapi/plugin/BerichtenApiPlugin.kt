@@ -53,7 +53,8 @@ open class BerichtenApiPlugin(
     lateinit var token: String
 
     /**
-     * Creates a Bericht and stores its UUID and URL on the process.
+     * Creates a Bericht and stores the URN of the created bericht in the process variable
+     * named by [resultingVariable]. Any API/validation failure propagates as an exception.
      */
     @PluginAction(
         key = "create-bericht",
@@ -75,7 +76,12 @@ open class BerichtenApiPlugin(
         @PluginActionProperty geopendOp: OffsetDateTime? = null,
         @PluginActionProperty berichtType: String? = null,
         @PluginActionProperty bijlagen: List<Bijlage>? = null,
-    ) {
+        @PluginActionProperty resultingVariable: String? = null,
+    ): String {
+        // The bijlagen datagrid always submits at least one row; drop rows without an
+        // informatieObject so the API isn't sent a blank, invalid attachment.
+        val filteredBijlagen = bijlagen?.filter { it.informatieObject.isNotBlank() }?.ifEmpty { null }
+
         val bericht =
             berichtenApiService.createBericht(
                 baseUrl = URI.create(baseUrl),
@@ -93,10 +99,16 @@ open class BerichtenApiPlugin(
                         isGerelateerdAan = isGerelateerdAan,
                         handelingsPerspectief = handelingsPerspectief,
                         einddatumHandelingsTermijn = einddatumHandelingsTermijn,
-                        bijlagen = bijlagen,
+                        bijlagen = filteredBijlagen,
                     ),
             )
 
-        logger.info { "Created bericht ${bericht.uuid}" }
+        val urn = bericht.urn ?: error("Bericht was created but the API returned no urn")
+
+        resultingVariable?.let { execution.setVariable(it, urn) }
+
+        logger.info { "Created bericht ${bericht.uuid} with urn $urn" }
+
+        return urn
     }
 }
