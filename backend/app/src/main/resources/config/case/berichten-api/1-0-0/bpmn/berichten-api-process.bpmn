@@ -46,7 +46,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1y61cor" sourceRef="Gateway_1973sl4" targetRef="wacht-effe" />
     <bpmn:sequenceFlow id="Flow_0b3dot6" sourceRef="CallOpenVTBBerichtAanmakenActivity" targetRef="Gateway_1973sl4" />
-    <bpmn:callActivity id="CallOpenVTBBerichtAanmakenActivity" name="Bericht aanmaken met bouwblok" calledElement="open-vtb-bericht-proces" camunda:calledElementBinding="versionTag" camunda:calledElementVersionTag="BB:open-vtb-bericht:1.0.0">
+    <bpmn:callActivity id="CallOpenVTBBerichtAanmakenActivity" name="Bericht aanmaken met bouwblok" calledElement="openvtb-bericht-creatie-proces" camunda:calledElementBinding="versionTag" camunda:calledElementVersionTag="BB:openvtb-bericht-creatie:0.0.1">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{buildingBlockDocumentId}" />
       </bpmn:extensionElements>

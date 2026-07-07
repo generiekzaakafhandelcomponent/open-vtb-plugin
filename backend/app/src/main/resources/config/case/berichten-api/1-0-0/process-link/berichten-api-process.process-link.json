@@ -1,29 +1,29 @@
 [
   {
-    "activityId" : "start-event",
-    "activityType" : "bpmn:StartEvent:start",
+    "activityId": "start-event",
+    "activityType": "bpmn:StartEvent:start",
     "processLinkType": "form",
-    "formDefinitionName" : "openvtb-bericht-genereren.start-form"
+    "formDefinitionName": "openvtb-bericht-genereren.start-form"
   },
   {
-    "activityId" : "vul-bericht-velden",
-    "activityType" : "bpmn:UserTask:create",
+    "activityId": "vul-bericht-velden",
+    "activityType": "bpmn:UserTask:create",
     "formDefinitionName": "openvtb-bericht-creatie",
-    "viewModelEnabled" : false,
-    "formDisplayType" : "modal",
-    "formSize" : "medium",
-    "subtitles" : [],
-    "processLinkType" : "form"
+    "viewModelEnabled": false,
+    "formDisplayType": "modal",
+    "formSize": "medium",
+    "subtitles": [],
+    "processLinkType": "form"
   },
   {
-    "activityId" : "wacht-effe",
-    "activityType" : "bpmn:UserTask:create",
+    "activityId": "wacht-effe",
+    "activityType": "bpmn:UserTask:create",
     "formDefinitionName": "empty-form",
-    "viewModelEnabled" : false,
-    "formDisplayType" : "modal",
-    "formSize" : "medium",
-    "subtitles" : [],
-    "processLinkType" : "form"
+    "viewModelEnabled": false,
+    "formDisplayType": "modal",
+    "formSize": "medium",
+    "subtitles": [],
+    "processLinkType": "form"
   },
   {
     "activityId": "bericht-aanmaken",
@@ -53,8 +53,58 @@
     "buildingBlockDefinitionKey": "openvtb-bericht-creatie",
     "buildingBlockDefinitionVersionTag": "0.0.1",
     "pluginConfigurationMappings": {
+      "berichten-api": "02fe5f13-e55d-4561-b69c-1750c7fef1a2"
     },
-    "inputMappings": [],
+    "inputMappings": [
+      {
+        "source": "pv:onderwerp",
+        "target": "onderwerp"
+      },
+      {
+        "source": "pv:berichtTekst",
+        "target": "berichtTekst"
+      },
+      {
+        "source": "pv:ontvanger",
+        "target": "ontvanger"
+      },
+      {
+        "source": "pv:mijnOverheidBerichtenbox",
+        "target": "mijnOverheidBerichtenbox"
+      },
+      {
+        "source": "pv:publicatiedatum",
+        "target": "publicatiedatum"
+      },
+      {
+        "source": "pv:referentie",
+        "target": "referentie"
+      },
+      {
+        "source": "pv:geopendOp",
+        "target": "geopendOp"
+      },
+      {
+        "source": "pv:berichtType",
+        "target": "berichtType"
+      },
+      {
+        "source": "pv:handelingsPerspectief",
+        "target": "handelingsPerspectief"
+      },
+      {
+        "source": "pv:einddatumHandelingsTermijn",
+        "target": "einddatumHandelingsTermijn"
+      },
+      {
+        "source": "pv:isGerelateerdAan",
+        "target": "isGerelateerdAan"
+      },
+      {
+        "source": "pv:bijlagen",
+        "target": "bijlagen"
+      }
+    ],
     "outputMappings": [],
     "processLinkType": "building-block"
   }

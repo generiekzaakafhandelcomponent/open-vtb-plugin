@@ -34,7 +34,7 @@
         "when": null,
         "eq": ""
       },
-      "defaultValue": "DIRECT_MET_PROCES",
+      "defaultValue": "MET_BOUWBLOK",
       "labelPosition": "top"
     },
     {
