@@ -1,0 +1,7 @@
+{
+  "key" : "openvtb-bericht-creatie",
+  "name" : "OpenVTB bericht creatie",
+  "description" : "Plugin to create messages with Open VTB",
+  "versionTag" : "0.0.1",
+  "final" : false
+}
