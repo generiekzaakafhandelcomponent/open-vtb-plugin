@@ -6,6 +6,16 @@
     "formDefinitionName": "start-form-berichten-api"
   },
   {
+    "activityId": "EnterBerichtDetailsTask",
+    "activityType": "bpmn:UserTask:create",
+    "formDefinitionName": "openvtb-bericht-creatie",
+    "viewModelEnabled": false,
+    "formDisplayType": "modal",
+    "formSize": "medium",
+    "subtitles": [],
+    "processLinkType": "form"
+  },
+  {
     "activityId": "bericht-aanmaken",
     "activityType": "bpmn:ServiceTask:start",
     "pluginConfigurationId": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",

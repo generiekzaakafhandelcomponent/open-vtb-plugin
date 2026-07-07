@@ -7,8 +7,15 @@
     <bpmn:startEvent id="start-event" name="Process started">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="bericht-aanmaken" name="Bericht aanmaken" camunda:expression="${true}">
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="start-event" targetRef="EnterBerichtDetailsTask" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="bericht-aanmaken" targetRef="end-event" />
+    <bpmn:sequenceFlow id="Flow_12ybhh8" sourceRef="EnterBerichtDetailsTask" targetRef="bericht-aanmaken" />
+    <bpmn:userTask id="EnterBerichtDetailsTask" name="Voer bericht gegevens in">
       <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_12ybhh8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="bericht-aanmaken" name="Bericht aanmaken" camunda:expression="${true}">
+      <bpmn:incoming>Flow_12ybhh8</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="end-event" name="Process ended">
@@ -18,13 +25,11 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_2</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1" sourceRef="start-event" targetRef="bericht-aanmaken" />
-    <bpmn:sequenceFlow id="Flow_2" sourceRef="bericht-aanmaken" targetRef="end-event" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
       <bpmndi:BPMNShape id="Participant_1_di" bpmnElement="berichten-api-participant" isHorizontal="true">
-        <dc:Bounds x="160" y="100" width="600" height="200" />
+        <dc:Bounds x="160" y="100" width="610" height="200" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="start-event">
@@ -33,23 +38,31 @@
           <dc:Bounds x="214" y="225" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_132fwwh_di" bpmnElement="EnterBerichtDetailsTask">
+        <dc:Bounds x="350" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1_di" bpmnElement="bericht-aanmaken">
-        <dc:Bounds x="370" y="160" width="100" height="80" />
+        <dc:Bounds x="510" y="160" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="end-event">
-        <dc:Bounds x="572" y="182" width="36" height="36" />
+        <dc:Bounds x="652" y="182" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="555" y="225" width="71" height="14" />
+          <dc:Bounds x="634" y="225" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="268" y="200" />
-        <di:waypoint x="370" y="200" />
+        <di:waypoint x="350" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
-        <di:waypoint x="470" y="200" />
-        <di:waypoint x="572" y="200" />
+        <di:waypoint x="610" y="200" />
+        <di:waypoint x="652" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12ybhh8_di" bpmnElement="Flow_12ybhh8">
+        <di:waypoint x="450" y="200" />
+        <di:waypoint x="510" y="200" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

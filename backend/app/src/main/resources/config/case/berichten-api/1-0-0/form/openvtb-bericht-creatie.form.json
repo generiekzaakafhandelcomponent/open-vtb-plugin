@@ -1,0 +1,205 @@
+{
+    "display": "form",
+    "components": [
+        {
+            "key": "pv:onderwerp",
+            "type": "textfield",
+            "input": true,
+            "label": "Onderwerp",
+            "tableView": true,
+            "applyMaskOn": "change",
+            "description": "Onderwerp van het bericht.",
+            "validate": {
+                "required": true
+            }
+        },
+        {
+            "key": "pv:berichtTekst",
+            "type": "textarea",
+            "input": true,
+            "label": "Bericht tekst",
+            "tableView": true,
+            "autoExpand": false,
+            "applyMaskOn": "change",
+            "description": "Tekst van het bericht.",
+            "validate": {
+                "required": true
+            }
+        },
+        {
+            "key": "pv:ontvanger",
+            "type": "textfield",
+            "input": true,
+            "label": "Ontvanger",
+            "tableView": true,
+            "applyMaskOn": "change",
+            "description": "URN van een NATUURLIJK PERSOON of NIET-NATUURLIJK PERSOON.",
+            "validate": {
+                "required": true
+            }
+        },
+        {
+            "key": "pv:mijnOverheidBerichtenbox",
+            "type": "checkbox",
+            "input": true,
+            "label": "MijnOverheid Berichtenbox",
+            "tableView": false,
+            "description": "Geeft aan of dit bericht geschikt is voor publicatie in de MijnOverheid Berichtenbox.",
+            "defaultValue": false,
+            "validate": {
+                "required": true
+            }
+        },
+        {
+            "key": "pv:publicatiedatum",
+            "type": "datetime",
+            "input": true,
+            "label": "Publicatiedatum",
+            "tableView": false,
+            "enableTime": true,
+            "widget": {
+                "type": "calendar"
+            },
+            "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger."
+        },
+        {
+            "key": "pv:referentie",
+            "type": "textfield",
+            "input": true,
+            "label": "Referentie",
+            "tableView": true,
+            "applyMaskOn": "change",
+            "description": "Eigen optionele referentiegegevens, maximaal 25 tekens.",
+            "validate": {
+                "maxLength": 25
+            }
+        },
+        {
+            "key": "pv:geopendOp",
+            "type": "datetime",
+            "input": true,
+            "label": "Geopend op",
+            "tableView": false,
+            "enableTime": true,
+            "widget": {
+                "type": "calendar"
+            },
+            "description": "Tijdstip waarop het bericht door de geadresseerde is geopend."
+        },
+        {
+            "key": "pv:berichtType",
+            "type": "textfield",
+            "input": true,
+            "label": "Bericht type",
+            "tableView": true,
+            "applyMaskOn": "change",
+            "description": "Code voor het technisch identificeren van een bericht soort & origine."
+        },
+        {
+            "key": "pv:handelingsPerspectief",
+            "type": "select",
+            "input": true,
+            "label": "Handelingsperspectief",
+            "widget": "choicesjs",
+            "tableView": true,
+            "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling.",
+            "dataSrc": "values",
+            "data": {
+                "values": [
+                    { "label": "Betalen", "value": "betalen" },
+                    { "label": "Incasso", "value": "incasso" },
+                    { "label": "Informatie geven", "value": "informatie_geven" },
+                    { "label": "Informatie krijgen", "value": "informatie_krijgen" },
+                    { "label": "Reactie ontvangen", "value": "reactie_ontvangen" },
+                    { "label": "Vernieuwing nodig", "value": "vernieuwing_nodig" },
+                    { "label": "Uitnodiging voor afspraak", "value": "uitnodiging_voor_afspraak" }
+                ]
+            }
+        },
+        {
+            "key": "pv:einddatumHandelingsTermijn",
+            "type": "datetime",
+            "input": true,
+            "label": "Einddatum handelingstermijn",
+            "tableView": false,
+            "enableTime": true,
+            "widget": {
+                "type": "calendar"
+            },
+            "description": "Datum/tijd waarop handeling afgerond moet zijn."
+        },
+        {
+            "key": "pv:isGerelateerdAan",
+            "type": "datagrid",
+            "input": true,
+            "label": "Is gerelateerd aan",
+            "reorder": false,
+            "tableView": false,
+            "description": "URN's naar de ZAAK of het PRODUCT.",
+            "components": [
+                {
+                    "key": "urn",
+                    "type": "textfield",
+                    "input": true,
+                    "label": "URN",
+                    "tableView": true,
+                    "applyMaskOn": "change",
+                    "description": "URN naar de ZAAK of het PRODUCT.",
+                    "validate": {
+                        "required": true
+                    }
+                }
+            ]
+        },
+        {
+            "key": "pv:bijlagen",
+            "type": "datagrid",
+            "input": true,
+            "label": "Bijlagen",
+            "reorder": false,
+            "tableView": false,
+            "description": "Lijst van bijlagen bij het bericht.",
+            "components": [
+                {
+                    "key": "informatieObject",
+                    "type": "textfield",
+                    "input": true,
+                    "label": "Informatieobject",
+                    "tableView": true,
+                    "applyMaskOn": "change",
+                    "description": "URN naar het ENKELVOUDIGINFORMATIEOBJECT.",
+                    "validate": {
+                        "required": true
+                    }
+                },
+                {
+                    "key": "omschrijving",
+                    "type": "textfield",
+                    "input": true,
+                    "label": "Omschrijving",
+                    "tableView": true,
+                    "applyMaskOn": "change",
+                    "description": "Goed leesbare omschrijving van de bijlage."
+                },
+                {
+                    "key": "isBerichtTypeBijlage",
+                    "type": "checkbox",
+                    "input": true,
+                    "label": "Is bericht type bijlage",
+                    "tableView": false,
+                    "description": "Geeft aan of dit document een standaardbijlage is.",
+                    "defaultValue": false
+                }
+            ]
+        },
+        {
+            "key": "submit",
+            "type": "button",
+            "input": true,
+            "label": "Verzenden",
+            "action": "submit",
+            "tableView": false,
+            "disableOnInvalid": true
+        }
+    ]
+}

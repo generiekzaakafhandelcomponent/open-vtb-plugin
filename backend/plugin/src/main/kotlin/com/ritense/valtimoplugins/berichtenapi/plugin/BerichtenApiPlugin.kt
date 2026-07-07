@@ -23,9 +23,13 @@ import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
 import com.ritense.valtimoplugins.berichtenapi.client.Bericht
 import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiService
+import com.ritense.valtimoplugins.berichtenapi.client.Bijlage
+import com.ritense.valtimoplugins.berichtenapi.client.HandelingsPerspectiefEnum
+import com.ritense.valtimoplugins.berichtenapi.client.IsGerelateerdAan
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
 import java.net.URI
+import java.time.OffsetDateTime
 
 private val logger = KotlinLogging.logger {}
 
@@ -60,11 +64,18 @@ open class BerichtenApiPlugin(
     open fun createBericht(
         execution: DelegateExecution,
         @PluginActionProperty onderwerp: String,
+        @PluginActionProperty isGerelateerdAan: List<IsGerelateerdAan>? = null,
+        @PluginActionProperty handelingsPerspectief: HandelingsPerspectiefEnum? = null,
+        @PluginActionProperty einddatumHandelingsTermijn: OffsetDateTime? = null,
         @PluginActionProperty berichtTekst: String,
         @PluginActionProperty ontvanger: String,
         @PluginActionProperty mijnOverheidBerichtenbox: Boolean,
+        @PluginActionProperty publicatiedatum: OffsetDateTime? = null,
+        @PluginActionProperty referentie: String? = null,
+        @PluginActionProperty geopendOp: OffsetDateTime? = null,
+        @PluginActionProperty berichtType: String? = null,
+        @PluginActionProperty bijlagen: List<Bijlage>? = null,
     ) {
-
         val bericht =
             berichtenApiService.createBericht(
                 baseUrl = URI.create(baseUrl),
@@ -73,13 +84,19 @@ open class BerichtenApiPlugin(
                     Bericht(
                         onderwerp = onderwerp,
                         berichtTekst = berichtTekst,
-                        ontvanger = "urn:namespace:component:resource:uuid",
+                        ontvanger = ontvanger,
                         mijnOverheidBerichtenbox = mijnOverheidBerichtenbox,
+                        publicatiedatum = publicatiedatum,
+                        referentie = referentie,
+                        geopendOp = geopendOp,
+                        berichtType = berichtType,
+                        isGerelateerdAan = isGerelateerdAan,
+                        handelingsPerspectief = handelingsPerspectief,
+                        einddatumHandelingsTermijn = einddatumHandelingsTermijn,
+                        bijlagen = bijlagen,
                     ),
             )
 
         logger.info { "Created bericht ${bericht.uuid}" }
-        execution.setVariable("berichtUuid", bericht.uuid?.toString())
-        execution.setVariable("berichtUrl", bericht.url?.toString())
     }
 }
