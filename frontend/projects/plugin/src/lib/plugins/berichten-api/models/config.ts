@@ -21,11 +21,26 @@ interface BerichtenApiConfig extends PluginConfigurationData {
   token: string;
 }
 
+/**
+ * Every field is a string because a plugin action configuration holds either a literal
+ * value or a process-variable reference (e.g. `pv:isGerelateerdAan`) that Valtimo resolves
+ * to the actual typed value at runtime. `mijnOverheidBerichtenbox` is the exception; it is
+ * bound to a checkbox in the configuration UI.
+ */
 interface CreateBerichtConfig {
   onderwerp: string;
   berichtTekst: string;
   ontvanger: string;
   mijnOverheidBerichtenbox: boolean;
+  publicatiedatum?: string;
+  referentie?: string;
+  geopendOp?: string;
+  berichtType?: string;
+  handelingsPerspectief?: string;
+  einddatumHandelingsTermijn?: string;
+  isGerelateerdAan?: string;
+  bijlagen?: string;
+  resultingVariable?: string;
 }
 
 export {BerichtenApiConfig, CreateBerichtConfig};
