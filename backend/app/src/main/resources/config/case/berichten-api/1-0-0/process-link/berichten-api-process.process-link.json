@@ -46,5 +46,16 @@
       "bijlagen": "pv:bijlagen",
       "resultingVariable": "berichtUrn"
     }
+  },
+  {
+    "activityId": "CallOpenVTBBerichtAanmakenActivity",
+    "activityType": "bpmn:CallActivity:start",
+    "buildingBlockDefinitionKey": "openvtb-bericht-creatie",
+    "buildingBlockDefinitionVersionTag": "0.0.1",
+    "pluginConfigurationMappings": {
+    },
+    "inputMappings": [],
+    "outputMappings": [],
+    "processLinkType": "building-block"
   }
 ]

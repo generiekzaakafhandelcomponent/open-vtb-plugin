@@ -168,6 +168,10 @@
       "defaultValue": "2026-08-24T14:15:22Z"
     },
     {
+      "disableAddingRemovingRows": true,
+      "layoutFixed": false,
+      "enableRowGroups": false,
+      "initEmpty": false,
       "key": "pv:isGerelateerdAan",
       "type": "datagrid",
       "input": true,
@@ -178,24 +182,13 @@
       "validate": {
         "required": false
       },
-      "defaultValue": [
-        {
-          "urn": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350165"
-        }
-      ],
       "components": [
         {
+          "label": "URN",
           "key": "urn",
           "type": "textfield",
           "input": true,
-          "label": "URN",
-          "tableView": true,
-          "applyMaskOn": "change",
-          "description": "URN naar de ZAAK of het PRODUCT.",
-          "validate": {
-            "required": false
-          },
-          "defaultValue": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350165"
+          "defaultValue": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
         }
       ]
     },
