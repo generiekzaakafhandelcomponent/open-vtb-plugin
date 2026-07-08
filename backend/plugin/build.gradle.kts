@@ -15,7 +15,7 @@
  */
 
 dockerCompose {
-    setProjectName("sample-plugin")
+    setProjectName("berichten-api")
     isRequiredBy(project.tasks.test)
 
     tasks.test {
