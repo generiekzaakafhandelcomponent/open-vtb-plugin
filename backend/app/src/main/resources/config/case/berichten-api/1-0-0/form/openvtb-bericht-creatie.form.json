@@ -15,26 +15,34 @@
       "type": "textfield",
       "input": true,
       "label": "Onderwerp",
+      "validate": {
+        "required": true,
+        "maxLength": 50
+      },
       "tableView": true,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-onderwerp"
+      },
       "applyMaskOn": "change",
       "description": "Onderwerp van het bericht.",
-      "validate": {
-        "required": true
-      },
-      "defaultValue": "Onderwerp 07"
+      "placeholder": "Onderwerp van het bericht"
     },
     {
       "key": "pv:berichtTekst",
       "type": "textarea",
       "input": true,
       "label": "Bericht tekst",
+      "validate": {
+        "required": true,
+        "maxLength": 4000
+      },
       "tableView": true,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-berichtTekst"
+      },
       "autoExpand": false,
       "applyMaskOn": "change",
       "description": "Tekst van het bericht.",
-      "validate": {
-        "required": true
-      },
       "defaultValue": "Bericht tekst 07"
     },
     {
@@ -42,13 +50,18 @@
       "type": "textfield",
       "input": true,
       "label": "Ontvanger",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
       "tableView": true,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-ontvanger"
+      },
       "applyMaskOn": "change",
       "description": "URN van een NATUURLIJK PERSOON of NIET-NATUURLIJK PERSOON.",
-      "validate": {
-        "required": true
-      },
-      "defaultValue": "urn:isbn:9780143127796"
+      "placeholder": "urn:nld:brp:bsn:111222333",
+      "defaultValue": "urn:nld:brp:bsn:111222333"
     },
     {
       "key": "pv:mijnOverheidBerichtenbox",
@@ -56,21 +69,36 @@
       "input": true,
       "label": "MijnOverheid Berichtenbox",
       "tableView": false,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-mijnOverheidBerichtenbox"
+      },
       "description": "Geeft aan of dit bericht geschikt is voor publicatie in de MijnOverheid Berichtenbox.",
-      "defaultValue": true,
-      "validate": {
-        "required": true
-      }
+      "defaultValue": false
     },
     {
       "key": "pv:publicatiedatum",
       "type": "datetime",
       "input": true,
       "label": "Publicatiedatum",
-      "tableView": false,
-      "enableTime": true,
       "widget": {
-        "type": "calendar"
+        "mode": "single",
+        "type": "calendar",
+        "format": "yyyy-MM-dd hh:mm a",
+        "locale": "en",
+        "maxDate": null,
+        "minDate": null,
+        "time_24hr": false,
+        "allowInput": true,
+        "enableTime": true,
+        "noCalendar": false,
+        "hourIncrement": 1,
+        "minuteIncrement": 1,
+        "displayInTimezone": "viewer",
+        "useLocaleSettings": false
+      },
+      "tableView": false,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-publicatiedatum"
       },
       "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger.",
       "defaultValue": "2026-08-24T14:15:22Z"
@@ -80,23 +108,41 @@
       "type": "textfield",
       "input": true,
       "label": "Referentie",
-      "tableView": true,
-      "applyMaskOn": "change",
-      "description": "Eigen optionele referentiegegevens, maximaal 25 tekens.",
       "validate": {
         "maxLength": 25
       },
-      "defaultValue": "referentie 07"
+      "tableView": true,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-referentie"
+      },
+      "applyMaskOn": "change",
+      "description": "Eigen optionele referentiegegevens, maximaal 25 tekens.",
+      "placeholder": "referentie"
     },
     {
       "key": "pv:geopendOp",
       "type": "datetime",
       "input": true,
       "label": "Geopend op",
-      "tableView": false,
-      "enableTime": true,
       "widget": {
-        "type": "calendar"
+        "mode": "single",
+        "type": "calendar",
+        "format": "yyyy-MM-dd hh:mm a",
+        "locale": "en",
+        "maxDate": null,
+        "minDate": null,
+        "time_24hr": false,
+        "allowInput": true,
+        "enableTime": true,
+        "noCalendar": false,
+        "hourIncrement": 1,
+        "minuteIncrement": 1,
+        "displayInTimezone": "viewer",
+        "useLocaleSettings": false
+      },
+      "tableView": false,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-geopendOp"
       },
       "description": "Tijdstip waarop het bericht door de geadresseerde is geopend.",
       "defaultValue": "2026-08-24T14:15:22Z"
@@ -107,19 +153,18 @@
       "input": true,
       "label": "Bericht type",
       "tableView": true,
+      "validate": {
+        "maxLength": 8
+      },
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-berichtType"
+      },
       "applyMaskOn": "change",
       "description": "Code voor het technisch identificeren van een bericht soort & origine.",
-      "defaultValue": "type07"
+      "placeholder": "type"
     },
     {
-      "key": "pv:handelingsPerspectief",
-      "type": "select",
-      "input": true,
-      "label": "Handelingsperspectief",
-      "widget": "choicesjs",
-      "tableView": true,
-      "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling.",
-      "dataSrc": "values",
+      "key": "handelingsPerspectief",
       "data": {
         "values": [
           {
@@ -152,56 +197,100 @@
           }
         ]
       },
-      "defaultValue": "incasso"
+      "type": "select",
+      "input": true,
+      "label": "Handelingsperspectief",
+      "widget": "choicesjs",
+      "tableView": true,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-handelingsPerspectief"
+      },
+      "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling."
+    },
+    {
+      "key": "pv:handelingsPerspectief",
+      "type": "hidden",
+      "input": true,
+      "label": "Handelingsperspectief (procesvariabele)",
+      "tableView": false,
+      "clearOnHide": false,
+      "calculateValue": "value = data.handelingsPerspectief ? data.handelingsPerspectief : '';",
+      "description": "Zet de procesvariabele op de geselecteerde waarde, of null wanneer niets is gekozen."
     },
     {
       "key": "pv:einddatumHandelingsTermijn",
       "type": "datetime",
       "input": true,
       "label": "Einddatum handelingstermijn",
-      "tableView": false,
-      "enableTime": true,
       "widget": {
-        "type": "calendar"
+        "mode": "single",
+        "type": "calendar",
+        "format": "yyyy-MM-dd hh:mm a",
+        "locale": "en",
+        "maxDate": null,
+        "minDate": null,
+        "time_24hr": false,
+        "allowInput": true,
+        "enableTime": true,
+        "noCalendar": false,
+        "hourIncrement": 1,
+        "minuteIncrement": 1,
+        "displayInTimezone": "viewer",
+        "useLocaleSettings": false
+      },
+      "tableView": false,
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-einddatumHandelingsTermijn"
       },
       "description": "Datum/tijd waarop handeling afgerond moet zijn.",
       "defaultValue": "2026-08-24T14:15:22Z"
     },
     {
-      "disableAddingRemovingRows": true,
-      "layoutFixed": false,
-      "enableRowGroups": false,
-      "initEmpty": false,
-      "key": "pv:isGerelateerdAan",
+      "key": "isGerelateerdAan",
       "type": "datagrid",
       "input": true,
       "label": "Is gerelateerd aan",
       "reorder": false,
+      "initEmpty": false,
       "tableView": false,
-      "description": "URN's naar de ZAAK of het PRODUCT.",
-      "validate": {
-        "required": false
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-isGerelateerdAan"
       },
       "components": [
         {
-          "label": "URN",
           "key": "urn",
           "type": "textfield",
           "input": true,
+          "label": "URN",
+          "tableView": true,
+          "applyMaskOn": "change",
+          "description": "URN naar de ZAAK of het PRODUCT.",
           "defaultValue": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
         }
-      ]
+      ],
+      "properties": {
+        "sourceKey": "pv:isGerelateerdAan"
+      },
+      "description": "URN's naar de ZAAK of het PRODUCT.",
+      "layoutFixed": false,
+      "defaultValue": [
+        {
+          "urn": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
+        }
+      ],
+      "enableRowGroups": false,
+      "addAnotherPosition": "bottom"
     },
     {
-      "key": "pv:bijlagen",
+      "key": "bijlagen",
       "type": "datagrid",
       "input": true,
       "label": "Bijlagen",
       "reorder": false,
+      "initEmpty": false,
       "tableView": false,
-      "description": "Lijst van bijlagen bij het bericht.",
-      "validate": {
-        "required": false
+      "attributes": {
+        "data-testid": "openvtb-bericht-creatie-pv-bijlagen"
       },
       "components": [
         {
@@ -211,10 +300,7 @@
           "label": "Informatieobject",
           "tableView": true,
           "applyMaskOn": "change",
-          "description": "URN naar het ENKELVOUDIGINFORMATIEOBJECT.",
-          "validate": {
-            "required": false
-          }
+          "description": "URN naar het ENKELVOUDIGINFORMATIEOBJECT."
         },
         {
           "key": "omschrijving",
@@ -234,14 +320,27 @@
           "description": "Geeft aan of dit document een standaardbijlage is.",
           "defaultValue": false
         }
-      ]
+      ],
+      "properties": {
+        "sourceKey": "pv:bijlagen"
+      },
+      "description": "Lijst van bijlagen bij het bericht.",
+      "layoutFixed": false,
+      "defaultValue": [
+        {
+          "omschrijving": "",
+          "informatieObject": "",
+          "isBerichtTypeBijlage": false
+        }
+      ],
+      "enableRowGroups": false,
+      "addAnotherPosition": "bottom"
     },
     {
       "key": "submit",
       "type": "button",
       "input": true,
       "label": "Verzenden",
-      "action": "submit",
       "tableView": false,
       "disableOnInvalid": true
     }

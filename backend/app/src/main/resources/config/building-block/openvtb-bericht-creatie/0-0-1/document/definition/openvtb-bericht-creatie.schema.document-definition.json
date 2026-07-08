@@ -64,6 +64,7 @@
       "type": "string",
       "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling.",
       "enum": [
+        "",
         "betalen",
         "incasso",
         "informatie_geven",

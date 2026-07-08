@@ -93,10 +93,6 @@
       {
         "source": "pv:bijlagen",
         "target": "bijlagen"
-      },
-      {
-        "source": "pv:bijlagen",
-        "target": "bijlagen"
       }
     ],
     "outputMappings": [

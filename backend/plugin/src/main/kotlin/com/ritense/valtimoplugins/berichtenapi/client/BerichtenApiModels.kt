@@ -95,6 +95,7 @@ data class PatchedBerichtGeopendOp(
 enum class HandelingsPerspectiefEnum(
     @JsonValue val value: String,
 ) {
+    NOTSET(""),
     BETALEN("betalen"),
     INCASSO("incasso"),
     INFORMATIE_GEVEN("informatie_geven"),

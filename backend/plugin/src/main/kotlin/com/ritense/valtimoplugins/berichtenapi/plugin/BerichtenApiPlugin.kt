@@ -82,6 +82,10 @@ open class BerichtenApiPlugin(
         // informatieObject so the API isn't sent a blank, invalid attachment.
         val filteredBijlagen = bijlagen?.filter { it.informatieObject.isNotBlank() }?.ifEmpty { null }
 
+        // Same for the isGerelateerdAan datagrid: drop rows without a urn so a blank
+        // default row isn't sent as an invalid relation.
+        val filteredIsGerelateerdAan = isGerelateerdAan?.filter { it.urn.isNotBlank() }?.ifEmpty { null }
+
         val bericht =
             berichtenApiService.createBericht(
                 baseUrl = URI.create(baseUrl),
@@ -96,7 +100,7 @@ open class BerichtenApiPlugin(
                         referentie = referentie,
                         geopendOp = geopendOp,
                         berichtType = berichtType,
-                        isGerelateerdAan = isGerelateerdAan,
+                        isGerelateerdAan = filteredIsGerelateerdAan,
                         handelingsPerspectief = handelingsPerspectief,
                         einddatumHandelingsTermijn = einddatumHandelingsTermijn,
                         bijlagen = filteredBijlagen,
