@@ -13,7 +13,7 @@
     <bpmn:sequenceFlow id="Flow_19l6ef4" sourceRef="Gateway_0l9irve" targetRef="CallOpenVTBBerichtAanmakenActivity">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("genereer-bericht-flow") &amp;&amp; execution.getVariable("genereer-bericht-flow") == "MET_BOUWBLOK" }</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:exclusiveGateway id="Gateway_0l9irve" default="Flow_0403nz4">
+    <bpmn:exclusiveGateway id="Gateway_0l9irve" camunda:asyncBefore="true" default="Flow_0403nz4">
       <bpmn:incoming>Flow_09nos4r</bpmn:incoming>
       <bpmn:outgoing>Flow_0403nz4</bpmn:outgoing>
       <bpmn:outgoing>Flow_19l6ef4</bpmn:outgoing>
