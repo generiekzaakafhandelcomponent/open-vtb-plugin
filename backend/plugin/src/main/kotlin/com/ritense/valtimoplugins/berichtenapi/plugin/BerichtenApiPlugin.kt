@@ -28,6 +28,8 @@ import com.ritense.valtimoplugins.berichtenapi.client.HandelingsPerspectiefEnum
 import com.ritense.valtimoplugins.berichtenapi.client.IsGerelateerdAan
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
+import org.springframework.web.client.RestClientException
+import org.springframework.web.client.RestClientResponseException
 import java.net.URI
 import java.time.OffsetDateTime
 
@@ -54,7 +56,12 @@ open class BerichtenApiPlugin(
 
     /**
      * Creates a Bericht and stores the URN of the created bericht in the process variable
-     * named by [resultingVariable]. Any API/validation failure propagates as an exception.
+     * named by [resultingVariable].
+     *
+     * If the API responds with a 4xx or 5xx status and [errorVariable] is set, the error
+     * (status code and response body) is written to that process variable and the action
+     * completes normally so the process can branch on it. When [errorVariable] is not set,
+     * the failure propagates as an exception.
      */
     @PluginAction(
         key = "create-bericht",
@@ -77,6 +84,7 @@ open class BerichtenApiPlugin(
         @PluginActionProperty berichtType: String? = null,
         @PluginActionProperty bijlagen: List<Bijlage>? = null,
         @PluginActionProperty resultingVariable: String? = null,
+        @PluginActionProperty errorVariable: String? = null,
     ): String {
         // The bijlagen datagrid always submits at least one row; drop rows without an
         // informatieObject so the API isn't sent a blank, invalid attachment.
@@ -87,25 +95,42 @@ open class BerichtenApiPlugin(
         val filteredIsGerelateerdAan = isGerelateerdAan?.filter { it.urn.isNotBlank() }?.ifEmpty { null }
 
         val bericht =
-            berichtenApiService.createBericht(
-                baseUrl = URI.create(baseUrl),
-                token = token,
-                bericht =
-                    Bericht(
-                        onderwerp = onderwerp,
-                        berichtTekst = berichtTekst,
-                        ontvanger = ontvanger,
-                        mijnOverheidBerichtenbox = mijnOverheidBerichtenbox,
-                        publicatiedatum = publicatiedatum,
-                        referentie = referentie,
-                        geopendOp = geopendOp,
-                        berichtType = berichtType,
-                        isGerelateerdAan = filteredIsGerelateerdAan,
-                        handelingsPerspectief = handelingsPerspectief,
-                        einddatumHandelingsTermijn = einddatumHandelingsTermijn,
-                        bijlagen = filteredBijlagen,
-                    ),
-            )
+            try {
+                berichtenApiService.createBericht(
+                    baseUrl = URI.create(baseUrl),
+                    token = token,
+                    bericht =
+                        Bericht(
+                            onderwerp = onderwerp,
+                            berichtTekst = berichtTekst,
+                            ontvanger = ontvanger,
+                            mijnOverheidBerichtenbox = mijnOverheidBerichtenbox,
+                            publicatiedatum = publicatiedatum,
+                            referentie = referentie,
+                            geopendOp = geopendOp,
+                            berichtType = berichtType,
+                            isGerelateerdAan = filteredIsGerelateerdAan,
+                            handelingsPerspectief = handelingsPerspectief,
+                            einddatumHandelingsTermijn = einddatumHandelingsTermijn,
+                            bijlagen = filteredBijlagen,
+                        ),
+                )
+            } catch (ex: RestClientException) {
+                // RestClientResponseException covers 4xx/5xx HTTP responses; other
+                // RestClientExceptions (e.g. ResourceAccessException on connection refused
+                // or timeouts) cover transport-level failures where there is no HTTP status.
+                val message =
+                    when (ex) {
+                        is RestClientResponseException ->
+                            "Berichten API request failed with status ${ex.statusCode.value()}: ${ex.responseBodyAsString}"
+                        else ->
+                            "Berichten API request failed: ${ex.message}"
+                    }
+                logger.error(ex) { message }
+                if (errorVariable == null) throw ex
+                execution.setVariable(errorVariable, message)
+                return ""
+            }
 
         val urn = bericht.urn ?: error("Bericht was created but the API returned no urn")
 

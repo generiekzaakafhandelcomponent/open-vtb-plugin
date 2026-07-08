@@ -34,7 +34,8 @@
       "einddatumHandelingsTermijn": "pv:einddatumHandelingsTermijn",
       "isGerelateerdAan": "pv:isGerelateerdAan",
       "bijlagen": "pv:bijlagen",
-      "resultingVariable": "berichtUrn"
+      "resultingVariable": "berichtUrn",
+      "errorVariable": "berichtError"
     }
   },
   {
@@ -46,6 +47,14 @@
       "berichten-api": "02fe5f13-e55d-4561-b69c-1750c7fef1a2"
     },
     "inputMappings": [
+      {
+        "source": "pv:urn",
+        "target": "urn"
+      },
+      {
+        "source": "pv:berichtError",
+        "target": "berichtError"
+      },
       {
         "source": "pv:onderwerp",
         "target": "onderwerp"
@@ -99,6 +108,10 @@
       {
         "source": "urn",
         "target": "pv:berichtUrn"
+      },
+      {
+        "source": "berichtError",
+        "target": "pv:berichtError"
       }
     ],
     "processLinkType": "building-block"

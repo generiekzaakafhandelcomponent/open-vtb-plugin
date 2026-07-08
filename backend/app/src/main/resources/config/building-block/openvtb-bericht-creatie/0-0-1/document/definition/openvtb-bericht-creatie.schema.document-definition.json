@@ -27,8 +27,15 @@
     },
     "publicatiedatum": {
       "type": "string",
-      "format": "date-time",
-      "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger."
+      "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger.",
+      "anyOf": [
+        {
+          "format": "date-time"
+        },
+        {
+          "maxLength": 0
+        }
+      ]
     },
     "referentie": {
       "type": "string",
@@ -37,7 +44,15 @@
     },
     "geopendOp": {
       "type": "string",
-      "format": "date-time",
+      "anyOf": [
+        {
+          "format": "date-time"
+        },
+        {
+          "maxLength": 0
+        }
+      ],
+
       "description": "Tijdstip waarop het bericht door de geadresseerde is geopend."
     },
     "berichtType": {
@@ -76,7 +91,14 @@
     },
     "einddatumHandelingsTermijn": {
       "type": "string",
-      "format": "date-time",
+      "anyOf": [
+        {
+          "format": "date-time"
+        },
+        {
+          "maxLength": 0
+        }
+      ],
       "description": "Datum/tijd waarop handeling afgerond moet zijn."
     },
     "bijlagen": {
@@ -106,6 +128,10 @@
     "urn": {
       "type": "string",
       "description": "Result from the berichten API."
+    },
+    "berichtError": {
+      "type": "string",
+      "description": "Foutmelding van de Berichten API (4xx/5xx), indien het aanmaken is mislukt."
     }
   }
 }

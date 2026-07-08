@@ -144,4 +144,13 @@
     [widthPx]="350"
   >
   </v-input>
+  <v-input
+    name="errorVariable"
+    [title]="'errorVariable' | pluginTranslate: pluginId | async"
+    [margin]="true"
+    [defaultValue]="obs.prefill?.errorVariable"
+    [disabled]="obs.disabled"
+    [widthPx]="350"
+  >
+  </v-input>
 </v-form>

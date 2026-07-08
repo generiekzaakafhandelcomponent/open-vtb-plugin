@@ -48,6 +48,7 @@ const berichtenApiPluginSpecification: PluginSpecification = {
       isGerelateerdAan: "Is gerelateerd aan",
       bijlagen: "Bijlagen",
       resultingVariable: "Procesvariabele voor URN",
+      errorVariable: "Procesvariabele voor foutmelding",
     },
     en: {
       title: "Berichten API",
@@ -70,6 +71,7 @@ const berichtenApiPluginSpecification: PluginSpecification = {
       isGerelateerdAan: "Is related to",
       bijlagen: "Attachments",
       resultingVariable: "Process variable for URN",
+      errorVariable: "Process variable for error message",
     },
   },
 };

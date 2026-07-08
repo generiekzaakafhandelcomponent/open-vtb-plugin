@@ -38,6 +38,7 @@
     <bpmn:endEvent id="end-event" name="Process ended">
       <bpmn:extensionElements>
         <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtError&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/berichtError&#39;, berichtError)}" event="start" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1y61cor</bpmn:incoming>
     </bpmn:endEvent>

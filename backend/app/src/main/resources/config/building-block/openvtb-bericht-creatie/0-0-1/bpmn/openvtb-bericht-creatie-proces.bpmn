@@ -15,6 +15,7 @@
     <endEvent id="Event_1hcmgs3">
       <extensionElements>
         <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtError&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/berichtError&#39;, berichtError)}" event="start" />
       </extensionElements>
       <incoming>Flow_0thjmj3</incoming>
     </endEvent>

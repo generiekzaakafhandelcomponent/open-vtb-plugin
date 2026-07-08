@@ -30,7 +30,8 @@
       "einddatumHandelingsTermijn": "doc:einddatumHandelingsTermijn",
       "isGerelateerdAan": "doc:isGerelateerdAan",
       "bijlagen": "doc:bijlagen",
-      "resultingVariable": "berichtUrn"
+      "resultingVariable": "berichtUrn",
+      "errorVariable": "berichtError"
     }
   }
 ]

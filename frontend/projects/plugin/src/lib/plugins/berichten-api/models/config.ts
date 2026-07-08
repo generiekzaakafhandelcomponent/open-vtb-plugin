@@ -41,6 +41,7 @@ interface CreateBerichtConfig {
   isGerelateerdAan?: string;
   bijlagen?: string;
   resultingVariable?: string;
+  errorVariable?: string;
 }
 
 export {BerichtenApiConfig, CreateBerichtConfig};

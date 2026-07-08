@@ -43,7 +43,7 @@
       "autoExpand": false,
       "applyMaskOn": "change",
       "description": "Tekst van het bericht.",
-      "defaultValue": "Bericht tekst 07"
+      "placeholder": "Bericht tekst"
     },
     {
       "key": "pv:ontvanger",
@@ -60,8 +60,7 @@
       },
       "applyMaskOn": "change",
       "description": "URN van een NATUURLIJK PERSOON of NIET-NATUURLIJK PERSOON.",
-      "placeholder": "urn:nld:brp:bsn:111222333",
-      "defaultValue": "urn:nld:brp:bsn:111222333"
+      "placeholder": "urn:nld:brp:bsn:111222333"
     },
     {
       "key": "pv:mijnOverheidBerichtenbox",
@@ -100,8 +99,7 @@
       "attributes": {
         "data-testid": "openvtb-bericht-creatie-pv-publicatiedatum"
       },
-      "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger.",
-      "defaultValue": "2026-08-24T14:15:22Z"
+      "description": "Datum/tijd waarop bericht zichtbaar moet worden voor de ontvanger."
     },
     {
       "key": "pv:referentie",
@@ -144,8 +142,7 @@
       "attributes": {
         "data-testid": "openvtb-bericht-creatie-pv-geopendOp"
       },
-      "description": "Tijdstip waarop het bericht door de geadresseerde is geopend.",
-      "defaultValue": "2026-08-24T14:15:22Z"
+      "description": "Tijdstip waarop het bericht door de geadresseerde is geopend."
     },
     {
       "key": "pv:berichtType",
@@ -215,7 +212,27 @@
       "tableView": false,
       "clearOnHide": false,
       "calculateValue": "value = data.handelingsPerspectief ? data.handelingsPerspectief : '';",
-      "description": "Zet de procesvariabele op de geselecteerde waarde, of null wanneer niets is gekozen."
+      "description": "Zet de procesvariabele op de geselecteerde waarde, of leeg wanneer niets is gekozen."
+    },
+    {
+      "key": "pv:urn",
+      "type": "hidden",
+      "input": true,
+      "label": "Bericht URN (procesvariabele)",
+      "tableView": false,
+      "clearOnHide": false,
+      "calculateValue": "value = 'not set';",
+      "description": "Zet de procesvariabele vast op een lege waarde, zodat de bericht URN kan worden opgehaald in de volgende stap van de workflow."
+    },
+    {
+      "key": "pv:berichtError",
+      "type": "hidden",
+      "input": true,
+      "label": "Bericht Error (procesvariabele)",
+      "tableView": false,
+      "clearOnHide": false,
+      "calculateValue": "value = '';",
+      "description": "Zet de procesvariabele vast op een lege waarde, zodat de bericht Error kan worden opgehaald in de volgende stap van de workflow."
     },
     {
       "key": "pv:einddatumHandelingsTermijn",
@@ -242,8 +259,7 @@
       "attributes": {
         "data-testid": "openvtb-bericht-creatie-pv-einddatumHandelingsTermijn"
       },
-      "description": "Datum/tijd waarop handeling afgerond moet zijn.",
-      "defaultValue": "2026-08-24T14:15:22Z"
+      "description": "Datum/tijd waarop handeling afgerond moet zijn."
     },
     {
       "key": "isGerelateerdAan",
@@ -265,7 +281,7 @@
           "tableView": true,
           "applyMaskOn": "change",
           "description": "URN naar de ZAAK of het PRODUCT.",
-          "defaultValue": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
+          "placeholder": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
         }
       ],
       "properties": {
@@ -273,11 +289,6 @@
       },
       "description": "URN's naar de ZAAK of het PRODUCT.",
       "layoutFixed": false,
-      "defaultValue": [
-        {
-          "urn": "urn:nld:gemeenteutrecht:zaak:zaaknummer:000350168"
-        }
-      ],
       "enableRowGroups": false,
       "addAnotherPosition": "bottom"
     },
