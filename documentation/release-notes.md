@@ -1,7 +1,7 @@
 # Release notes
 
-Overzicht van wijzigingen per versie van de GZAC plugin-template.
+Overzicht van wijzigingen per versie van de Berichten API Plugin.
 
-## 0.0.1
+## 1.0.0
 
 Eerste opzet
