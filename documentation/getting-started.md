@@ -1,7 +1,7 @@
 # Getting Started
 
 This guide covers setting up the Berichten API plugin for development. To simply run the bundled
-example application, see the [Example Application](berichten-api.md) guide instead.
+example application, see the [Example Application](open-vtb-plugin.md) guide instead.
 
 ## Prerequisites
 

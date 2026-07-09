@@ -10,13 +10,13 @@ This Berichten API plugin is used to create berichten (messages) in the VNG serv
 3. Use the `create-bericht` action in a process to register berichten
 
 To try it out locally with the bundled example application, follow the
-[Example Application](documentation/berichten-api.md) guide. For plugin development, see
+[Example Application](documentation/open-vtb-plugin.md) guide. For plugin development, see
 [Getting Started](documentation/getting-started.md).
 
 ## Documentation
 
 - [Getting Started](documentation/getting-started.md) — setup and development instructions
-- [Example Application](documentation/berichten-api.md) — running the example app locally
+- [Example Application](documentation/open-vtb-plugin.md) — running the example app locally
 - [Berichten API Plugin](documentation/plugin.md) — reference implementation included in this template
 - [Release notes](documentation/release-notes.md) — versiegeschiedenis en wijzigingen
 

@@ -3,11 +3,11 @@
     "version": 1,
     "backend": [
         {
-            "import": "com.ritense.valtimoplugins:berichten-api"
+            "import": "com.ritense.valtimoplugins:open-vtb-plugin"
         }
     ],
     "frontend": {
-        "import": "@valtimo-plugins/berichten-api",
+        "import": "@valtimo-plugins/open-vtb-plugin",
         "codeAdditions": [
             {
                 "spec": "berichtenApiPluginSpecification",

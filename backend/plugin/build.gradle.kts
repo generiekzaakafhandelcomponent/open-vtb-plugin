@@ -15,7 +15,7 @@
  */
 
 dockerCompose {
-    setProjectName("berichten-api")
+    setProjectName("open-vtb-plugin")
     isRequiredBy(project.tasks.test)
 
     tasks.test {

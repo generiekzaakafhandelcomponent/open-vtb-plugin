@@ -102,4 +102,4 @@ propagates as an exception.
    `berichten-api-process.bpmn`, which links the `create-bericht` action to a service task.
 
 The bundled example application demonstrates this end to end; see the
-[Example Application](berichten-api.md) guide.
+[Example Application](open-vtb-plugin.md) guide.

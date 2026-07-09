@@ -1,4 +1,4 @@
-rootProject.name = "berichten-api"
+rootProject.name = "open-vtb-plugin"
 include(
     "backend",
     "backend:app",

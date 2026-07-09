@@ -23,8 +23,8 @@ pluginManager.withPlugin("maven-publish") {
                 version = pluginProperties.pluginVersion
 
                 pom {
-                    name = "Sample plugin module"
-                    description = "A module containing a sample plugin"
+                    name = "Open VTB Plugin module"
+                    description = "A module containing a Open VTB Plugin"
                     developers {
                         developer {
                             id = "team-valtimo"
