@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.berichtenapi.plugin
+package com.ritense.valtimoplugins.openvtb.plugin.berichten
 
 import com.ritense.plugin.annotation.Plugin
 import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
-import com.ritense.valtimoplugins.berichtenapi.client.Bericht
-import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiService
-import com.ritense.valtimoplugins.berichtenapi.client.Bijlage
-import com.ritense.valtimoplugins.berichtenapi.client.HandelingsPerspectiefEnum
-import com.ritense.valtimoplugins.berichtenapi.client.IsGerelateerdAan
+import com.ritense.valtimoplugins.openvtb.domain.Bericht
+import com.ritense.valtimoplugins.openvtb.domain.Bijlage
+import com.ritense.valtimoplugins.openvtb.domain.HandelingsPerspectiefEnum
+import com.ritense.valtimoplugins.openvtb.domain.IsGerelateerdAan
+import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
 import org.springframework.web.client.RestClientException
@@ -41,8 +41,8 @@ private val logger = KotlinLogging.logger {}
  * sent as `Authorization: Token <token>`.
  */
 @Plugin(
-    key = "berichten-api",
-    title = "Berichten API",
+    key = "berichten",
+    title = "Berichten Plugin",
     description = "Registreer en raadpleeg berichten via de Berichten API.",
 )
 open class BerichtenApiPlugin(

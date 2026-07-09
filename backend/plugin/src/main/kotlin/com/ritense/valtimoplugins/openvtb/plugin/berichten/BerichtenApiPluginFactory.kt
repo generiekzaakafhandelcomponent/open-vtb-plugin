@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.berichtenapi.plugin
+package com.ritense.valtimoplugins.openvtb.plugin.berichten
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
-import com.ritense.valtimoplugins.berichtenapi.client.BerichtenApiService
+import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
 import org.springframework.stereotype.Component
 
 /**
