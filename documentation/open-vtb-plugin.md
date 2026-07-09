@@ -25,7 +25,7 @@ docker-compose exec web src/manage.py loaddata verzoeken taken berichten
 docker-compose exec web src/manage.py createsuperuser
 ```
 
-Open-VTB is then available on `http://localhost:8000`; its Berichten API root is
+Open-VTB is then available on `http://localhost:8000`; its Berichten Plugin root is
 `http://localhost:8000/berichten/api/v1`. The plugin configuration
 (`backend/app/src/main/resources/config/plugin/berichten.pluginconfig.json`) points at this URL — set
 its `token` to a valid Open-VTB API token.
@@ -61,7 +61,7 @@ The example application has a few preconfigured test users.
 
 ## Trying the plugin
 
-Sign in and start the **Berichten API** case. Its process fills in the bericht fields and runs the
+Sign in and start the **Berichten** case. Its process fills in the bericht fields and runs the
 `create-bericht` action, which registers the bericht in Open-VTB and stores the resulting URN on the case.
 If the Open-VTB call fails (a 4xx/5xx response or a connection error), the error message is stored in the
 `berichtError` field instead. See the [Plugin Documentation](plugin.md) for the action's parameters.

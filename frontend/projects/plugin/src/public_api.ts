@@ -15,11 +15,11 @@
  */
 
 /*
- * Public API Surface of berichten-api
+ * Public API Surface of berichten
  */
 
-export * from "./lib/plugins/berichten-api/models";
-export * from "./lib/plugins/berichten-api/berichten-api-module";
-export * from "./lib/plugins/berichten-api/berichten-api.specification";
-export * from "./lib/plugins/berichten-api/components/berichten-api-configuration/berichten-api-configuration.component";
-export * from "./lib/plugins/berichten-api/components/create-bericht-configuration/create-bericht-configuration.component";
+export * from "./lib/plugins/berichten/models";
+export * from "./lib/plugins/berichten/berichten-module";
+export * from "./lib/plugins/berichten/berichten.specification";
+export * from "./lib/plugins/berichten/components/berichten-configuration/berichten-configuration.component";
+export * from "./lib/plugins/berichten/components/create-bericht-configuration/create-bericht-configuration.component";

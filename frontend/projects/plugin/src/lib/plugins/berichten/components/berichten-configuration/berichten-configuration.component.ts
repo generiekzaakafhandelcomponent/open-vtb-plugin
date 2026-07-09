@@ -17,23 +17,23 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {PluginConfigurationComponent, PluginConfigurationData} from "@valtimo/plugin";
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from "rxjs";
-import {BerichtenApiConfig} from "../../models";
+import {BerichtenConfig} from "../../models";
 
 @Component({
   standalone: false,
-  selector: "valtimo-berichten-api-configuration",
-  templateUrl: "./berichten-api-configuration.component.html",
+  selector: "valtimo-berichten-configuration",
+  templateUrl: "./berichten-configuration.component.html",
 })
-export class BerichtenApiConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
+export class BerichtenConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
   @Input() save$!: Observable<void>;
   @Input() disabled$!: Observable<boolean>;
   @Input() pluginId!: string;
-  @Input() prefillConfiguration$!: Observable<BerichtenApiConfig>;
+  @Input() prefillConfiguration$!: Observable<BerichtenConfig>;
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() configuration: EventEmitter<PluginConfigurationData> = new EventEmitter<PluginConfigurationData>();
 
   private saveSubscription!: Subscription;
-  private readonly formValue$ = new BehaviorSubject<BerichtenApiConfig | null>(null);
+  private readonly formValue$ = new BehaviorSubject<BerichtenConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
   ngOnInit(): void {
@@ -44,12 +44,12 @@ export class BerichtenApiConfigurationComponent implements PluginConfigurationCo
     this.saveSubscription?.unsubscribe();
   }
 
-  formValueChange(formValue: BerichtenApiConfig): void {
+  formValueChange(formValue: BerichtenConfig): void {
     this.formValue$.next(formValue);
     this.handleValid(formValue);
   }
 
-  private handleValid(formValue: BerichtenApiConfig): void {
+  private handleValid(formValue: BerichtenConfig): void {
     const valid = !!(formValue.configurationTitle && formValue.baseUrl && formValue.token);
     this.valid$.next(valid);
     this.valid.emit(valid);

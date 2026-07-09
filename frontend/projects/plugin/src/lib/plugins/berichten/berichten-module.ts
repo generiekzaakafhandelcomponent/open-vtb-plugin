@@ -18,13 +18,13 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {PluginTranslatePipeModule} from "@valtimo/plugin";
 import {FormModule, InputModule as ValtimoInputModule} from "@valtimo/components";
-import {BerichtenApiConfigurationComponent} from "./components/berichten-api-configuration/berichten-api-configuration.component";
+import {BerichtenConfigurationComponent} from "./components/berichten-configuration/berichten-configuration.component";
 import {CreateBerichtConfigurationComponent} from "./components/create-bericht-configuration/create-bericht-configuration.component";
 
 @NgModule({
-  declarations: [BerichtenApiConfigurationComponent, CreateBerichtConfigurationComponent],
+  declarations: [BerichtenConfigurationComponent, CreateBerichtConfigurationComponent],
   imports: [CommonModule, PluginTranslatePipeModule, FormModule, ValtimoInputModule],
-  exports: [BerichtenApiConfigurationComponent, CreateBerichtConfigurationComponent],
+  exports: [BerichtenConfigurationComponent, CreateBerichtConfigurationComponent],
 })
-export class BerichtenApiModule {
+export class BerichtenModule {
 }

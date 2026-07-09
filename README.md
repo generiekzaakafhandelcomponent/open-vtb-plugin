@@ -16,8 +16,8 @@ To try it out locally with the bundled example application, follow the
 ## Documentation
 
 - [Getting Started](documentation/getting-started.md) — setup and development instructions
-- [Example Application](documentation/open-vtb-plugin.md) — running the example app locally
-- [Berichten API Plugin](documentation/plugin.md) — reference implementation included in this template
+- [Example Application](m documentation/open-vtb-plugin.md) — running the example app locally
+- [Berichten Plugin](documentation/plugin.md) — reference implementation included in this template
 - [Release notes](documentation/release-notes.md) — versiegeschiedenis en wijzigingen
 
 ## Contact

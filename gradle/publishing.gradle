@@ -53,9 +53,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = "git@github.com:generiekzaakafhandelcomponent/berichten-api.git"
-                    developerConnection = "git@github.com:generiekzaakafhandelcomponent/berichten-api.git"
-                    url = "https://github.com/generiekzaakafhandelcomponent/berichten-api"
+                    connection = "git@github.com:generiekzaakafhandelcomponent/open-vtb-plugin.git"
+                    developerConnection = "git@github.com:generiekzaakafhandelcomponent/open-vtb-plugin.git"
+                    url = "https://github.com/generiekzaakafhandelcomponent/open-vtb-plugin"
                 }
             }
 

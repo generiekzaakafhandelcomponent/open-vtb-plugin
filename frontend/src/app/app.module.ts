@@ -97,8 +97,8 @@ import {environment} from "../environments/environment";
 import {registerDocumentenApiFormioUploadComponent, ZgwModule} from "@valtimo/zgw";
 import {AdminSettingsModule} from '@valtimo/admin-settings';
 import {
-  BerichtenApiModule,
-  berichtenApiPluginSpecification
+  BerichtenModule,
+  berichtenPluginSpecification
 } from "@valtimo-plugins/open-vtb";
 
 export function tabsFactory() {
@@ -119,7 +119,7 @@ export function tabsFactory() {
     AdminSettingsModule,
     AnalyseModule,
     AppRoutingModule,
-    BerichtenApiModule,
+    BerichtenModule,
     BootstrapModule,
     BpmnJsDiagramModule,
     BrowserModule,
@@ -182,7 +182,7 @@ export function tabsFactory() {
     {
       provide: PLUGINS_TOKEN,
       useValue: [
-        berichtenApiPluginSpecification,
+        berichtenPluginSpecification,
         catalogiApiPluginSpecification,
         documentenApiPluginSpecification,
         notificatiesApiPluginSpecification,

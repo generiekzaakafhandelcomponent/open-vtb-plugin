@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from "./berichten-api-logo";
+export * from "./berichten-logo";

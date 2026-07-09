@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Berichten API plugin registers berichten (messages) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb) via its Berichten API. It provides a `create-bericht` action that a process can call to post a new bericht and capture the resulting URN.
+The Berichten plugin registers berichten (messages) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb) via its Berichten plugin. It provides a `create-bericht` action that a process can call to post a new bericht and capture the resulting URN.
 
 ## Dependencies
 
@@ -30,18 +30,18 @@ In your `app.module.ts`:
 
 ```typescript
 import {
-    BerichtenApiModule, berichtenApiPluginSpecification,
+    BerichtenModule, berichtenPluginSpecification,
 } from '@valtimo-plugins/open-vtb-plugin';
 
 @NgModule({
     imports: [
-        BerichtenApiModule,
+        BerichtenModule,
     ],
     providers: [
         {
             provide: PLUGIN_TOKEN,
             useValue: [
-                berichtenApiPluginSpecification,
+                berichtenPluginSpecification,
             ]
         }
     ]
@@ -52,16 +52,16 @@ import {
 
 Create a plugin configuration with the Open-VTB connection details:
 
-| Property  | Type   | Required | Description                                                                          |
-|-----------|--------|----------|--------------------------------------------------------------------------------------|
-| `baseUrl` | string | Yes      | The Open-VTB Berichten API root, e.g. `https://example.com/berichten/api/v1`.        |
-| `token`   | string | Yes      | API token, sent as `Authorization: Token <token>`. Stored as a secret.              |
+| Property  | Type   | Required | Description                                                                      |
+|-----------|--------|----------|----------------------------------------------------------------------------------|
+| `baseUrl` | string | Yes      | The Open-VTB Berichten plugin root, e.g. `https://example.com/berichten/api/v1`. |
+| `token`   | string | Yes      | API token, sent as `Authorization: Token <token>`. Stored as a secret.           |
 
 ## Actions
 
 ### Create bericht (`create-bericht`)
 
-Registers a new bericht via the Berichten API (`POST /berichten`). Bound to a service task
+Registers a new bericht via the Berichten Plugin (`POST /berichten`). Bound to a service task
 (`SERVICE_TASK_START`). On success it returns the created bericht's URN and, when `resultingVariable`
 is set, stores that URN in the named process variable.
 
@@ -99,7 +99,7 @@ propagates as an exception.
    failures.
 6. Try the action in the example application in two ways: via the reusable building block
    `openvtb-bericht-creatie` (called as a subprocess), or directly through the case process
-   `berichten-api-process.bpmn`, which links the `create-bericht` action to a service task.
+   `berichten-process.bpmn`, which links the `create-bericht` action to a service task.
 
 The bundled example application demonstrates this end to end; see the
 [Example Application](open-vtb-plugin.md) guide.

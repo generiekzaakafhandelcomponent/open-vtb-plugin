@@ -10,8 +10,8 @@
         "import": "@valtimo-plugins/open-vtb",
         "codeAdditions": [
             {
-                "spec": "berichtenApiPluginSpecification",
-                "module": "BerichtenApiModule"
+                "spec": "berichtenPluginSpecification",
+                "module": "BerichtenModule"
             }
         ]
     }

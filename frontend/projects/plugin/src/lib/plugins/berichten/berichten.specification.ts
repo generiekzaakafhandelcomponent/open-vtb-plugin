@@ -15,14 +15,14 @@
  */
 
 import {PluginSpecification} from "@valtimo/plugin";
-import {BerichtenApiConfigurationComponent} from "./components/berichten-api-configuration/berichten-api-configuration.component";
-import {BERICHTEN_API_LOGO_BASE64} from "./assets";
+import {BerichtenConfigurationComponent} from "./components/berichten-configuration/berichten-configuration.component";
+import {BERICHTEN_LOGO_BASE64} from "./assets";
 import {CreateBerichtConfigurationComponent} from "./components/create-bericht-configuration/create-bericht-configuration.component";
 
-const berichtenApiPluginSpecification: PluginSpecification = {
-  pluginId: "berichten-api",
-  pluginConfigurationComponent: BerichtenApiConfigurationComponent,
-  pluginLogoBase64: BERICHTEN_API_LOGO_BASE64,
+const berichtenPluginSpecification: PluginSpecification = {
+  pluginId: "berichten",
+  pluginConfigurationComponent: BerichtenConfigurationComponent,
+  pluginLogoBase64: BERICHTEN_LOGO_BASE64,
   functionConfigurationComponents: {
     "create-bericht": CreateBerichtConfigurationComponent,
   },
@@ -76,4 +76,4 @@ const berichtenApiPluginSpecification: PluginSpecification = {
   },
 };
 
-export {berichtenApiPluginSpecification};
+export {berichtenPluginSpecification};
