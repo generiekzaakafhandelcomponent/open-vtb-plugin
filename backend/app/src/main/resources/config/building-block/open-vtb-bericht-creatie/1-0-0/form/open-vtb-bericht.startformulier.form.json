@@ -1,0 +1,27 @@
+{
+  "components" : [
+    {
+      "key" : "html",
+      "type" : "htmlelement",
+      "attrs" : [
+        {
+          "attr" : "",
+          "value" : ""
+        }
+      ],
+      "input" : false,
+      "label" : "HTML",
+      "content" : "Met deze taak kunt u een bericht sturen naar de Open VTB Services.",
+      "tableView" : false,
+      "refreshOnChange" : false
+    },
+    {
+      "key" : "submit",
+      "type" : "button",
+      "input" : true,
+      "label" : "Open bericht pagina",
+      "tableView" : false,
+      "disableOnInvalid" : true
+    }
+  ]
+}

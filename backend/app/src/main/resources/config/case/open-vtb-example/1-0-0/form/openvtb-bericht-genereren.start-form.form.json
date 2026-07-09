@@ -1,0 +1,50 @@
+{
+  "components" : [
+    {
+      "key": "pv:genereer-bericht-flow",
+      "type": "select",
+      "input": true,
+      "label": "Flow voor het genereren van een bericht",
+      "dataSrc": "values",
+      "data": {
+        "values": [
+          {
+            "label": "direct met proces",
+            "value": "DIRECT_MET_PROCES"
+          },
+          {
+            "label": "met bouwblok",
+            "value": "MET_BOUWBLOK"
+          }
+        ]
+      },
+      "widget": "choicesjs",
+      "tableView": true,
+      "validate": {
+        "required": true
+      },
+      "attributes": {
+        "data-testid": "openvtb-bericht-genereren-flow-select"
+      },
+      "persistent": true,
+      "validateOn": "change",
+      "clearOnHide": true,
+      "conditional": {
+        "show": null,
+        "when": null,
+        "eq": ""
+      },
+      "defaultValue": "MET_BOUWBLOK",
+      "labelPosition": "top"
+    },
+    {
+      "key": "submit",
+      "type": "button",
+      "input": true,
+      "label": "je gaat nu een bericht genereren",
+      "action": "submit",
+      "tableView": false,
+      "disableOnInvalid": true
+    }
+  ]
+}

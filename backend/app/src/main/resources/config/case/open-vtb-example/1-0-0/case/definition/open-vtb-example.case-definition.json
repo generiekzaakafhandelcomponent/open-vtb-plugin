@@ -1,0 +1,8 @@
+{
+    "key": "open-vtb-example",
+    "name": "Open VTB Example",
+    "versionTag": "1.0.0",
+    "final": false,
+    "canHaveAssignee": false,
+    "autoAssignTasks": false
+}
