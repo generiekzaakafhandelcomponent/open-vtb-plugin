@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="definitions_16a9d84f-0b57-47f2-9b52-bea27d74f207" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="Camunda Modeler" exporterVersion="5.23.0">
   <collaboration id="BerichtCreatieProces" isClosed="false">
-    <participant id="OpenVTBBerichtenCreatieParticipant" name="Open VTB Create Bericht" processRef="openvtb-bericht-creatie-proces" />
+    <participant id="OpenVTBBerichtenCreatieParticipant" name="Open VTB Create Bericht" processRef="open-vtb-bericht-creatie-proces" />
   </collaboration>
-  <process id="openvtb-bericht-creatie-proces" name="OpenVTB Bericht Creatie" processType="None" isClosed="false" isExecutable="true" camunda:historyTimeToLive="P180D">
+  <process id="open-vtb-bericht-creatie-proces" name="OpenVTB Bericht Creatie" processType="None" isClosed="false" isExecutable="true" camunda:historyTimeToLive="P180D">
     <startEvent id="start-event" name="StartEvent">
       <outgoing>sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc</outgoing>
     </startEvent>

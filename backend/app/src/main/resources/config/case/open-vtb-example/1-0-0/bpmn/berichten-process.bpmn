@@ -42,7 +42,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1y61cor</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:callActivity id="CallOpenVTBBerichtAanmakenActivity" name="Bericht aanmaken met bouwblok" calledElement="openvtb-bericht-creatie-proces" camunda:calledElementBinding="versionTag" camunda:calledElementVersionTag="BB:openvtb-bericht-creatie:0.0.1">
+    <bpmn:callActivity id="CallOpenVTBBerichtAanmakenActivity" name="Bericht aanmaken met bouwblok" calledElement="open-vtb-bericht-creatie-proces" camunda:calledElementBinding="versionTag" camunda:calledElementVersionTag="BB:open-vtb-bericht-creatie:1.0.0">
       <bpmn:extensionElements>
         <camunda:in businessKey="#{buildingBlockDocumentId}" />
       </bpmn:extensionElements>
