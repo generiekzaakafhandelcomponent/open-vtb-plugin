@@ -15,7 +15,7 @@
  */
 
 dockerCompose {
-    setProjectName("open-vtb-plugin")
+    setProjectName("open-vtb")
     isRequiredBy(project.tasks.test)
 
     tasks.test {
