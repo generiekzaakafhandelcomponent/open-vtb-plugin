@@ -1,10 +1,10 @@
 {
-  "name": "@valtimo-plugins/berichten-api",
+  "name": "@valtimo-plugins/open-vtb",
   "license": "EUPL-1.2",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng build @valtimo-plugins/berichten-api",
-    "watch": "ng build @valtimo-plugins/berichten-api --watch"
+    "build": "ng build @valtimo-plugins/open-vtb",
+    "watch": "ng build @valtimo-plugins/open-vtb --watch"
   },
   "peerDependencies": {
     "@angular/common": "19.2.20",
