@@ -1,24 +1,11 @@
-/*
- * Copyright 2026 Ritense BV, the Netherlands.
- *
- * Licensed under EUPL, Version 1.2 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" basis,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.ritense.valtimoplugins.berichtenapi.client
+package com.ritense.valtimoplugins.openvtb.client
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
+import com.ritense.valtimoplugins.openvtb.domain.Bericht
+import com.ritense.valtimoplugins.openvtb.domain.PaginatedBerichtList
+import com.ritense.valtimoplugins.openvtb.domain.PatchedBerichtGeopendOp
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -29,6 +16,7 @@ import org.springframework.web.client.RestClient
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 import java.util.UUID
+import kotlin.jvm.java
 
 /**
  * Client for the Berichten API (see `openapi.yaml`).
@@ -142,7 +130,7 @@ class BerichtenApiClient(
         /**
          * ObjectMapper that serializes `java.time` types (e.g. [java.time.OffsetDateTime]) as
          * ISO-8601 strings instead of numeric timestamps, as required by the Berichten API.
-         * [Jackson2ObjectMapperBuilder] auto-registers the well-known modules (Kotlin, JSR-310)
+         * [org.springframework.http.converter.json.Jackson2ObjectMapperBuilder] auto-registers the well-known modules (Kotlin, JSR-310)
          * so response deserialization keeps working.
          */
         private val objectMapper: ObjectMapper =

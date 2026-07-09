@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.berichtenapi.client
+package com.ritense.valtimoplugins.openvtb.domain
 
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonValue
 import java.net.URI
 import java.time.OffsetDateTime
 import java.util.UUID
 
 /**
- * Data classes generated from `openapi.yaml` (Berichten API 0.1.0).
+ * Data class generated from `openapi.yaml` (Berichten API 0.1.0).
  *
  * Server-set, read-only fields (`url`, `urn`, `uuid`) are nullable so the same
  * type can be used both as a create payload and as a response. `@JsonInclude` is
@@ -63,52 +61,3 @@ data class Bericht(
     /** Lijst van bijlagen bij het bericht. */
     val bijlagen: List<Bijlage>? = null,
 )
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-data class Bijlage(
-    /** URN naar het ENKELVOUDIGINFORMATIEOBJECT. */
-    val informatieObject: String,
-    /** Goed leesbare omschrijving van de bijlage. */
-    val omschrijving: String? = null,
-    /** Geeft aan of dit document een standaardbijlage is. */
-    val isBerichtTypeBijlage: Boolean = false,
-)
-
-data class IsGerelateerdAan(
-    /** URN naar de ZAAK of het PRODUCT. */
-    val urn: String,
-)
-
-data class PaginatedBerichtList(
-    val count: Int,
-    val next: URI? = null,
-    val previous: URI? = null,
-    val results: List<Bericht>,
-)
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-data class PatchedBerichtGeopendOp(
-    /** Tijdstip waarop het bericht door de geadresseerde is geopend. */
-    val geopendOp: OffsetDateTime? = null,
-)
-
-enum class HandelingsPerspectiefEnum(
-    @JsonValue val value: String,
-) {
-    NOTSET(""),
-    BETALEN("betalen"),
-    INCASSO("incasso"),
-    INFORMATIE_GEVEN("informatie_geven"),
-    INFORMATIE_KRIJGEN("informatie_krijgen"),
-    REACTIE_ONTVANGEN("reactie_ontvangen"),
-    VERNIEUWING_NODIG("vernieuwing_nodig"),
-    UITNODIGING_VOOR_AFSPRAAK("uitnodiging_voor_afspraak"),
-    ;
-
-    companion object {
-        /** Maps the API value to an enum, treating the blank/unknown value as null. */
-        @JvmStatic
-        @JsonCreator
-        fun fromValue(value: String): HandelingsPerspectiefEnum? = entries.firstOrNull { it.value == value }
-    }
-}
