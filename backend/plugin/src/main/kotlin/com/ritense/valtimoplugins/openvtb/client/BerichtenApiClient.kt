@@ -21,8 +21,8 @@ import kotlin.jvm.java
 /**
  * Client for the Berichten API (see `openapi.yaml`).
  *
- * Every operation takes the API [baseUrl] (e.g. `https://example.com/berichten/api/v1`)
- * and a [token]; the token is sent as `Authorization: Token <token>` as described by
+ * Every operation takes the API `baseUrl` (e.g. `https://example.com/berichten/api/v1`)
+ * and a `token`; the token is sent as `Authorization: Token <token>` as described by
  * the `tokenAuth` security scheme.
  */
 @SkipComponentScan

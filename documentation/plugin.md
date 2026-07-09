@@ -12,7 +12,7 @@ The Berichten API plugin registers berichten (messages) in the VNG service [Open
 
 ```kotlin
 dependencies {
-    implementation("com.ritense.valtimoplugins:berichten-api:1.0.0")
+    implementation("com.ritense.valtimoplugins:open-vtb-plugin:1.0.0")
 }
 ```
 
@@ -21,7 +21,7 @@ dependencies {
 ```json
 {
   "dependencies": {
-    "@valtimo-plugins/berichten-api": "1.0.0"
+    "@valtimo-plugins/open-vtb-plugin": "1.0.0"
   }
 }
 ```
@@ -31,7 +31,7 @@ In your `app.module.ts`:
 ```typescript
 import {
     BerichtenApiModule, berichtenApiPluginSpecification,
-} from '@valtimo-plugins/berichten-api';
+} from '@valtimo-plugins/open-vtb-plugin';
 
 @NgModule({
     imports: [

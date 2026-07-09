@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide covers setting up the Berichten API plugin for development. To simply run the bundled
+This guide covers setting up the Open-VTB plugin for development. To simply run the bundled
 example application, see the [Example Application](open-vtb-plugin.md) guide instead.
 
 ## Prerequisites
@@ -15,9 +15,9 @@ example application, see the [Example Application](open-vtb-plugin.md) guide ins
 
 The plugin is delivered as two artifacts that must stay in sync:
 
-- **Backend** — a Kotlin/Spring library (`com.ritense.valtimoplugins:berichten-api`) that contributes
+- **Backend** — a Kotlin/Spring library (`com.ritense.valtimoplugins:open-vtb-plugin`) that contributes
   the plugin actions, under [`backend/plugin`](../backend/plugin)
-- **Frontend** — an Angular library (`@valtimo-plugins/berichten-api`) that provides the configuration
+- **Frontend** — an Angular library (`@valtimo-plugins/open-vtb`) that provides the configuration
   UI, under [`frontend/projects/plugin`](../frontend/projects/plugin)
 
 The repository also ships a runnable example application ([`backend/app`](../backend/app) and

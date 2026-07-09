@@ -1,6 +1,6 @@
 # Example Application
 
-This repository contains a working example application that showcases the Berichten API plugin. It runs
+This repository contains a working example application that showcases the Open-VTB plugin. It runs
 the plugin inside a full GZAC/Valtimo stack and registers berichten (messages) in
 [Open-VTB](https://github.com/maykinmedia/open-vtb).
 
@@ -27,7 +27,7 @@ docker-compose exec web src/manage.py createsuperuser
 
 Open-VTB is then available on `http://localhost:8000`; its Berichten API root is
 `http://localhost:8000/berichten/api/v1`. The plugin configuration
-(`backend/app/src/main/resources/config/plugin/berichten-api.pluginconfig.json`) points at this URL — set
+(`backend/app/src/main/resources/config/plugin/berichten.pluginconfig.json`) points at this URL — set
 its `token` to a valid Open-VTB API token.
 
 ### 2. Start the Valtimo backend

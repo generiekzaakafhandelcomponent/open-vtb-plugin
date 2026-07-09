@@ -1,7 +1,7 @@
 # Release notes
 
-Overzicht van wijzigingen per versie van de Berichten API Plugin.
+Overzicht van wijzigingen per versie van de Open VTB Plugin.
 
-## 1.0.0
+## 0.0.1
 
 Eerste opzet
