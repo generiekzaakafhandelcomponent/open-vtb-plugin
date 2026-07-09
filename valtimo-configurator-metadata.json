@@ -1,13 +1,13 @@
 {
-    "name": "berichten-api",
+    "name": "open-vtb",
     "version": 1,
     "backend": [
         {
-            "import": "com.ritense.valtimoplugins:open-vtb-plugin"
+            "import": "com.ritense.valtimoplugins:open-vtb"
         }
     ],
     "frontend": {
-        "import": "@valtimo-plugins/open-vtb-plugin",
+        "import": "@valtimo-plugins/open-vtb",
         "codeAdditions": [
             {
                 "spec": "berichtenApiPluginSpecification",

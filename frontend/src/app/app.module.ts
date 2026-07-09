@@ -99,7 +99,7 @@ import {AdminSettingsModule} from '@valtimo/admin-settings';
 import {
   BerichtenApiModule,
   berichtenApiPluginSpecification
-} from "@valtimo-plugins/berichten-api";
+} from "@valtimo-plugins/open-vtb";
 
 export function tabsFactory() {
   return new Map<string, object>([

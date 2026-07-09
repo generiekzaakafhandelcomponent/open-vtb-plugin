@@ -29,7 +29,7 @@
       "@src/*": [
         "src/*"
       ],
-      "@valtimo-plugins/berichten-api": [
+      "@valtimo-plugins/open-vtb": [
         "projects/plugin/src/public_api.ts"
       ]
     }
