@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.berichtenapi
+package com.ritense.valtimoplugins.openvtb
 
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.junit.jupiter.api.Test
 
-@SpringBootApplication
-class TestApplication
-
-fun main(args: Array<String>) {
-    runApplication<TestApplication>(*args)
+internal class ApplicationStartIT : BaseIntegrationTest() {
+    @Test
+    fun `should start application`() {
+    }
 }

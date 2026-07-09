@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.ritense.valtimoplugins.berichtenapi
+package com.ritense.valtimoplugins.openvtb
 
 abstract class BaseTest
