@@ -21,15 +21,6 @@
                 }
               },
               {
-                "key": "message",
-                "title": "Message",
-                "value": "doc:/message",
-                "displayProperties": {
-                  "type": "text",
-                  "hideWhenEmpty": true
-                }
-              },
-              {
                 "key": "berichtError",
                 "title": "Bericht Error",
                 "value": "doc:/berichtError",

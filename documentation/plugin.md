@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Open VTB plugin registers verzoeken, berichten and taken (requests, messages and tasks) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb). Currently ony the registration of 'berichten' is supported. It provides a `create-bericht` action that a process can call to post a new 'bericht' and capture the resulting URN.
+The Open VTB plugin registers verzoeken, berichten and taken (requests, messages and tasks) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb). Currently only the registration of 'berichten' is supported by the plugin. It provides a `create-bericht` action that a process can call to post a new 'bericht' and capture the resulting URN.
 
 ## Dependencies
 
@@ -97,9 +97,9 @@ propagates as an exception.
    `errorVariable` to capture a 4xx/5xx or connection error instead of failing the task with an incident.
 5. Use those variables downstream — for example, a gateway that branches on `errorVariable` to handle
    failures.
-6. Try the action in the example application in two ways: via the reusable building block
+6. Try the action in the demo application in two ways: via the reusable building block
    `openvtb-bericht-creatie` (called as a subprocess), or directly through the case process
    `berichten-process.bpmn`, which links the `create-bericht` action to a service task.
 
-The bundled example application demonstrates this end to end; see the
+The bundled demo application demonstrates this end to end; see the
 [Example Application](open-vtb-plugin.md) guide.
