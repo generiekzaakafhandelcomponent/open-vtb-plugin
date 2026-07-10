@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Berichten plugin registers berichten (messages) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb) via its Berichten plugin. It provides a `create-bericht` action that a process can call to post a new bericht and capture the resulting URN.
+The Open VTB plugin registers verzoeken, berichten and taken (requests, messages and tasks) in the VNG service [Open-VTB](https://github.com/maykinmedia/open-vtb). Currently ony the registration of 'berichten' is supported. It provides a `create-bericht` action that a process can call to post a new 'bericht' and capture the resulting URN.
 
 ## Dependencies
 
@@ -12,7 +12,7 @@ The Berichten plugin registers berichten (messages) in the VNG service [Open-VTB
 
 ```kotlin
 dependencies {
-    implementation("com.ritense.valtimoplugins:open-vtb-plugin:1.0.0")
+    implementation("com.ritense.valtimoplugins:open-vtb:1.0.0")
 }
 ```
 
@@ -21,7 +21,7 @@ dependencies {
 ```json
 {
   "dependencies": {
-    "@valtimo-plugins/open-vtb-plugin": "1.0.0"
+    "@valtimo-plugins/open-vtb": "1.0.0"
   }
 }
 ```
@@ -31,7 +31,7 @@ In your `app.module.ts`:
 ```typescript
 import {
     BerichtenModule, berichtenPluginSpecification,
-} from '@valtimo-plugins/open-vtb-plugin';
+} from '@valtimo-plugins/open-vtb';
 
 @NgModule({
     imports: [

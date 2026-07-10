@@ -66,9 +66,11 @@ Sign in and start the **Berichten** case. Its process fills in the bericht field
 If the Open-VTB call fails (a 4xx/5xx response or a connection error), the error message is stored in the
 `berichtError` field instead. See the [Plugin Documentation](plugin.md) for the action's parameters.
 
-## Source code
+## Plugin development
 
-The source is split into two modules:
+The plugin source code is located in:
+- Backend: `backend/plugin/src/`
+- Frontend: `frontend/projects/plugin/src/`
 
-1. [Frontend](/frontend)
-2. [Backend](/backend)
+For more information on how to build a plugin, see
+the [Custom Plugin Definition](https://docs.valtimo.nl/features/plugins/plugins/custom-plugin-definition) documentation.
