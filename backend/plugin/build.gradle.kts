@@ -28,6 +28,10 @@ val mockitoKotlinVersion: String by project
 val valtimoVersion: String by project
 val operatonVersion: String by project
 
+plugins {
+    id("org.openapi.generator") version "7.13.0"
+}
+
 dependencies {
     compileOnly("com.ritense.valtimo:plugin-valtimo")
     compileOnly("com.ritense.valtimo:process-document")
@@ -60,3 +64,50 @@ dependencies {
 }
 
 apply(from = "gradle/publishing.gradle")
+
+openApiGenerate {
+    generatorName = "kotlin"
+    inputSpec = "$rootDir/backend/plugin/src/main/resources/open-vtb-berichten-api.yaml"
+    outputDir = "${getLayout().buildDirectory.get()}/generated"
+    packageName = "com.ritense.valtimoplugins.openvtb.berichten"
+    generateApiDocumentation = false
+    generateApiTests = false
+    generateModelDocumentation = false
+    generateModelTests = false
+    configOptions =
+        mapOf(
+            "library" to "jvm-spring-restclient",
+            "serializationLibrary" to "jackson",
+            "useSpringBoot3" to "true",
+        )
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("${getLayout().buildDirectory.get()}/generated/src/main")
+        }
+    }
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(
+        "openApiGenerate",
+    )
+}
+
+tasks.named("sourcesJar") {
+    dependsOn(
+        "openApiGenerate",
+    )
+}
+
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().configureEach {
+    mustRunAfter("openApiGenerate")
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    filter {
+        exclude { it.file.path.contains("/build/") }
+    }
+}

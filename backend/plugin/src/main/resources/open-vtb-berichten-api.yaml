@@ -234,9 +234,9 @@ components:
             of `urn:nld:gemeenteutrecht:product:uuid:717815f6-1939-4fd2-93f0-83d25bad154e`.'
         handelingsPerspectief:
           description: De door de toegewezen persoon of bedrijf uit te voeren handeling.
-          oneOf:
+          nullable: true
+          allOf:
           - $ref: '#/components/schemas/HandelingsPerspectiefEnum'
-          - $ref: '#/components/schemas/BlankEnum'
         einddatumHandelingsTermijn:
           type: string
           format: date-time
@@ -259,9 +259,6 @@ components:
       - mijnOverheidBerichtenbox
       - onderwerp
       - ontvanger
-      - url
-      - urn
-      - uuid
     Bijlage:
       type: object
       properties:
@@ -287,9 +284,6 @@ components:
             worden - als de Berichtenbox het doelkanaal is.
       required:
       - informatieObject
-    BlankEnum:
-      enum:
-      - ''
     HandelingsPerspectiefEnum:
       enum:
       - betalen

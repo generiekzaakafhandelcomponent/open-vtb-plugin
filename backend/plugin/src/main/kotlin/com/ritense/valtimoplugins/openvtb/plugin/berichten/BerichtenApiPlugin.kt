@@ -21,10 +21,10 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
-import com.ritense.valtimoplugins.openvtb.domain.Bericht
-import com.ritense.valtimoplugins.openvtb.domain.Bijlage
-import com.ritense.valtimoplugins.openvtb.domain.HandelingsPerspectiefEnum
-import com.ritense.valtimoplugins.openvtb.domain.IsGerelateerdAan
+import com.ritense.valtimoplugins.openvtb.berichten.models.Bericht
+import com.ritense.valtimoplugins.openvtb.berichten.models.Bijlage
+import com.ritense.valtimoplugins.openvtb.berichten.models.HandelingsPerspectiefEnum
+import com.ritense.valtimoplugins.openvtb.berichten.models.IsGerelateerdAan
 import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
@@ -43,7 +43,7 @@ private val logger = KotlinLogging.logger {}
 @Plugin(
     key = "berichten",
     title = "Berichten Plugin",
-    description = "Registreer en raadpleeg berichten via de Berichten API.",
+    description = "Registreer en raadpleeg berichten via de Open VTB Berichten API.",
 )
 open class BerichtenApiPlugin(
     private val berichtenApiService: BerichtenApiService,
@@ -73,7 +73,7 @@ open class BerichtenApiPlugin(
         execution: DelegateExecution,
         @PluginActionProperty onderwerp: String,
         @PluginActionProperty isGerelateerdAan: List<IsGerelateerdAan>? = null,
-        @PluginActionProperty handelingsPerspectief: HandelingsPerspectiefEnum? = null,
+        @PluginActionProperty handelingsPerspectief: String? = null,
         @PluginActionProperty einddatumHandelingsTermijn: OffsetDateTime? = null,
         @PluginActionProperty berichtTekst: String,
         @PluginActionProperty ontvanger: String,
@@ -94,6 +94,15 @@ open class BerichtenApiPlugin(
         // default row isn't sent as an invalid relation.
         val filteredIsGerelateerdAan = isGerelateerdAan?.filter { it.urn.isNotBlank() }?.ifEmpty { null }
 
+        // handelingsPerspectief is bound as a String because the config UI submits "" when
+        // nothing is selected, which cannot be coerced to the enum. Map a blank value to null
+        // and anything else to the matching enum, failing loudly on an unknown value.
+        val handelingsPerspectiefEnum =
+            handelingsPerspectief?.takeIf { it.isNotBlank() }?.let { value ->
+                HandelingsPerspectiefEnum.entries.firstOrNull { it.value == value }
+                    ?: error("Unknown handelingsPerspectief '$value'")
+            }
+
         val bericht =
             try {
                 berichtenApiService.createBericht(
@@ -110,7 +119,7 @@ open class BerichtenApiPlugin(
                             geopendOp = geopendOp,
                             berichtType = berichtType,
                             isGerelateerdAan = filteredIsGerelateerdAan,
-                            handelingsPerspectief = handelingsPerspectief,
+                            handelingsPerspectief = handelingsPerspectiefEnum,
                             einddatumHandelingsTermijn = einddatumHandelingsTermijn,
                             bijlagen = filteredBijlagen,
                         ),
