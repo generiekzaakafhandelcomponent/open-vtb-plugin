@@ -61,7 +61,7 @@
     <v-input
       name="publicatiedatum"
       [title]="'publicatiedatum' | pluginTranslate: pluginId | async"
-      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.publicatiedatum"
       [disabled]="obs.disabled"
@@ -78,7 +78,7 @@
     <v-input
       name="geopendOp"
       [title]="'geopendOp' | pluginTranslate: pluginId | async"
-      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.geopendOp"
       [disabled]="obs.disabled"
@@ -95,6 +95,7 @@
     <v-input
       name="handelingsPerspectief"
       [title]="'handelingsPerspectief' | pluginTranslate: pluginId | async"
+      [tooltip]="'handelingsPerspectiefTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.handelingsPerspectief"
       [disabled]="obs.disabled"
@@ -104,7 +105,7 @@
     <v-input
       name="einddatumHandelingsTermijn"
       [title]="'einddatumHandelingsTermijn' | pluginTranslate: pluginId | async"
-      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.einddatumHandelingsTermijn"
       [disabled]="obs.disabled"
@@ -113,6 +114,7 @@
     <v-input
       name="isGerelateerdAan"
       [title]="'isGerelateerdAan' | pluginTranslate: pluginId | async"
+      [tooltip]="'isGerelateerdAanTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.isGerelateerdAan"
       [disabled]="obs.disabled"
@@ -121,6 +123,7 @@
     <v-input
       name="bijlagen"
       [title]="'bijlagen' | pluginTranslate: pluginId | async"
+      [tooltip]="'bijlagenTooltip' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.bijlagen"
       [disabled]="obs.disabled"
