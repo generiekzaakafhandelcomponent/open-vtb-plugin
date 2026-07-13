@@ -61,6 +61,7 @@
     <v-input
       name="publicatiedatum"
       [title]="'publicatiedatum' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.publicatiedatum"
       [disabled]="obs.disabled"
@@ -77,6 +78,7 @@
     <v-input
       name="geopendOp"
       [title]="'geopendOp' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.geopendOp"
       [disabled]="obs.disabled"
@@ -102,6 +104,7 @@
     <v-input
       name="einddatumHandelingsTermijn"
       [title]="'einddatumHandelingsTermijn' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormat' | pluginTranslate: pluginId | async"
       [margin]="true"
       [defaultValue]="obs.prefill?.einddatumHandelingsTermijn"
       [disabled]="obs.disabled"
