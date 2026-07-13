@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
+val kotlinLoggingVersion: String by project
+val mockitoKotlinVersion: String by project
+val valtimoVersion: String by project
+val operatonVersion: String by project
+
+plugins {
+    id("org.openapi.generator") version "7.23.0"
+}
+
 dockerCompose {
     setProjectName("open-vtb")
     isRequiredBy(project.tasks.test)
@@ -23,19 +32,10 @@ dockerCompose {
     }
 }
 
-val kotlinLoggingVersion: String by project
-val mockitoKotlinVersion: String by project
-val valtimoVersion: String by project
-val operatonVersion: String by project
-
-plugins {
-    id("org.openapi.generator") version "7.13.0"
-}
-
 dependencies {
+    compileOnly("com.ritense.valtimo:contract")
     compileOnly("com.ritense.valtimo:plugin-valtimo")
     compileOnly("com.ritense.valtimo:process-document")
-    compileOnly("com.ritense.valtimo:contract")
     compileOnly("org.operaton.bpm:operaton-engine:$operatonVersion")
     compileOnly("org.springframework.boot:spring-boot-autoconfigure")
     compileOnly("org.springframework.boot:spring-boot-starter-web")
@@ -43,13 +43,10 @@ dependencies {
     compileOnly("io.github.oshai:kotlin-logging:$kotlinLoggingVersion")
 
     // Testing
-    testImplementation("com.ritense.valtimo:plugin-valtimo")
-    testImplementation("com.ritense.valtimo:process-document")
     testImplementation("com.ritense.valtimo:building-block")
     testImplementation("com.ritense.valtimo:local-resource")
     testImplementation("com.ritense.valtimo:test-utils-common")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -67,9 +64,9 @@ apply(from = "gradle/publishing.gradle")
 
 openApiGenerate {
     generatorName = "kotlin"
-    inputSpec = "$rootDir/backend/plugin/src/main/resources/open-vtb-berichten-api.yaml"
-    outputDir = "${getLayout().buildDirectory.get()}/generated"
-    packageName = "com.ritense.valtimoplugins.openvtb.berichten"
+    inputSpec.set("$rootDir/backend/plugin/src/main/resources/open-vtb-berichten-api.yaml")
+    outputDir.set("${getLayout().buildDirectory.get()}/generated")
+    packageName = "com.ritense.valtimoplugins.openvtb.client"
     generateApiDocumentation = false
     generateApiTests = false
     generateModelDocumentation = false

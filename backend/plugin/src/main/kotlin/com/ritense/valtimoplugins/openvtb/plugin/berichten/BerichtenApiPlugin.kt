@@ -21,10 +21,10 @@ import com.ritense.plugin.annotation.PluginAction
 import com.ritense.plugin.annotation.PluginActionProperty
 import com.ritense.plugin.annotation.PluginProperty
 import com.ritense.processlink.domain.ActivityTypeWithEventName.SERVICE_TASK_START
-import com.ritense.valtimoplugins.openvtb.berichten.models.Bericht
-import com.ritense.valtimoplugins.openvtb.berichten.models.Bijlage
-import com.ritense.valtimoplugins.openvtb.berichten.models.HandelingsPerspectiefEnum
-import com.ritense.valtimoplugins.openvtb.berichten.models.IsGerelateerdAan
+import com.ritense.valtimoplugins.openvtb.client.models.Bericht
+import com.ritense.valtimoplugins.openvtb.client.models.Bijlage
+import com.ritense.valtimoplugins.openvtb.client.models.HandelingsPerspectiefEnum
+import com.ritense.valtimoplugins.openvtb.client.models.IsGerelateerdAan
 import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
@@ -32,8 +32,6 @@ import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestClientResponseException
 import java.net.URI
 import java.time.OffsetDateTime
-
-private val logger = KotlinLogging.logger {}
 
 /**
  * Plugin for the Berichten API. The [baseUrl] points at the API root
@@ -148,5 +146,9 @@ open class BerichtenApiPlugin(
         logger.info { "Created bericht ${bericht.uuid} with urn $urn" }
 
         return urn
+    }
+
+    companion object {
+        private val logger = KotlinLogging.logger {}
     }
 }

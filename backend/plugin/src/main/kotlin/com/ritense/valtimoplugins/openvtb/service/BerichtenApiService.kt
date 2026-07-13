@@ -7,10 +7,10 @@ import com.fasterxml.jackson.databind.cfg.CoercionAction
 import com.fasterxml.jackson.databind.cfg.CoercionInputShape
 import com.fasterxml.jackson.databind.type.LogicalType
 import com.ritense.valtimo.contract.annotation.SkipComponentScan
-import com.ritense.valtimoplugins.openvtb.berichten.apis.BerichtenApi
-import com.ritense.valtimoplugins.openvtb.berichten.models.Bericht
-import com.ritense.valtimoplugins.openvtb.berichten.models.PaginatedBerichtList
-import com.ritense.valtimoplugins.openvtb.berichten.models.PatchedBerichtGeopendOp
+import com.ritense.valtimoplugins.openvtb.client.apis.BerichtenApi
+import com.ritense.valtimoplugins.openvtb.client.models.Bericht
+import com.ritense.valtimoplugins.openvtb.client.models.PaginatedBerichtList
+import com.ritense.valtimoplugins.openvtb.client.models.PatchedBerichtGeopendOp
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
