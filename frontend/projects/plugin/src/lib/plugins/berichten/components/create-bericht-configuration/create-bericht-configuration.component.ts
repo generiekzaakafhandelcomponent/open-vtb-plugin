@@ -36,6 +36,10 @@ export class CreateBerichtConfigurationComponent implements FunctionConfiguratio
   private readonly formValue$ = new BehaviorSubject<CreateBerichtConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
+  protected readonly handelingsPerspectiefPresetOptions = [
+    "betalen","incasso","informatie_geven","informatie_krijgen","reactie_ontvangen","vernieuwing_nodig","uitnodiging_voor_afspraak"
+  ]
+
   public ngOnInit(): void {
     this.openSaveSubscription();
   }
