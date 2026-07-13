@@ -1,0 +1,149 @@
+<!--
+  ~ Copyright 2026 Ritense BV, the Netherlands.
+  ~
+  ~ Licensed under EUPL, Version 1.2 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" basis,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<p style="margin-bottom: 1.5rem">{{ 'actionDescription' | pluginTranslate: pluginId | async }}</p>
+
+@if ({
+  disabled: disabled$ | async,
+  prefill: prefillConfiguration$ ? (prefillConfiguration$ | async) : null
+}; as obs) {
+  <v-form (valueChange)="formValueChange($event)">
+    <v-input
+      name="onderwerp"
+      [title]="'onderwerp' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.onderwerp"
+      [disabled]="obs.disabled"
+      [required]="true"
+    >
+    </v-input>
+    <v-input
+      name="berichtTekst"
+      type="textarea"
+      [title]="'berichtTekst' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.berichtTekst"
+      [disabled]="obs.disabled"
+      [required]="true"
+    >
+    </v-input>
+    <v-input
+      name="ontvanger"
+      [title]="'ontvanger' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.ontvanger"
+      [disabled]="obs.disabled"
+      [required]="true"
+    >
+    </v-input>
+    <v-input
+      name="mijnOverheidBerichtenbox"
+      type="checkbox"
+      [title]="'mijnOverheidBerichtenbox' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.mijnOverheidBerichtenbox"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="publicatiedatum"
+      [title]="'publicatiedatum' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.publicatiedatum"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="referentie"
+      [title]="'referentie' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.referentie"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="geopendOp"
+      [title]="'geopendOp' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.geopendOp"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="berichtType"
+      [title]="'berichtType' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.berichtType"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="handelingsPerspectief"
+      [title]="'handelingsPerspectief' | pluginTranslate: pluginId | async"
+      [tooltip]="'handelingsPerspectiefTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.handelingsPerspectief"
+      [disabled]="obs.disabled"
+      [presetOptions]="handelingsPerspectiefPresetOptions"
+    >
+    </v-input>
+    <v-input
+      name="einddatumHandelingsTermijn"
+      [title]="'einddatumHandelingsTermijn' | pluginTranslate: pluginId | async"
+      [tooltip]="'dateTimeFormatTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.einddatumHandelingsTermijn"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="isGerelateerdAan"
+      [title]="'isGerelateerdAan' | pluginTranslate: pluginId | async"
+      [tooltip]="'isGerelateerdAanTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.isGerelateerdAan"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="bijlagen"
+      [title]="'bijlagen' | pluginTranslate: pluginId | async"
+      [tooltip]="'bijlagenTooltip' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.bijlagen"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="resultingVariable"
+      [title]="'resultingVariable' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.resultingVariable"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+    <v-input
+      name="errorVariable"
+      [title]="'errorVariable' | pluginTranslate: pluginId | async"
+      [margin]="true"
+      [defaultValue]="obs.prefill?.errorVariable"
+      [disabled]="obs.disabled"
+    >
+    </v-input>
+  </v-form>
+}

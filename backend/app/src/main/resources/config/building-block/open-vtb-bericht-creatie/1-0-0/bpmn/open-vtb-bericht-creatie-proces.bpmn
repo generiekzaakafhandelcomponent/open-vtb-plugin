@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="definitions_16a9d84f-0b57-47f2-9b52-bea27d74f207" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="Camunda Modeler" exporterVersion="5.23.0">
+  <collaboration id="BerichtCreatieProces" isClosed="false">
+    <participant id="OpenVTBBerichtenCreatieParticipant" name="Open VTB Create Bericht" processRef="open-vtb-bericht-creatie-proces" />
+  </collaboration>
+  <process id="open-vtb-bericht-creatie-proces" name="OpenVTB Bericht Creatie" processType="None" isClosed="false" isExecutable="true" camunda:historyTimeToLive="P180D">
+    <startEvent id="start-event" name="StartEvent">
+      <outgoing>sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc</outgoing>
+    </startEvent>
+    <serviceTask id="bericht-aanmaken" name="Creeer bericht" camunda:asyncAfter="true" implementation="##WebService" camunda:expression="${true}">
+      <incoming>sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc</incoming>
+      <outgoing>Flow_0thjmj3</outgoing>
+    </serviceTask>
+    <sequenceFlow id="sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc" sourceRef="start-event" targetRef="bericht-aanmaken" />
+    <endEvent id="Event_1hcmgs3">
+      <extensionElements>
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtUrn&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/urn&#39;, berichtUrn)}" event="start" />
+        <camunda:executionListener expression="${execution.hasVariable(&#39;berichtError&#39;) &#38;&#38; valueResolverDelegateService.handleValue(execution, &#39;doc:/berichtError&#39;, berichtError)}" event="start" />
+      </extensionElements>
+      <incoming>Flow_0thjmj3</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_0thjmj3" sourceRef="bericht-aanmaken" targetRef="Event_1hcmgs3" />
+  </process>
+  <message id="Message_3dr2tjf" name="XENTIAL_DOC_RECIEVED" />
+  <message id="Message_1arcs68" name="XENTIAL_DOC_CANCELLED" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_01b1f79f-d060-4364-bcc5-75a21f8e17d8">
+    <bpmndi:BPMNPlane id="BPMNPlane_4851f400-75c2-4941-9b28-fd31dd057433" bpmnElement="BerichtCreatieProces">
+      <bpmndi:BPMNShape id="Participant_0dbwaca_di" bpmnElement="OpenVTBBerichtenCreatieParticipant" isHorizontal="true">
+        <dc:Bounds x="170" y="83" width="410" height="257" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_adbc7809-5017-43a8-91fb-cba2151ec66c" bpmnElement="start-event">
+        <dc:Bounds x="240" y="190" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="233" y="226" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wgtggx_di" bpmnElement="bericht-aanmaken">
+        <dc:Bounds x="338" y="168" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hcmgs3_di" bpmnElement="Event_1hcmgs3">
+        <dc:Bounds x="502" y="190" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_fc6d4205-9ada-4ab8-9494-bb87444de842" bpmnElement="sequenceFlow_bca37c66-be4c-46fd-bacd-e7496f7dafdc">
+        <di:waypoint x="276" y="208" />
+        <di:waypoint x="338" y="208" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0thjmj3_di" bpmnElement="Flow_0thjmj3">
+        <di:waypoint x="438" y="208" />
+        <di:waypoint x="502" y="208" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

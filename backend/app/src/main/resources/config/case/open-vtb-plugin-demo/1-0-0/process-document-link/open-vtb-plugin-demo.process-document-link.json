@@ -1,0 +1,7 @@
+[
+    {
+        "processDefinitionKey": "berichten-process",
+        "canInitializeDocument": true,
+        "startableByUser": true
+    }
+]

@@ -15,11 +15,11 @@
  */
 
 /*
- * Public API Surface of sample-plugin
+ * Public API Surface of berichten
  */
 
-export * from "./lib/plugins/sample-plugin/models";
-export * from "./lib/plugins/sample-plugin/sample-plugin-module";
-export * from "./lib/plugins/sample-plugin/sample-plugin.specification";
-export * from "./lib/plugins/sample-plugin/components/sample-plugin-configuration/sample-plugin-configuration.component";
-export * from "./lib/plugins/sample-plugin/components/sample-action-configuration/sample-action-configuration.component";
+export * from "./lib/plugins/berichten/models";
+export * from "./lib/plugins/berichten/berichten-module";
+export * from "./lib/plugins/berichten/berichten.specification";
+export * from "./lib/plugins/berichten/components/berichten-configuration/berichten-configuration.component";
+export * from "./lib/plugins/berichten/components/create-bericht-configuration/create-bericht-configuration.component";

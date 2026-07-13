@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
+val kotlinLoggingVersion: String by project
+val mockitoKotlinVersion: String by project
+val valtimoVersion: String by project
+val operatonVersion: String by project
+
+plugins {
+    id("org.openapi.generator") version "7.23.0"
+}
+
 dockerCompose {
-    setProjectName("sample-plugin")
+    setProjectName("open-vtb")
     isRequiredBy(project.tasks.test)
 
     tasks.test {
@@ -23,15 +32,10 @@ dockerCompose {
     }
 }
 
-val kotlinLoggingVersion: String by project
-val mockitoKotlinVersion: String by project
-val valtimoVersion: String by project
-val operatonVersion: String by project
-
 dependencies {
+    compileOnly("com.ritense.valtimo:contract")
     compileOnly("com.ritense.valtimo:plugin-valtimo")
     compileOnly("com.ritense.valtimo:process-document")
-    compileOnly("com.ritense.valtimo:contract")
     compileOnly("org.operaton.bpm:operaton-engine:$operatonVersion")
     compileOnly("org.springframework.boot:spring-boot-autoconfigure")
     compileOnly("org.springframework.boot:spring-boot-starter-web")
@@ -39,13 +43,10 @@ dependencies {
     compileOnly("io.github.oshai:kotlin-logging:$kotlinLoggingVersion")
 
     // Testing
-    testImplementation("com.ritense.valtimo:plugin-valtimo")
-    testImplementation("com.ritense.valtimo:process-document")
     testImplementation("com.ritense.valtimo:building-block")
     testImplementation("com.ritense.valtimo:local-resource")
     testImplementation("com.ritense.valtimo:test-utils-common")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -60,3 +61,50 @@ dependencies {
 }
 
 apply(from = "gradle/publishing.gradle")
+
+openApiGenerate {
+    generatorName = "kotlin"
+    inputSpec.set("$rootDir/backend/plugin/src/main/resources/open-vtb-berichten-api.yaml")
+    outputDir.set("${getLayout().buildDirectory.get()}/generated")
+    packageName = "com.ritense.valtimoplugins.openvtb.client"
+    generateApiDocumentation = false
+    generateApiTests = false
+    generateModelDocumentation = false
+    generateModelTests = false
+    configOptions =
+        mapOf(
+            "library" to "jvm-spring-restclient",
+            "serializationLibrary" to "jackson",
+            "useSpringBoot3" to "true",
+        )
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("${getLayout().buildDirectory.get()}/generated/src/main")
+        }
+    }
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(
+        "openApiGenerate",
+    )
+}
+
+tasks.named("sourcesJar") {
+    dependsOn(
+        "openApiGenerate",
+    )
+}
+
+tasks.withType<org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask>().configureEach {
+    mustRunAfter("openApiGenerate")
+}
+
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    filter {
+        exclude { it.file.path.contains("/build/") }
+    }
+}

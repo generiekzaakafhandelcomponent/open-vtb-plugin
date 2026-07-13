@@ -1,0 +1,37 @@
+[
+  {
+    "activityId": "StartEvent",
+    "activityType": "bpmn:StartEvent:start",
+    "formDefinitionName": "open-vtb-bericht.startformulier",
+    "viewModelEnabled": false,
+    "formDisplayType": "modal",
+    "formSize": "medium",
+    "subtitles": [],
+    "processLinkType": "form"
+  },
+  {
+    "activityId": "bericht-aanmaken",
+    "activityType": "bpmn:ServiceTask:start",
+    "pluginConfigurationId": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",
+    "pluginActionDefinitionKey": "create-bericht",
+    "processLinkType": "plugin",
+    "pluginDefinitionKey": "berichten",
+    "referenceType": "FIXED",
+    "actionProperties": {
+      "onderwerp": "doc:onderwerp",
+      "berichtTekst": "doc:berichtTekst",
+      "ontvanger": "doc:ontvanger",
+      "mijnOverheidBerichtenbox": "doc:mijnOverheidBerichtenbox",
+      "publicatiedatum": "doc:publicatiedatum",
+      "referentie": "doc:referentie",
+      "geopendOp": "doc:geopendOp",
+      "berichtType": "doc:berichtType",
+      "handelingsPerspectief": "doc:handelingsPerspectief",
+      "einddatumHandelingsTermijn": "doc:einddatumHandelingsTermijn",
+      "isGerelateerdAan": "doc:isGerelateerdAan",
+      "bijlagen": "doc:bijlagen",
+      "resultingVariable": "berichtUrn",
+      "errorVariable": "berichtError"
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "key": "summary",
+    "widgets": [
+      {
+        "type": "fields",
+        "key": "process-variable-result",
+        "title": "Berichten API Plugin Result",
+        "width": 4,
+        "highContrast": true,
+        "properties": {
+          "columns": [
+            [
+              {
+                "key": "urn",
+                "title": "URN",
+                "value": "doc:/urn",
+                "displayProperties": {
+                  "type": "text",
+                  "hideWhenEmpty": true
+                }
+              },
+              {
+                "key": "berichtError",
+                "title": "Bericht Error",
+                "value": "doc:/berichtError",
+                "displayProperties": {
+                  "type": "text",
+                  "hideWhenEmpty": true
+                }
+              }
+            ]
+          ]
+        }
+      }
+    ]
+  }
+]

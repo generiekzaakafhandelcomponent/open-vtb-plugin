@@ -20,8 +20,6 @@ import {AnalyseModule} from "@valtimo/analyse";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {
-  BesluitenApiPluginModule,
-  besluitenApiPluginSpecification,
   CatalogiApiPluginModule,
   catalogiApiPluginSpecification,
   DocumentenApiPluginModule,
@@ -97,8 +95,11 @@ import {TeamsModule} from "@valtimo/teams";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {environment} from "../environments/environment";
 import {registerDocumentenApiFormioUploadComponent, ZgwModule} from "@valtimo/zgw";
-
-import {SamplePluginModule, samplePluginSpecification,} from "@valtimo-plugins/sample-plugin";
+import {AdminSettingsModule} from '@valtimo/admin-settings';
+import {
+  BerichtenModule,
+  berichtenPluginSpecification
+} from "@valtimo-plugins/open-vtb";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -115,8 +116,10 @@ export function tabsFactory() {
     environment.authentication.module,
     AccessControlManagementModule,
     AccountModule,
+    AdminSettingsModule,
     AnalyseModule,
     AppRoutingModule,
+    BerichtenModule,
     BootstrapModule,
     BpmnJsDiagramModule,
     BrowserModule,
@@ -124,7 +127,6 @@ export function tabsFactory() {
     CaseManagementModule,
     CaseMigrationModule,
     CaseModule.forRoot(tabsFactory),
-    BesluitenApiPluginModule,
     CatalogiApiPluginModule,
     ChoiceFieldModule,
     CommonModule,
@@ -158,7 +160,6 @@ export function tabsFactory() {
     ProcessModule,
     ReactiveFormsModule,
     ResourceModule,
-    SamplePluginModule,
     SecurityModule,
     SseModule,
     SwaggerModule,
@@ -181,7 +182,7 @@ export function tabsFactory() {
     {
       provide: PLUGINS_TOKEN,
       useValue: [
-        besluitenApiPluginSpecification,
+        berichtenPluginSpecification,
         catalogiApiPluginSpecification,
         documentenApiPluginSpecification,
         notificatiesApiPluginSpecification,
@@ -190,7 +191,6 @@ export function tabsFactory() {
         objecttypenApiPluginSpecification,
         openNotificatiesPluginSpecification,
         openZaakPluginSpecification,
-        samplePluginSpecification,
         zakenApiPluginSpecification,
       ],
     },

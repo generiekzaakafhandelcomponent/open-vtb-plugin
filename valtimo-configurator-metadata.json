@@ -1,17 +1,17 @@
 {
-    "name": "sample-plugin",
+    "name": "open-vtb",
     "version": 1,
     "backend": [
         {
-            "import": "com.ritense.valtimoplugins:sample-plugin"
+            "import": "com.ritense.valtimoplugins:open-vtb"
         }
     ],
     "frontend": {
-        "import": "@valtimo-plugins/sample-plugin",
+        "import": "@valtimo-plugins/open-vtb",
         "codeAdditions": [
             {
-                "spec": "samplePluginSpecification",
-                "module": "SamplePluginModule"
+                "spec": "berichtenPluginSpecification",
+                "module": "BerichtenModule"
             }
         ]
     }

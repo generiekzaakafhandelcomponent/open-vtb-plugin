@@ -1,0 +1,119 @@
+[
+  {
+    "activityId": "start-event",
+    "activityType": "bpmn:StartEvent:start",
+    "processLinkType": "form",
+    "formDefinitionName": "openvtb-bericht-genereren.start-form"
+  },
+  {
+    "activityId": "vul-bericht-velden",
+    "activityType": "bpmn:UserTask:create",
+    "formDefinitionName": "openvtb-bericht-creatie",
+    "viewModelEnabled": false,
+    "formDisplayType": "modal",
+    "formSize": "medium",
+    "subtitles": [],
+    "processLinkType": "form"
+  },
+  {
+    "activityId": "bericht-aanmaken",
+    "activityType": "bpmn:ServiceTask:start",
+    "pluginConfigurationId": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",
+    "pluginActionDefinitionKey": "create-bericht",
+    "processLinkType": "plugin",
+    "actionProperties": {
+      "onderwerp": "pv:onderwerp",
+      "berichtTekst": "pv:berichtTekst",
+      "ontvanger": "pv:ontvanger",
+      "mijnOverheidBerichtenbox": "pv:mijnOverheidBerichtenbox",
+      "publicatiedatum": "pv:publicatiedatum",
+      "referentie": "pv:referentie",
+      "geopendOp": "pv:geopendOp",
+      "berichtType": "pv:berichtType",
+      "handelingsPerspectief": "pv:handelingsPerspectief",
+      "einddatumHandelingsTermijn": "pv:einddatumHandelingsTermijn",
+      "isGerelateerdAan": "pv:isGerelateerdAan",
+      "bijlagen": "pv:bijlagen",
+      "resultingVariable": "berichtUrn",
+      "errorVariable": "berichtError"
+    }
+  },
+  {
+    "activityId": "CallOpenVTBBerichtAanmakenActivity",
+    "activityType": "bpmn:CallActivity:start",
+    "buildingBlockDefinitionKey": "open-vtb-bericht-creatie",
+    "buildingBlockDefinitionVersionTag": "1.0.0",
+    "pluginConfigurationMappings": {
+      "berichten": "02fe5f13-e55d-4561-b69c-1750c7fef1a2"
+    },
+    "inputMappings": [
+      {
+        "source": "pv:urn",
+        "target": "urn"
+      },
+      {
+        "source": "pv:berichtError",
+        "target": "berichtError"
+      },
+      {
+        "source": "pv:onderwerp",
+        "target": "onderwerp"
+      },
+      {
+        "source": "pv:berichtTekst",
+        "target": "berichtTekst"
+      },
+      {
+        "source": "pv:ontvanger",
+        "target": "ontvanger"
+      },
+      {
+        "source": "pv:mijnOverheidBerichtenbox",
+        "target": "mijnOverheidBerichtenbox"
+      },
+      {
+        "source": "pv:publicatiedatum",
+        "target": "publicatiedatum"
+      },
+      {
+        "source": "pv:referentie",
+        "target": "referentie"
+      },
+      {
+        "source": "pv:geopendOp",
+        "target": "geopendOp"
+      },
+      {
+        "source": "pv:berichtType",
+        "target": "berichtType"
+      },
+      {
+        "source": "pv:handelingsPerspectief",
+        "target": "handelingsPerspectief"
+      },
+      {
+        "source": "pv:einddatumHandelingsTermijn",
+        "target": "einddatumHandelingsTermijn"
+      },
+      {
+        "source": "pv:isGerelateerdAan",
+        "target": "isGerelateerdAan"
+      },
+      {
+        "source": "pv:bijlagen",
+        "target": "bijlagen"
+      }
+    ],
+    "outputMappings": [
+      {
+        "source": "urn",
+        "target": "pv:berichtUrn"
+      },
+      {
+        "source": "berichtError",
+        "target": "pv:berichtError"
+      }
+    ],
+    "processLinkType": "building-block"
+  }
+]
