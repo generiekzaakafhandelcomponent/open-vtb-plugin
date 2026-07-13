@@ -18,16 +18,12 @@ package com.ritense.valtimoplugins.openvtb.plugin.berichten
 
 import com.ritense.plugin.PluginFactory
 import com.ritense.plugin.service.PluginService
-import com.ritense.valtimo.contract.annotation.SkipComponentScan
 import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
-import org.springframework.stereotype.Component
 
 /**
  * Factory class to create instances of the BerichtenApiPlugin.
  * This is required for the plugin framework to instantiate the plugin.
  */
-@SkipComponentScan
-@Component
 class BerichtenApiPluginFactory(
     pluginService: PluginService,
     private val berichtenApiService: BerichtenApiService,

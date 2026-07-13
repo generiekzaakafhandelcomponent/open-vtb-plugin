@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.cfg.CoercionAction
 import com.fasterxml.jackson.databind.cfg.CoercionInputShape
 import com.fasterxml.jackson.databind.type.LogicalType
-import com.ritense.valtimo.contract.annotation.SkipComponentScan
 import com.ritense.valtimoplugins.openvtb.client.apis.BerichtenApi
 import com.ritense.valtimoplugins.openvtb.client.models.Bericht
 import com.ritense.valtimoplugins.openvtb.client.models.PaginatedBerichtList
@@ -15,7 +14,6 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.HttpHeaders
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 import java.net.URI
 import java.time.OffsetDateTime
@@ -29,8 +27,6 @@ import java.util.UUID
  * configuration. The token is sent as `Authorization: Token <token>` as described by the
  * `tokenAuth` security scheme.
  */
-@SkipComponentScan
-@Service
 class BerichtenApiService {
     fun getBerichten(
         baseUrl: URI,
