@@ -1,6 +1,6 @@
 {
-    "key": "open-vtb-demo",
-    "name": "Open VTB Demo",
+    "key": "open-vtb-plugin-demo",
+    "name": "Open VTB plugin demo",
     "versionTag": "1.0.0",
     "final": false,
     "canHaveAssignee": false,
