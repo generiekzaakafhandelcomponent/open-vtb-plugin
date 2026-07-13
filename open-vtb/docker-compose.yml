@@ -10,10 +10,11 @@ services:
     image: postgis/postgis:17-3.5
     platform: linux/amd64
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: openvtb
+      POSTGRES_USER: openvtb
+      POSTGRES_PASSWORD: openvtb
     command: postgres -c max_connections=300 -c log_min_messages=LOG
     volumes:
-      - ./docker/postgres.entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
       - db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
@@ -27,41 +28,32 @@ services:
 
   web:
     build: .
-    image: maykinmedia/open-vtb:${TAG:-latest}
+    image: maykinmedia/open-vtb:0.1.0
     environment: &web_env
       DJANGO_SETTINGS_MODULE: openvtb.conf.docker
       IS_HTTPS: no
+      DB_HOST: db
       DB_NAME: openvtb
       DB_USER: openvtb
-      DB_HOST: db
+      DB_PASSWORD: openvtb
       ALLOWED_HOSTS: '*'
       CACHE_DEFAULT: redis:6379/0
       CACHE_AXES: redis:6379/0
       SUBPATH: ${SUBPATH:-/}
-      SECRET_KEY: ${SECRET_KEY:-django-insecure-##q31k@oa@my@(twhvqsvv#+-9x0h0@94^f9=vmxe(zzkg^mot}
+      SECRET_KEY: django-insecure-##q31k@oa@my@(twhvqsvv#+-9x0h0@94^f9=vmxe(zzkg^mot
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
       CELERY_WORKER_NAME: celery@docker
       DISABLE_2FA: true
-      LOG_NOTIFICATIONS_IN_DB: ${LOG_NOTIFICATIONS_IN_DB:-yes}
+      LOG_NOTIFICATIONS_IN_DB: yes
       DB_CONN_MAX_AGE: "0"
       DB_POOL_ENABLED: False
-
       # Enabling Open Telemetry requires the services in docker/docker-compose.observability.yml
       # to be up and running.
-      OTEL_SDK_DISABLED: ${OTEL_SDK_DISABLED:-true}
-      OTEL_RESOURCE_ATTRIBUTES: maykin.saas.client=maykin,maykin.saas.target=dev
-      OTEL_METRIC_EXPORT_INTERVAL: ${OTEL_METRIC_EXPORT_INTERVAL:-60000}
-      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-http://otel-collector:4317}  # gRPC
-      # otel:supersecret, escape spaces and = with percent encoding
-      # OTEL_EXPORTER_OTLP_HEADERS: Authorization=Basic b3RlbDpzdXBlcnNlY3JldA==
-      OTEL_EXPORTER_OTLP_METRICS_INSECURE: ${OTEL_EXPORTER_OTLP_METRICS_INSECURE:-true}
-      _OTEL_ENABLE_CONTAINER_RESOURCE_DETECTOR: true
-
+      OTEL_SDK_DISABLED: true
       # Cloudevents
-      ENABLE_CLOUD_EVENTS: ${ENABLE_CLOUD_EVENTS:-True}
-      NOTIFICATIONS_SOURCE: ${NOTIFICATIONS_SOURCE:-openvtb}
-
+      ENABLE_CLOUD_EVENTS: True
+      NOTIFICATIONS_SOURCE: openvtb
     healthcheck:
       test: ["CMD", "maykin-common", "health-check"]
       interval: 30s
@@ -82,36 +74,30 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-      web-init:
-        condition: service_completed_successfully
-    labels:
-      client: dev
-      target: test
-      app: open-vtb
-      service: web
+#      web-init:
+#        condition: service_completed_successfully
     networks:
       - open-vtb-dev
 
-  web-init:
-    image: maykinmedia/open-vtb:${TAG:-latest}
-    environment:
-      <<: *web_env
-      #
-      # Django-setup-configuration
-      RUN_SETUP_CONFIG: ${RUN_SETUP_CONFIG:-true}
-
-    command: sh -c "/setup_configuration.sh"
-    volumes:
-      - log:/app/log
-      - ./docker/setup_configuration:/app/setup_configuration
-    depends_on:
-      - db
-      - redis
-    networks:
-      - open-vtb-dev
+#  web-init:
+#    image: maykinmedia/open-vtb:0.1.0
+#    environment:
+#      <<: *web_env
+#      #
+#      # Django-setup-configuration
+#      RUN_SETUP_CONFIG: false
+#    command: sh -c "/setup_configuration.sh"
+#    volumes:
+#      - log:/app/log
+#      - ./docker/init:/app/setup_configuration
+#    depends_on:
+#      - db
+#      - redis
+#    networks:
+#      - open-vtb-dev
 
   celery:
-    image: maykinmedia/open-vtb:${TAG:-latest}
+    image: maykinmedia/open-vtb:0.1.0
     environment: *web_env
     command: /celery_worker.sh
     healthcheck:
@@ -136,7 +122,7 @@ services:
       - open-vtb-dev
 
   celery-beat:
-    image: maykinmedia/open-vtb:${TAG:-latest}
+    image: maykinmedia/open-vtb:0.1.0
     environment: *web_env
     command: /celery_beat.sh
     depends_on:
@@ -157,7 +143,7 @@ services:
       - open-vtb-dev
 
   celery-flower:
-    image: maykinmedia/open-vtb:${TAG:-latest}
+    image: maykinmedia/open-vtb:0.1.0
     environment: *web_env
     command: /celery_flower.sh
     ports:

@@ -19,9 +19,17 @@ Make sure Docker is running. Unless noted otherwise, the commands below are run 
 The plugin posts berichten to an Open-VTB instance. A local stack is bundled under `open-vtb/`:
 
 Download and install https://github.com/maykinmedia/open-vtb
+
+1. start the Open VTB docker stack
 ```shell
-docker-compose up -d --no-build
-docker-compose exec web src/manage.py loaddata verzoeken taken berichten
+docker-compose up -d --no-build 
+```
+2. load data fixtures
+```shell
+docker-compose exec web src/manage.py loaddata verzoeken taken berichten 
+```
+3. create a superuser to be able to login
+```shell
 docker-compose exec web src/manage.py createsuperuser
 ```
 
@@ -32,16 +40,20 @@ its `token` to a valid Open-VTB API token.
 
 ### 2. Start the Valtimo backend
 
+1. start the ZGW/Valtimo docker stack
 ```shell
-./gradlew :backend:app:composeUp   # start the ZGW/Valtimo docker stack
-./gradlew :backend:app:bootRun     # start the backend
+./gradlew :backend:app:composeUp
+```
+2. start the backend
+```shell
+./gradlew :backend:app:bootRun
 ```
 
 ### 3. Start the frontend
 
 Run from the `frontend/` directory:
 
-```shell
+```
 nvm use 21
 npm run clean
 npm install
