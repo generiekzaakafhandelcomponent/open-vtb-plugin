@@ -16,7 +16,7 @@
 
 import {PluginConfigurationData} from "@valtimo/plugin";
 
-interface BerichtenConfig extends PluginConfigurationData {
+interface BerichtenPluginConfig extends PluginConfigurationData {
   baseUrl: string;
   token: string;
 }
@@ -44,4 +44,4 @@ interface CreateBerichtConfig {
   errorVariable?: string;
 }
 
-export {BerichtenConfig, CreateBerichtConfig};
+export {BerichtenPluginConfig, CreateBerichtConfig};

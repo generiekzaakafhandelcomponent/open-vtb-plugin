@@ -15,26 +15,26 @@
  */
 
 import {PluginSpecification} from "@valtimo/plugin";
-import {BerichtenConfigurationComponent} from "./components/berichten-configuration/berichten-configuration.component";
+import {BerichtenPluginConfigurationComponent} from "./components/berichten-plugin-configuration/berichten-plugin-configuration.component";
 import {BERICHTEN_LOGO_BASE64} from "./assets";
 import {CreateBerichtConfigurationComponent} from "./components/create-bericht-configuration/create-bericht-configuration.component";
 
-const berichtenPluginSpecification: PluginSpecification = {
-  pluginId: "berichten",
-  pluginConfigurationComponent: BerichtenConfigurationComponent,
+const openVtbBerichtenPluginSpecification: PluginSpecification = {
+  pluginId: "open-vtb-berichten",
+  pluginConfigurationComponent: BerichtenPluginConfigurationComponent,
   pluginLogoBase64: BERICHTEN_LOGO_BASE64,
   functionConfigurationComponents: {
     "create-bericht": CreateBerichtConfigurationComponent,
   },
   pluginTranslations: {
     nl: {
-      title: "Berichten API",
-      description: "Registreer en raadpleeg berichten via de Berichten API.",
+      title: "Open VTB Berichten",
+      description: "Registreer en raadpleeg berichten via de Open VTB Berichten API.",
       configurationTitle: "Configuratienaam",
       baseUrl: "API URL",
       token: "API token",
       "create-bericht": "Maak bericht aan",
-      actionDescription: "Registreert een nieuw bericht via de Berichten API en slaat de URN op als procesvariabele.",
+      actionDescription: "Registreert een nieuw bericht via de Open VTB Berichten API en slaat de URN op als procesvariabele.",
       onderwerp: "Onderwerp",
       berichtTekst: "Berichttekst",
       ontvanger: "Ontvanger",
@@ -55,13 +55,13 @@ const berichtenPluginSpecification: PluginSpecification = {
       errorVariable: "Procesvariabele voor foutmelding",
     },
     en: {
-      title: "Berichten API",
-      description: "Register and consult messages through the Berichten API.",
+      title: "Open VTB Berichten",
+      description: "Register and consult messages through the Open VTB Berichten API.",
       configurationTitle: "Configuration Name",
       baseUrl: "API URL",
       token: "API token",
       "create-bericht": "Create message",
-      actionDescription: "Registers a new message through the Berichten API and stores the URN as a process variable.",
+      actionDescription: "Registers a new message through the Open VTB Berichten API and stores the URN as a process variable.",
       onderwerp: "Subject",
       berichtTekst: "Message text",
       ontvanger: "Recipient",
@@ -84,4 +84,4 @@ const berichtenPluginSpecification: PluginSpecification = {
   },
 };
 
-export {berichtenPluginSpecification};
+export {openVtbBerichtenPluginSpecification};

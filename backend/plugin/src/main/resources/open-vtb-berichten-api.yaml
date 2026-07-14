@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Berichten API
+  title: Open VTB Berichten API
   version: 0.1.0
   description: "De berichten-service bestaat uit een beschrijving van afspraken, standaarden\
     \ en referentiecomponenten aangevuld met interactiepatronen, ontwerpbesluiten\

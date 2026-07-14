@@ -127,11 +127,11 @@
     },
     "urn": {
       "type": "string",
-      "description": "Result from the berichten API."
+      "description": "Result from the Open VTB Berichten API."
     },
     "berichtError": {
       "type": "string",
-      "description": "Foutmelding van de Berichten API (4xx/5xx), indien het aanmaken is mislukt."
+      "description": "Foutmelding van de Open VTB Berichten API (4xx/5xx), indien het aanmaken is mislukt."
     }
   }
 }

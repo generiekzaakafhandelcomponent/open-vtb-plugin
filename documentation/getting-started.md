@@ -45,7 +45,7 @@ Configure a plugin instance with the Open-VTB connection details:
 
 | Property  | Type   | Required | Description                                                                  |
 |-----------|--------|----------|------------------------------------------------------------------------------|
-| `baseUrl` | string | Yes      | The Open-VTB Berichten API root, e.g. `https://example.com/berichten/api/v1` |
+| `baseUrl` | string | Yes      | The Open VTB Berichten API root, e.g. `https://example.com/berichten/api/v1` |
 | `token`   | string | Yes      | API token, sent as `Authorization: Token <token>`                            |
 
 For details on the available actions, see the [Plugin Documentation](plugin.md). For background on how
