@@ -1,8 +1,8 @@
 [
   {
     "id": "02fe5f13-e55d-4561-b69c-1750c7fef1a2",
-    "title": "Open VTB plugin (Autodeployed)",
-    "pluginDefinitionKey": "berichten",
+    "title": "Open VTB Berichten plugin (Autodeployed)",
+    "pluginDefinitionKey": "open-vtb-berichten",
     "properties": {
       "baseUrl": "http://localhost:8000/berichten/api/v1/",
       "token": "9dc8c4b5b7f53f3ee6ebe6e3bb1b6e2fe3c23b51"

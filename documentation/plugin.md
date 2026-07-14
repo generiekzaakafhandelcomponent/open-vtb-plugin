@@ -30,18 +30,18 @@ In your `app.module.ts`:
 
 ```typescript
 import {
-    BerichtenModule, berichtenPluginSpecification,
+    OpenVtbBerichtenPluginModule, openVtbBerichtenPluginSpecification,
 } from '@valtimo-plugins/open-vtb';
 
 @NgModule({
     imports: [
-        BerichtenModule,
+        OpenVtbBerichtenPluginModule,
     ],
     providers: [
         {
-            provide: PLUGIN_TOKEN,
+            provide: PLUGINS_TOKEN,
             useValue: [
-                berichtenPluginSpecification,
+                openVtbBerichtenPluginSpecification,
             ]
         }
     ]
@@ -61,8 +61,8 @@ Create a plugin configuration with the Open-VTB connection details:
 
 ### Create bericht (`create-bericht`)
 
-Registers a new bericht via the Berichten Plugin (`POST /berichten`). Bound to a service task
-(`SERVICE_TASK_START`). On success it returns the created bericht's URN and, when `resultingVariable`
+Registers a new bericht via the Open VTB Berichten API (`POST /berichten`). Bound to a service task
+(`SERVICE_TASK_START`). On success, it returns the created bericht's URN and, when `resultingVariable`
 is set, stores that URN in the named process variable.
 
 If the API call fails with a 4xx/5xx response or a transport error (e.g. connection refused, timeout)
@@ -89,7 +89,7 @@ propagates as an exception.
 
 ## Usage
 
-1. Create a plugin configuration with the Open-VTB `baseUrl` and `token` (see [Configuration](#configuration)).
+1. Create a plugin configuration with the Open VTB `baseUrl` and `token` (see [Configuration](#configuration)).
 2. In your BPMN process, add a service task and link it to the `create-bericht` action.
 3. Map the action parameters to values or process variables — at minimum `onderwerp`, `berichtTekst`,
    `ontvanger`, and `mijnOverheidBerichtenbox`.

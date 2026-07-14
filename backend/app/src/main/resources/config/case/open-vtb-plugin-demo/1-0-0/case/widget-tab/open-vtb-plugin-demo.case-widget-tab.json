@@ -5,7 +5,7 @@
       {
         "type": "fields",
         "key": "process-variable-result",
-        "title": "Berichten API Plugin Result",
+        "title": "Open VTB Berichten API Plugin Result",
         "width": 4,
         "highContrast": true,
         "properties": {

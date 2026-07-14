@@ -20,25 +20,16 @@ import {AnalyseModule} from "@valtimo/analyse";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {
-  CatalogiApiPluginModule,
-  catalogiApiPluginSpecification,
-  DocumentenApiPluginModule,
-  documentenApiPluginSpecification,
-  NotificatiesApiPluginModule,
-  notificatiesApiPluginSpecification,
-  ObjectenApiPluginModule,
-  objectenApiPluginSpecification,
-  ObjectTokenAuthenticationPluginModule,
-  objectTokenAuthenticationPluginSpecification,
-  ObjecttypenApiPluginModule,
-  objecttypenApiPluginSpecification,
-  OpenNotificatiesPluginModule,
-  openNotificatiesPluginSpecification,
-  OpenZaakPluginModule,
-  openZaakPluginSpecification,
   PLUGINS_TOKEN,
-  ZakenApiPluginModule,
-  zakenApiPluginSpecification,
+  CatalogiApiPluginModule, catalogiApiPluginSpecification,
+  DocumentenApiPluginModule, documentenApiPluginSpecification,
+  NotificatiesApiPluginModule, notificatiesApiPluginSpecification,
+  ObjectenApiPluginModule, objectenApiPluginSpecification,
+  ObjectTokenAuthenticationPluginModule, objectTokenAuthenticationPluginSpecification,
+  ObjecttypenApiPluginModule, objecttypenApiPluginSpecification,
+  OpenNotificatiesPluginModule, openNotificatiesPluginSpecification,
+  OpenZaakPluginModule, openZaakPluginSpecification,
+  ZakenApiPluginModule, zakenApiPluginSpecification,
 } from "@valtimo/plugin";
 import {BootstrapModule} from "@valtimo/bootstrap";
 import {
@@ -96,10 +87,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {environment} from "../environments/environment";
 import {registerDocumentenApiFormioUploadComponent, ZgwModule} from "@valtimo/zgw";
 import {AdminSettingsModule} from '@valtimo/admin-settings';
-import {
-  BerichtenModule,
-  berichtenPluginSpecification
-} from "@valtimo-plugins/open-vtb";
+import {OpenVtbBerichtenPluginModule, openVtbBerichtenPluginSpecification} from "@valtimo-plugins/open-vtb";
 
 export function tabsFactory() {
   return new Map<string, object>([
@@ -119,7 +107,6 @@ export function tabsFactory() {
     AdminSettingsModule,
     AnalyseModule,
     AppRoutingModule,
-    BerichtenModule,
     BootstrapModule,
     BpmnJsDiagramModule,
     BrowserModule,
@@ -153,6 +140,7 @@ export function tabsFactory() {
     ObjectTokenAuthenticationPluginModule,
     ObjecttypenApiPluginModule,
     OpenNotificatiesPluginModule,
+    OpenVtbBerichtenPluginModule,
     OpenZaakPluginModule,
     PluginManagementModule,
     ProcessLinkModule,
@@ -182,14 +170,14 @@ export function tabsFactory() {
     {
       provide: PLUGINS_TOKEN,
       useValue: [
-        berichtenPluginSpecification,
         catalogiApiPluginSpecification,
         documentenApiPluginSpecification,
         notificatiesApiPluginSpecification,
-        objectTokenAuthenticationPluginSpecification,
         objectenApiPluginSpecification,
+        objectTokenAuthenticationPluginSpecification,
         objecttypenApiPluginSpecification,
         openNotificatiesPluginSpecification,
+        openVtbBerichtenPluginSpecification,
         openZaakPluginSpecification,
         zakenApiPluginSpecification,
       ],

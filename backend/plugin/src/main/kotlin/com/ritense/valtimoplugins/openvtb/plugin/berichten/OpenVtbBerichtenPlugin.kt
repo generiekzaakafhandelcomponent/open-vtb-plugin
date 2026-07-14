@@ -25,7 +25,7 @@ import com.ritense.valtimoplugins.openvtb.client.models.Bericht
 import com.ritense.valtimoplugins.openvtb.client.models.Bijlage
 import com.ritense.valtimoplugins.openvtb.client.models.HandelingsPerspectiefEnum
 import com.ritense.valtimoplugins.openvtb.client.models.IsGerelateerdAan
-import com.ritense.valtimoplugins.openvtb.service.BerichtenApiService
+import com.ritense.valtimoplugins.openvtb.service.OpenVtbBerichtenApiService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.operaton.bpm.engine.delegate.DelegateExecution
 import org.springframework.web.client.RestClientException
@@ -34,17 +34,17 @@ import java.net.URI
 import java.time.OffsetDateTime
 
 /**
- * Plugin for the Berichten API. The [baseUrl] points at the API root
+ * Plugin for the Open VTB Berichten API. The [baseUrl] points at the API root
  * (e.g. `https://example.com/berichten/api/v1`) and [token] is the API token
  * sent as `Authorization: Token <token>`.
  */
 @Plugin(
-    key = "berichten",
-    title = "Berichten Plugin",
+    key = "open-vtb-berichten",
+    title = "Open VTB Berichten Plugin",
     description = "Registreer en raadpleeg berichten via de Open VTB Berichten API.",
 )
-open class BerichtenApiPlugin(
-    private val berichtenApiService: BerichtenApiService,
+open class OpenVtbBerichtenPlugin(
+    private val openVtbBerichtenApiService: OpenVtbBerichtenApiService,
 ) {
     @PluginProperty(key = "baseUrl", secret = false)
     lateinit var baseUrl: String
@@ -64,7 +64,7 @@ open class BerichtenApiPlugin(
     @PluginAction(
         key = "create-bericht",
         title = "Maak bericht aan",
-        description = "Registreert een nieuw bericht via de Berichten API.",
+        description = "Registreert een nieuw bericht via de Open VTB Berichten API.",
         activityTypes = [SERVICE_TASK_START],
     )
     open fun createBericht(
@@ -103,7 +103,7 @@ open class BerichtenApiPlugin(
 
         val bericht =
             try {
-                berichtenApiService.createBericht(
+                openVtbBerichtenApiService.createBericht(
                     baseUrl = URI.create(baseUrl),
                     token = token,
                     bericht =
@@ -129,9 +129,9 @@ open class BerichtenApiPlugin(
                 val message =
                     when (ex) {
                         is RestClientResponseException ->
-                            "Berichten API request failed with status ${ex.statusCode.value()}: ${ex.responseBodyAsString}"
+                            "Open VTB Berichten API request failed with status ${ex.statusCode.value()}: ${ex.responseBodyAsString}"
                         else ->
-                            "Berichten API request failed: ${ex.message}"
+                            "Open VTB Berichten API request failed: ${ex.message}"
                     }
                 logger.error(ex) { message }
                 if (errorVariable == null) throw ex

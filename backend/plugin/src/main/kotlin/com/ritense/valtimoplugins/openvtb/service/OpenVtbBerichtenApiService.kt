@@ -20,14 +20,14 @@ import java.time.OffsetDateTime
 import java.util.UUID
 
 /**
- * Service for the Berichten API (see `open-vtb-berichten-api.yaml`).
+ * Service for the Open VTB Berichten API (see `open-vtb-berichten-api.yaml`).
  *
  * The transport layer is the OpenAPI-generated [BerichtenApi]. A [BerichtenApi] instance
  * is bound to a single `baseUrl` and token, so one is built per call from the plugin's
  * configuration. The token is sent as `Authorization: Token <token>` as described by the
  * `tokenAuth` security scheme.
  */
-class BerichtenApiService {
+class OpenVtbBerichtenApiService {
     fun getBerichten(
         baseUrl: URI,
         token: String,
@@ -78,7 +78,7 @@ class BerichtenApiService {
         /**
          * ObjectMapper for the generated client:
          * - serializes `java.time` types (e.g. [OffsetDateTime]) as ISO-8601 strings instead of
-         *   numeric timestamps, as required by the Berichten API;
+         *   numeric timestamps, as required by the Open VTB Berichten API;
          * - omits null fields so read-only fields (`url`, `urn`, `uuid`) and unset optional fields
          *   are not sent in create/update request bodies;
          * - coerces an empty string to `null` for enums, because the API represents an unset

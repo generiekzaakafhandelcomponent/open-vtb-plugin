@@ -19,7 +19,7 @@
  */
 
 export * from "./lib/plugins/berichten/models";
-export * from "./lib/plugins/berichten/berichten-module";
-export * from "./lib/plugins/berichten/berichten.specification";
-export * from "./lib/plugins/berichten/components/berichten-configuration/berichten-configuration.component";
+export * from "./lib/plugins/berichten/open-vtb-berichten-plugin.module";
+export * from "./lib/plugins/berichten/open-vtb-berichten-plugin.specification";
+export * from "./lib/plugins/berichten/components/berichten-plugin-configuration/berichten-plugin-configuration.component";
 export * from "./lib/plugins/berichten/components/create-bericht-configuration/create-bericht-configuration.component";

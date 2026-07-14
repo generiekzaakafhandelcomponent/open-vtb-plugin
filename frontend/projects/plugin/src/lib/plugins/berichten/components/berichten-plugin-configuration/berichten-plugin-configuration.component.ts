@@ -17,23 +17,23 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {PluginConfigurationComponent, PluginConfigurationData} from "@valtimo/plugin";
 import {BehaviorSubject, combineLatest, Observable, Subscription, take} from "rxjs";
-import {BerichtenConfig} from "../../models";
+import {BerichtenPluginConfig} from "../../models";
 
 @Component({
   standalone: false,
-  selector: "valtimo-berichten-configuration",
-  templateUrl: "./berichten-configuration.component.html",
+  selector: "valtimo-berichten-plugin-configuration",
+  templateUrl: "./berichten-plugin-configuration.component.html",
 })
-export class BerichtenConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
+export class BerichtenPluginConfigurationComponent implements PluginConfigurationComponent, OnInit, OnDestroy {
   @Input() save$!: Observable<void>;
   @Input() disabled$!: Observable<boolean>;
   @Input() pluginId!: string;
-  @Input() prefillConfiguration$!: Observable<BerichtenConfig>;
+  @Input() prefillConfiguration$!: Observable<BerichtenPluginConfig>;
   @Output() valid: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() configuration: EventEmitter<PluginConfigurationData> = new EventEmitter<PluginConfigurationData>();
 
   private saveSubscription!: Subscription;
-  private readonly formValue$ = new BehaviorSubject<BerichtenConfig | null>(null);
+  private readonly formValue$ = new BehaviorSubject<BerichtenPluginConfig | null>(null);
   private readonly valid$ = new BehaviorSubject<boolean>(false);
 
   ngOnInit(): void {
@@ -44,12 +44,12 @@ export class BerichtenConfigurationComponent implements PluginConfigurationCompo
     this.saveSubscription?.unsubscribe();
   }
 
-  formValueChange(formValue: BerichtenConfig): void {
+  formValueChange(formValue: BerichtenPluginConfig): void {
     this.formValue$.next(formValue);
     this.handleValid(formValue);
   }
 
-  private handleValid(formValue: BerichtenConfig): void {
+  private handleValid(formValue: BerichtenPluginConfig): void {
     const valid = !!(formValue.configurationTitle && formValue.baseUrl && formValue.token);
     this.valid$.next(valid);
     this.valid.emit(valid);
