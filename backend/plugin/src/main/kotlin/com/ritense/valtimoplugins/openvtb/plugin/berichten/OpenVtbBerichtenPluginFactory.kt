@@ -21,7 +21,7 @@ import com.ritense.plugin.service.PluginService
 import com.ritense.valtimoplugins.openvtb.service.OpenVtbBerichtenApiService
 
 /**
- * Factory class to create instances of the BerichtenApiPlugin.
+ * Factory class to create instances of the OpenVtbBerichtenPlugin.
  * This is required for the plugin framework to instantiate the plugin.
  */
 class OpenVtbBerichtenPluginFactory(

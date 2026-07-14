@@ -14,7 +14,7 @@ class OpenVtbBerichtenAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(OpenVtbBerichtenPluginFactory::class)
-    fun berichtenApiPluginFactory(
+    fun openVtbBerichtenPluginFactory(
         pluginService: PluginService,
         openVtbBerichtenApiService: OpenVtbBerichtenApiService,
     ): OpenVtbBerichtenPluginFactory = OpenVtbBerichtenPluginFactory(
