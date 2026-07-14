@@ -30,18 +30,18 @@ In your `app.module.ts`:
 
 ```typescript
 import {
-    BerichtenModule, berichtenPluginSpecification,
+    OpenVtbBerichtenPluginModule, openVtbBerichtenPluginSpecification,
 } from '@valtimo-plugins/open-vtb';
 
 @NgModule({
     imports: [
-        BerichtenModule,
+        OpenVtbBerichtenPluginModule,
     ],
     providers: [
         {
             provide: PLUGIN_TOKEN,
             useValue: [
-                berichtenPluginSpecification,
+                openVtbBerichtenPluginSpecification,
             ]
         }
     ]
