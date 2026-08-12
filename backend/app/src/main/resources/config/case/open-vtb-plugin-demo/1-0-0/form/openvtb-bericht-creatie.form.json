@@ -25,7 +25,8 @@
       },
       "applyMaskOn": "change",
       "description": "Onderwerp van het bericht.",
-      "placeholder": "Onderwerp van het bericht"
+      "placeholder": "Onderwerp van het bericht",
+      "defaultValue": "Onderwerp"
     },
     {
       "key": "pv:berichtTekst",
@@ -43,7 +44,8 @@
       "autoExpand": false,
       "applyMaskOn": "change",
       "description": "Tekst van het bericht.",
-      "placeholder": "Bericht tekst"
+      "placeholder": "Bericht tekst",
+      "defaultValue": "Bericht tekst"
     },
     {
       "key": "pv:ontvanger",
@@ -60,7 +62,8 @@
       },
       "applyMaskOn": "change",
       "description": "URN van een NATUURLIJK PERSOON of NIET-NATUURLIJK PERSOON.",
-      "placeholder": "urn:nld:brp:bsn:111222333"
+      "placeholder": "urn:namespace:component:resource:uuid",
+      "defaultValue": "urn:namespace:component:resource:uuid"
     },
     {
       "key": "pv:mijnOverheidBerichtenbox",
@@ -158,7 +161,8 @@
       },
       "applyMaskOn": "change",
       "description": "Code voor het technisch identificeren van een bericht soort & origine.",
-      "placeholder": "type"
+      "placeholder": "abcde",
+      "defaultValue": "abcde"
     },
     {
       "key": "handelingsPerspectief",
@@ -202,7 +206,8 @@
       "attributes": {
         "data-testid": "openvtb-bericht-creatie-pv-handelingsPerspectief"
       },
-      "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling."
+      "description": "De door de toegewezen persoon of bedrijf uit te voeren handeling.",
+      "defaultValue": "betalen"
     },
     {
       "key": "pv:handelingsPerspectief",
