@@ -1,7 +1,7 @@
 {
   "name": "@valtimo-plugins/open-vtb",
   "license": "EUPL-1.2",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "build": "ng build @valtimo-plugins/open-vtb",
     "watch": "ng build @valtimo-plugins/open-vtb --watch"
